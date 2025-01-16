@@ -4,14 +4,17 @@
     import arvoreDireita from '$lib/assets/arvore_direita.png';  
     import bonecoEsquerda from '$lib/assets/boneco_esquerda.png';
     import bonecoDireita from '$lib/assets/boneco_direita.png';
-
+    import StoryModal from './StoryModal.svelte';
+    
+    let isStoryModalOpen = false;
   
-    const navigateToStory = () => {
-      goto('/historia');
+    const toggleStoryModal = () => {
+      isStoryModalOpen = !isStoryModalOpen;
     };
   
     const navigateToAbout = () => {
       goto('/sobre');
+
     };
 </script>
   
@@ -32,7 +35,7 @@
           JOGAR
         </button>
         
-        <button on:click={navigateToStory}>
+        <button on:click={toggleStoryModal}>
           HISTORIA
         </button>
         
@@ -41,6 +44,10 @@
         </button>
       </div>
     </div>
+    <StoryModal 
+      isOpen={isStoryModalOpen} 
+      on:close={() => isStoryModalOpen = false}
+    />
 </main>
   
 <style>
