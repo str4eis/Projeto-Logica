@@ -5,7 +5,6 @@
   import arvoreDireita from '$lib/assets/arvore_direita.png';  
   import bonecoEsquerda from '$lib/assets/boneco_esquerda.png';
   import bonecoDireita from '$lib/assets/boneco_direita.png';
-  
   import StoryModal from './historia/Storymodal.svelte';
   
   let isStoryModalOpen = false;
@@ -24,31 +23,30 @@
       <img src={arvoreEsquerda} alt="Left tree" class="tree-left" />
       <img src={arvoreDireita} alt="Right tree" class="tree-right" />
   </div>
+  
   <div class="characters">
       <img src={bonecoEsquerda} alt="Left character" class="character-left" />
       <img src={bonecoDireita} alt="Right character" class="character-right" />
   </div>
+  
   <div class="menu">
-    <h1>JOGUINHO</h1>
+    <h1>DUGEON OF ETERNITY</h1>
     
     <div class="buttons">
-      <button on:click={() => goto('/jogar')}> 
-        JOGAR
-      </button>
+      <button on:click={() => goto('/jogar')}>PLAY</button>
       
-      <button on:click={toggleStoryModal}>
-        HISTORIA
-      </button>
+      <button on:click={toggleStoryModal}>HISTORY</button>
       
-      <button on:click={() => goto('/sobre')}> 
-        SOBRE
-      </button>
+      <button on:click={() => goto('/sobre')}>ABOUT</button>
     </div>
+
   </div>
-  <StoryModal 
-    isOpen={isStoryModalOpen} 
-    on:close={() => isStoryModalOpen = false}
-  />
+  
+    <StoryModal 
+      isOpen={isStoryModalOpen} 
+      on:close={() => isStoryModalOpen = false}
+    />
+
 </main>
 
 <style>
