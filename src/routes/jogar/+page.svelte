@@ -1,222 +1,91 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-  
-    // Player (atributos do jogador)
-    class Player {
-      top: number;
-      bottom: number;
-  
-      left: number;
-      right: number;
-      
-      height: number;
-      width: number;
-  
-      lastDirection: string = ''
-  
-      calcRight(): void {
-        this.right = this.left + this.width
-      };
-  
-      calcBottom(): void {
-        this.bottom = this.top + this.height
-      };
-  
-      constructor(top: number, left: number, height: number, width: number, lastDirection?: string) {
-        this.top = top
-        this.left = left
-        
-        this.height = height
-        this.width = width
-        
-  
-        this.right = this.left + this.width
-        this.bottom = this.top + this.height
-      }
+  import { onMount } from 'svelte';
+  import kaboom from 'kaboom';
+  import { assets } from '$app/paths';
+
+  onMount(async () => {
+    const gameContainer = document.getElementById('game-container');
+
+    if (!gameContainer) {
+      console.error("Game container not found!");
+      return;
     }
-  
-  
-    let bullets: any = [];
-  
-    function shoot() {
-      const speed = 30;
-      let dx = 0, dy = 0;
-  
-      switch (player.lastDirection) {
-        case "up": dy = -speed; break;
-        case "down": dy = speed; break;
-        case "left": dx = -speed; break;
-        case "right": dx = speed; break;
-      }
-  
-      bullets.push({
-        top: player.top + player.height / 2 - 5,
-        left: player.left + player.width / 2 - 5,
-        width: 10,
-        height: 10,
-        dx,
-        dy
+
+    const k = kaboom({
+      background: [74, 48, 82],
+      width: 800,
+      height: 600,
+      canvas: gameContainer,
+    });
+
+    k.loadSprite("parede", assets + "/sprits/parede.png");
+    k.loadSprite("player", assets + "/sprits/player.png");
+
+    k.scene("main", (levelIdx) => {
+      const SPEED = 320;
+
+      const levels = [
+        [
+          "========",
+          "=      =",
+          "=      =",
+          "=      =",
+          "=      =",
+          "=   @  =",
+          "========",
+        ],
+      ];
+
+      const level = k.addLevel(levels[levelIdx], {
+        tileWidth: 64,
+        tileHeight: 64,
+        pos: k.vec2(0, 0),
+        tiles: {
+          "=": () => [
+            k.sprite("parede"),
+            k.area(),
+            k.body({ isStatic: true }),
+            k.anchor("center"),
+          ],
+          "@": () => [
+            k.sprite("player"),
+            k.area(),
+            k.body(),
+            k.anchor("center"),
+            "player",
+          ],
+        },
       });
-    }
-  
-    function updateBullets() {
-      for (let i = bullets.length - 1; i >= 0; i--) {
-        bullets[i].top += bullets[i].dy;
-        bullets[i].left += bullets[i].dx;
-  
-        // Remover balas que saíram da tela
-        if (
-          bullets[i].top < 0 || bullets[i].top > 700 ||
-          bullets[i].left < 0 || bullets[i].left > 1200
-        ) {
-          bullets.splice(i, 1);
-        }
-      }
-    }
-  
-  
-    let player: Player = new Player(0, 0, 50, 50)
-  
-    // Lista de obstáculos
-    let obstacles = [
-      { top: getRandomY(), left: getRandomX(), width: 100, height: 100 },
-      { top: getRandomY(), left: getRandomX(), width: 100, height: 100 },
-      { top: getRandomY(), left: getRandomX(), width: 100, height: 100 }
-    ];
-  
-    function getRandomX() {
-      return Math.min((Math.floor(Math.random() * 120) * 10), 1100)
-    }
-  
-    function getRandomY() {
-      return Math.min((Math.floor(Math.random() * 70) * 10), 550)
-    }
-  
-    // Função para verificar colisão com qualquer obstáculo
-    function checkCollision() {
-      return obstacles.some(obstacle => {
-  
-        const obstacleRight = obstacle.left + obstacle.width;
-        const obstacleBottom = obstacle.top + obstacle.height;
-  
-        return (
-          player.left < obstacleRight &&
-          player.right > obstacle.left &&
-          player.top < obstacleBottom &&
-          player.bottom > obstacle.top
-        );
-      });
-    }
-  
-    // Função para mover o player
-    function playerControls(event: KeyboardEvent) {
-      const step = 10; // Quantidade de pixels por movimento
-      const previousPosition = { ...player }; // Copia os atributos do player em um novo objeto
-  
-      switch (event.key) {
-        case 'ArrowUp':
-          player.top = Math.max(player.top - step, 0);
-          player.calcBottom()
-          player.lastDirection = 'up'
-          break;
-        case 'ArrowDown':
-          player.top = Math.min(player.top + step, 700 - player.height);
-          player.calcBottom()
-          player.lastDirection = 'down'
-          break;
-        case 'ArrowLeft':
-          player.left = Math.max(player.left - step, 0);
-          player.calcRight()
-          player.lastDirection = 'left'
-          break;
-        case 'ArrowRight':
-          player.left = Math.min(player.left + step, 1200 - player.width);
-          player.calcRight()
-          player.lastDirection = 'right'
-          break;
-      }
-  
-      if (checkCollision()) {
-        player = new Player(previousPosition.top, previousPosition.left, previousPosition.height, previousPosition.width, previousPosition.lastDirection); // Caso ocorra uma colisão, retorna o player para a posição anterior
-      }
-  
-      if(event.key == " ") shoot()
-    }
-      let interval
-      onMount(() => {
-      interval = setInterval(updateBullets, 16); // Atualizar a cada 16ms (~60 FPS)
-  
-  
-      window.addEventListener('keydown', playerControls);
-      window.addEventListener('keydown', playerControls);
-      return () => {
-        window.removeEventListener('keydown', playerControls);
-  
+
+      const player = level.get("player")[0];
+
+      // Correct way to access Kaboom constants!
+      const dirs = {
+        "left": k.LEFT,  // Use k.LEFT
+        "right": k.RIGHT, // Use k.RIGHT
+        "up": k.UP,     // Use k.UP
+        "down": k.DOWN,   // Use k.DOWN
       };
-    })
-    
-    ;
-  </script>
+
+      k.keyLeft("left", () => player.move(-SPEED, 0));
+      k.keyRight("right", () => player.move(SPEED, 0));
+      k.keyUp("up", () => player.move(0, -SPEED));
+      k.keyDown("down", () => player.move(0, SPEED));
+
+    });
+
+    k.go("main", 0);
+  });
+</script>
+
+<main>
+  <div id="game-container"></div>
+</main>
+
+<style>
   
-  <div class="flex flex-row">
-    
-    <!-- Mapa (Game) -->
-    <div class="game border border-zinc-50 m-20 relative">
-      <!-- Player -->
-      <div
-        class="player border border-indigo-900 bg-pink-500"
-        style="position: absolute; top: {player.top}px; left: {player.left}px; width: {player.width}px; height: {player.height}px;">
-      </div>
-    
-      <!-- Obstáculos -->
-      {#each obstacles as obstacle}
-        <div
-          class="obstacle border border-pink-900 bg-blue-800"
-          style="position: absolute; top: {obstacle.top}px; left: {obstacle.left}px; width: {obstacle.width}px; height: {obstacle.height}px;">
-          {obstacle.left}, {obstacle.top}
-        </div>
-      {/each}
-  
-      {#each bullets as bullet}
-      <div
-        class="bullet bg-yellow-400"
-        style="
-          position: absolute;
-          top: {bullet.top}px;
-          left: {bullet.left}px;
-          width: {bullet.width}px;
-          height: {bullet.height}px;
-        "
-      ></div>
-    {/each}
-  
-    </div>
-  
-    <!-- Painel de Dados (Data) -->
-    <div class="data flex flex-col border mt-20 mx-10 border-zinc-50 h-full w-64">
-      <span>player left: {player.left}</span>
-      <span>player top: {player.top}</span>
-      <span>player right: {player.right}</span>
-      <span>player bottom: {player.bottom}</span>
-    </div>
-  
-  </div>
-  
-  
-  
-  <style>
-    .game {
-      height: 700px;
-      width: 1200px;
-      position: relative;
-    }
-  
-  
-    .bullet {
-      position: absolute;
-      border-radius: 50%;
-    }
-  
-  
-  </style>
-  
+  .body{
+    background-color: aliceblue;
+  }
+
+</style>
