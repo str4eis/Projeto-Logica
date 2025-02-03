@@ -7,44 +7,44 @@
   import bonecoDireita from '$lib/assets/boneco_direita.png';
   import StoryModal from './historia/Storymodal.svelte';
   
-  let isStoryModalOpen = false;
+  let historiaModalAberto = false;
 
-  const toggleStoryModal = () => {
-    isStoryModalOpen = !isStoryModalOpen;
+  const alternarHistoriaModal = () => {
+    historiaModalAberto = !historiaModalAberto;
   };
 
-  const navigateToAbout = () => {
+  const navegarParaSobre = () => {
     goto('/sobre');
   };
 </script>
 
 <main>
-  <div class="corner-trees">
-      <img src={arvoreEsquerda} alt="Left tree" class="tree-left" />
-      <img src={arvoreDireita} alt="Right tree" class="tree-right" />
+  <div class="arvores-canto">
+      <img src={arvoreEsquerda} alt="Árvore esquerda" class="arvore-esquerda" />
+      <img src={arvoreDireita} alt="Árvore direita" class="arvore-direita" />
   </div>
   
-  <div class="characters">
-      <img src={bonecoEsquerda} alt="Left character" class="character-left" />
-      <img src={bonecoDireita} alt="Right character" class="character-right" />
+  <div class="personagens">
+      <img src={bonecoEsquerda} alt="Personagem esquerda" class="personagem-esquerda" />
+      <img src={bonecoDireita} alt="Personagem direita" class="personagem-direita" />
   </div>
   
   <div class="menu">
     <h1>DUGEON OF ETERNITY</h1>
     
-    <div class="buttons">
-      <button on:click={() => goto('/jogar')}>PLAY</button>
+    <div class="botoes">
+      <button on:click={() => goto('/jogar')}>JOGAR</button>
       
-      <button on:click={toggleStoryModal}>HISTORY</button>
+      <button on:click={alternarHistoriaModal}>HISTÓRIA</button>
       
-      <button on:click={() => goto('/sobre')}>ABOUT</button>
+      <button on:click={navegarParaSobre}>SOBRE</button>
     </div>
 
   </div>
   
     <StoryModal 
-      isOpen={isStoryModalOpen} 
-      on:close={() => isStoryModalOpen = false}
+      isOpen={historiaModalAberto} 
+      on:close={() => historiaModalAberto = false}
     />
 
 </main>
@@ -69,7 +69,7 @@
     position: relative;  
   }
   
-  .corner-trees {
+  .arvores-canto {
       position: absolute;
       top: 0;
       left: 0;
@@ -77,7 +77,7 @@
       pointer-events: none;
   }
 
-  .tree-left {
+  .arvore-esquerda {
       position: absolute;
       top: 0;
       left: 0;
@@ -85,7 +85,7 @@
       height: auto;
   }
 
-  .tree-right {
+  .arvore-direita {
       position: absolute;
       top: 0;
       right: 0;
@@ -93,14 +93,14 @@
       height: auto;
   }
 
-  .characters {
+  .personagens {
   position: absolute;
   bottom: 100px;
   width: 100%;
   pointer-events: none;
 }
 
-.character-left {
+.personagem-esquerda {
   position: absolute;
   left: 100px;
   bottom: 0;
@@ -108,7 +108,7 @@
   height: auto;
 }
 
-.character-right {
+.personagem-direita {
   position: absolute;
   right: 100px;
   bottom: 0;
@@ -129,7 +129,7 @@
     text-shadow: 2px 2px 0 #000;
   }
 
-  .buttons {
+  .botoes {
     display: flex;
     flex-direction: column;
     gap: 1rem;
