@@ -1,44 +1,40 @@
-import k from "../kaboom";
-  
+import k, {SPEED, TILE_SIZE} from "../kaplay";  
+import { spawnPlayer } from "../objetos/player/player";
 
-  
-  k.scene("main", (levelIdx) => {
+import './level3'
+
+  k.scene( 'level2', () => {
     
-    const SPEED = 320;
-    
-    const levels = [
-		[
+    const LEVEL_AREA: string[] = [
 			"===============|==============",
 			"=                            =",
 			"=                            =",
 			"=                            =",
-            "=                            =",
-            "=                            =",
+      "=                            =",
+      "=                            =",
 			"=                            =",
-            "=                            =",
-            "=                            =",
-            "=                            =",
-            "=                            =",
+      "=                            =",
+      "=                            =",
+      "=                            =",
+      "=                            =",
 			"=                            =",
 			"=                            =",
-            "=                            =",
+      "=                            =",
 			"==============================",
-		],
 	]
 
-    const level = k.addLevel(levels[levelIdx], {
-          tileHeight: 64,
-          tileWidth: 64,
-          pos: k.vec2(0,0),
+    const LEVEL = k.addLevel(LEVEL_AREA, {
+          tileHeight: TILE_SIZE,
+          tileWidth: TILE_SIZE,
           tiles: {
               " ": () => [
-              k.color(255, 0,0),
+              k.color(0, 0,255),
               k.rect(64,64),
               ],
   
               "=": () => [
                 k.rect(64,64),
-                k.color(0,255,0),
+                k.color(255,0,0),
                 k.area(),
                 k.body({isStatic: true}),
               ],
@@ -53,13 +49,10 @@ import k from "../kaboom";
           }
       })
   
-    
+      const player = spawnPlayer(3, 5)
 
-    player.onCollide("porta", () => {
-    k.go('main', 1)
-  });
-
-  })
-  
- 
-  k.go('main', 0)
+      player.onCollide('porta', () => {
+        k.go("level3")
+      })
+      
+})
