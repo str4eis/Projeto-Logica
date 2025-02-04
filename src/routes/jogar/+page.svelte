@@ -13,6 +13,5 @@
 </script>
 
 <main>
-  <h1>{$gameState.COIN}</h1>
   <div id="game-container"></div>
 </main>
