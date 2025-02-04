@@ -1,127 +1,156 @@
 <script lang="ts">
-    import { goto } from '$app/navigation';
-    import vitinhoFoto from '$lib/assets/vitinho_foto.jpeg';
+  import { goto } from '$app/navigation';
+
+  let activeTab = 'project';
+  let isTyping = false;
+  let textContent = '';
+  let intervalId: ReturnType<typeof setInterval>;
+
+  const handleTabClick = (tab: string) => {
+    clearInterval(intervalId);
+    activeTab = tab;
+    startTyping(getTabContent(tab));
+  };
+
+  const handleFechar = () => {
+    goto('/');
+  };
+
+  const startTyping = (text: string) => {
+    isTyping = true;
+    textContent = '';
+    let index = 0;
+
+    intervalId = setInterval(() => {
+      if (index < text.length) {
+        textContent += text[index];
+        index++;
+      } else {
+        isTyping = false;
+        clearInterval(intervalId);
+      }
+    }, 50);
+  };
+
+  const getTabContent = (tab: string) => {
+    switch (tab) {
+      case 'project':
+        return 'saruba safado "projeto".';
+      case 'idea':
+        return 'iuewhufeuwifhewuifghewfuiewghfewiufhgewiuf "idea".';
+      case 'devel':
+        return 'dopwjqwqodwjqdopwqjdqwopdjqwdwqjdwqpodpo "devel".';
+      case 'team':
+        return '';
+      default:
+        return '';
+    }
+  };
+
+  const equipeLinks = [
+    { nome: 'Victor', linkedin: '', github: '' },
+    { nome: 'Ester', linkedin: '', github: '' },
+    { nome: 'Guilherme', linkedin: '', github: '' },
+    { nome: 'Saruba', linkedin: '', github: '' },
+    { nome: 'Henrique', linkedin: '', github: '' }
+  ];
+</script>
+
+<main class="w-full min-h-screen flex flex-col justify-center items-center bg-[#2D1B2E] font-['Press_Start_2P'] relative">
+  <!-- Botão de fechar no canto superior direito -->
+  <button
+    class="absolute top-4 right-4 bg-transparent border-none text-white text-2xl cursor-pointer p-2 leading-none"
+    on:click={handleFechar}
+  >
+    ×
+  </button>
   
-    const membrosEquipe = [ // foto
-      { imagem: vitinhoFoto, alt: 'menbro 1' },
-      { imagem: '', alt: '' },
-      { imagem: '', alt: '' },
-      { imagem: '', alt: '' },
-      { imagem: '', alt: '' }
-    ];
-  
-    const handleFechar = () => {
-      goto('/');
-    };
-  </script>
-  
-  <main>
-    <div class="container-sobre">
-      <button class="botao-fechar" on:click={handleFechar}>×</button>
-      
-      <div class="container-avatar">
-        {#each membrosEquipe as membro}
-          <div class="circulo-avatar">
-            <img src={membro.imagem} alt={membro.alt} />
+  <!-- Conteiner principal da página -->
+  <div class="w-[90%] max-w-[1200px] p-8 flex flex-col items-center">
+    
+    <!-- Conteiner da logo -->
+    <div class="flex justify-center items-center w-full h-[200px] mb-6 relative">
+      <!-- Moldura da logo -->
+      <div class="absolute w-[300px] h-[150px] border-4 border-[#DEB887] rounded-md" style="top: -80px;"></div>
+    </div>
+
+    <!-- Conteiner das abas -->
+    <div class="flex justify-center gap-8 flex-wrap mb-6">
+      <!-- Botoes das abas -->
+      <button
+        class:bg-yellow-300={activeTab === 'project'}
+        class:bg-transparent={activeTab !== 'project'}
+        class="px-4 py-2 rounded-md"
+        on:click={() => handleTabClick('project')}
+      >
+        projeto
+      </button>
+      <button
+        class:bg-yellow-300={activeTab === 'idea'}
+        class:bg-transparent={activeTab !== 'idea'}
+        class="px-4 py-2 rounded-md"
+        on:click={() => handleTabClick('idea')}
+      >
+        ideia
+      </button>
+      <button
+        class:bg-yellow-300={activeTab === 'devel'}
+        class:bg-transparent={activeTab !== 'devel'}
+        class="px-4 py-2 rounded-md"
+        on:click={() => handleTabClick('devel')}
+      >
+        desenvolvimento
+      </button>
+      <button
+        class:bg-yellow-300={activeTab === 'team'}
+        class:bg-transparent={activeTab !== 'team'}
+        class="px-4 py-2 rounded-md"
+        on:click={() => handleTabClick('team')}
+      >
+        equipe
+      </button>
+    </div>
+
+    <!-- Conteúdo das abas -->
+    {#if activeTab !== 'team'}
+      <!-- Caixa de conteúdo -->
+      <div class="bg-[#DEB887] p-8 rounded-md max-w-[900px] w-full border-2 border-black">
+        <p class="m-0 text-[0.8rem] leading-6 text-black text-justify font-['Press_Start_2P']">
+          {isTyping ? textContent : getTabContent(activeTab)}
+        </p>
+      </div>
+    {:else}
+      <!-- Links dos membros da equipe -->
+      <div class="flex justify-center gap-8 flex-wrap">
+        {#each equipeLinks as membro}
+          <!-- Cada membro da equipe -->
+          <div class="flex flex-col items-center">
+            <p class="text-white mb-2">{membro.nome}</p>
+            <div class="flex gap-2">
+              <a 
+                href={membro.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-white hover:text-yellow-300"
+              >
+                LinkedIn
+              </a>
+              <a 
+                href={membro.github} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-white hover:text-yellow-300"
+              >
+                GitHub
+              </a>
+            </div>
           </div>
         {/each}
       </div>
-  
-      <div class="container-texto"> <!-- texto do sobre--> 
-        <p>
-        
-        </p>
-      </div>
-    </div>
-  </main>
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-  
-    main {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #2D1B2E;
-      font-family: 'Press Start 2P', cursive;
-    }
-  
-    .container-sobre {
-      width: 90%;
-      max-width: 1200px;
-      position: relative;
-      padding: 2rem;
-    }
-  
-    .botao-fechar {
-      position: fixed; 
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 2rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      line-height: 1;
-    }
-  
-    .container-avatar {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1rem; 
-      flex-wrap: wrap;
-    }
-  
-    .circulo-avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 4px solid #DEB887;
-      background-color: #8B4513;
-    }
-  
-    .circulo-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  
-    .container-texto {
-      background-color: #DEB887;
-      padding: 2rem;
-      border-radius: 8px;
-      max-width: 900px;
-      margin: 0 auto;
-      margin-top: 3rem; 
-      border: 2px solid black; 
-    }
-  
-    .container-texto p {
-      margin: 0;
-      font-size: 0.8rem;
-      line-height: 1.6;
-      color: #000;
-      text-align: justify;
-    }
-  
-    @media (max-width: 768px) {
-      .circulo-avatar {
-        width: 80px;
-        height: 80px;
-      }
-  
-      .container-texto p {
-        font-size: 0.7rem;
-      }
-  
-      .container-avatar {
-        gap: 1rem;
-      }
-    }
-  </style>
-  
+    {/if}
+  </div>
+</main>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press_Start_2P&display=swap');
+</style>
