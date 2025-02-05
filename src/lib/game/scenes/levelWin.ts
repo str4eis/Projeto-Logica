@@ -1,7 +1,7 @@
 import k, {SPEED, TILE_SIZE} from "../kaplay";  
 import { spawnPlayer } from "../objetos/player/player";
 
-
+import './level1'
 
   k.scene( 'levelWin', () => {
     
@@ -10,16 +10,16 @@ import { spawnPlayer } from "../objetos/player/player";
 			"=                            =",
 			"=                            =",
 			"=                            =",
-            "=                            =",
-            "=                            =",
+      "=                            =",
+      "=                            =",
+			"=                            |",
+      "=                            |",
+      "=                            =",
+      "=                            =",
+      "=                            =",
 			"=                            =",
-            "=                            =",
-            "=                            =",
-            "=                            =",
-            "=                            =",
 			"=                            =",
-			"=                            =",
-            "=                            =",
+      "=                            =",
 			"==============================",
 	]
 
@@ -38,10 +38,20 @@ import { spawnPlayer } from "../objetos/player/player";
                 k.area(),
                 k.body({isStatic: true}),
               ],
+              "|": () => [
+                k.rect(64,64),
+                k.color(255,255,0),
+                k.body({isStatic: true}),
+                k.area(),
+                "porta",
+              ],
               
           }
       })
   
-      const player = spawnPlayer(3, 5)
+      const player = spawnPlayer(15, 12)
 
+      player.onCollide('porta', () => {
+        window.location.href = "/"
+      })
 })

@@ -1,25 +1,25 @@
 import k, {SPEED, TILE_SIZE} from "../kaplay";  
 import { spawnPlayer } from "../objetos/player/player";
 
-import './levelWin'
+import './levelWin.ts'
 
   k.scene( 'level3', () => {
     
     const LEVEL_AREA: string[] = [
-			"===============|==============",
+			"==============||==============",
 			"=                            =",
 			"=                            =",
 			"=                            =",
-            "=                            =",
-            "=                            =",
+      "=                            =",
+      "=                            =",
 			"=                            =",
-            "=                            =",
-            "=                            =",
-            "=                            =",
-            "=                            =",
+      "=                            =",
+      "=                            =",
+      "=                            =",
+      "=                            =",
 			"=                            =",
 			"=                            =",
-            "=                            =",
+      "=                            =",
 			"==============================",
 	]
 
@@ -49,7 +49,7 @@ import './levelWin'
           }
       })
   
-      const player = spawnPlayer(3, 5)
+      const player = spawnPlayer(15, 12)
 
       player.onCollide('porta', () => {
         k.go("levelWin")

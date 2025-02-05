@@ -1,12 +1,14 @@
-import k, {SPEED, TILE_SIZE} from "../kaplay";  
+import k, {loadSprites, SPEED, TILE_SIZE} from "../kaplay";  
 import { spawnPlayer } from "../objetos/player/player";
 
 import './level2'
 
+await loadSprites(k)
+
   k.scene( 'level1', () => {
     
     const LEVEL_AREA: string[] = [
-			"===============|==============",
+			"==============||==============",
 			"=                            =",
 			"=                            =",
 			"=                            =",
@@ -49,10 +51,11 @@ import './level2'
           }
       })
   
-      const player = spawnPlayer(3, 5)
+      const player = spawnPlayer(15, 12)
 
       player.onCollide('porta', () => {
         k.go("level2")
       })
 
 })
+

@@ -6,7 +6,7 @@ import './level3'
   k.scene( 'level2', () => {
     
     const LEVEL_AREA: string[] = [
-			"===============|==============",
+			"==============||==============",
 			"=                            =",
 			"=                            =",
 			"=                            =",
@@ -49,7 +49,7 @@ import './level3'
           }
       })
   
-      const player = spawnPlayer(3, 5)
+      const player = spawnPlayer(15, 12)
 
       player.onCollide('porta', () => {
         k.go("level3")
