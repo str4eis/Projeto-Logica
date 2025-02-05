@@ -126,6 +126,14 @@ export async function loadSprites(k : KAPLAYCtx) {
             "height" : 48,
 
         },
+        "Wall-bottom-middle" : {
+            "x" : 16, 
+            "y" : 64,
+            "sliceX" : 4,
+            "width" : 64,
+            "height" : 16,
+
+        },
         "Floor" : {
             "x" : 96, 
             "y" : 0,

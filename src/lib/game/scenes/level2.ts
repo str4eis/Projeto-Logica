@@ -47,7 +47,7 @@ import './level3'
 			"l                            r",
 			"l                            r",
       "l                            r",
-			"zttttttttttttttttttttttttttttm",
+			"zbbbbbbbbbbbbbbbbbbbbbbbbbbbbm",
 	]
 
     const LEVEL = k.addLevel(LEVEL_AREA, {
@@ -55,7 +55,7 @@ import './level3'
           tileWidth: TILE_SIZE,
           tiles: {
               "t": () => [
-                  k.sprite("Wall-middle"),
+                k.sprite("Wall-middle", {frame : k.randi(4)}),
                   k.scale(4),
                   k.area(),
                   k.body({isStatic: true}),
@@ -105,6 +105,13 @@ import './level3'
               ],
               "k": () => [
                 k.sprite("Door-right"),
+                k.scale(4),
+                k.body({isStatic: true}),
+                k.area(),
+                "porta",
+              ],
+              "b": () => [
+                k.sprite("Wall-bottom-middle", {frame : k.randi(4)}),
                 k.scale(4),
                 k.body({isStatic: true}),
                 k.area(),

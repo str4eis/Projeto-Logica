@@ -9,7 +9,7 @@ export const createPlayer = () => {
       }),
       k.body(),       
       k.anchor("center"), 
-      k.scale(5),
+      k.scale(4),
       
       "player"
   ]);
