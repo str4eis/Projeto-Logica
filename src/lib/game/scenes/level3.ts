@@ -5,42 +5,107 @@ import './levelWin.ts'
 
   k.scene( 'level3', () => {
     
+    k.addLevel([
+      "qttttttttttttt||tttttttttttttp",
+			"                              ",
+			"                              ",
+			"                              ",
+      "                              ",
+      "                              ",
+			"                              ",
+      "                              ",
+      "                              ",
+      "                              ",
+      "                              ",
+			"                              ",
+			"                              ",
+      "                              ",
+			"                              ",
+    ], {
+      tileHeight : TILE_SIZE,
+      tileWidth : TILE_SIZE,
+      tiles : {
+            " ": () => [
+              k.sprite("Floor", {frame : k.randi(12)}),
+              k.scale(4),
+              ],
+      }
+    })
+
     const LEVEL_AREA: string[] = [
-			"==============||==============",
-			"=                            =",
-			"=                            =",
-			"=                            =",
-      "=                            =",
-      "=                            =",
-			"=                            =",
-      "=                            =",
-      "=                            =",
-      "=                            =",
-      "=                            =",
-			"=                            =",
-			"=                            =",
-      "=                            =",
-			"==============================",
+			"qtttttttttttttjktttttttttttttp",
+			"l                            r",
+			"l                            r",
+			"l                            r",
+      "l                            r",
+      "l                            r",
+			"l                            r",
+      "l                            r",
+      "l                            r",
+      "l                            r",
+      "l                            r",
+			"l                            r",
+			"l                            r",
+      "l                            r",
+			"zttttttttttttttttttttttttttttm",
 	]
 
     const LEVEL = k.addLevel(LEVEL_AREA, {
           tileHeight: TILE_SIZE,
           tileWidth: TILE_SIZE,
           tiles: {
-              " ": () => [
-              k.color(0, 255,0),
-              k.rect(64,64),
-              ],
-  
-              "=": () => [
-                k.rect(64,64),
-                k.color(0,0,255),
+              "t": () => [
+                  k.sprite("Wall-middle"),
+                  k.scale(4),
+                  k.area(),
+                  k.body({isStatic: true}),
+                ],
+              "q": () => [
+                k.sprite("Wall-top-left"),
+                k.scale(4),
                 k.area(),
                 k.body({isStatic: true}),
               ],
-              "|": () => [
-                k.rect(64,64),
-                k.color(255,255,0),
+              "p": () => [
+                k.sprite("Wall-top-right"),
+                k.scale(4),
+                k.area(),
+                k.body({isStatic: true}),
+              ],
+              "z": () => [
+                k.sprite("Wall-bottom-left"),
+                k.scale(4),
+                k.area(),
+                k.body({isStatic: true}),
+              ],
+              "m": () => [
+                k.sprite("Wall-bottom-right"),
+                k.scale(4),
+                k.area(),
+                k.body({isStatic: true}),
+              ],
+              "l": () => [
+                k.sprite("Wall-side-left"),
+                k.scale(4),
+                k.area(),
+                k.body({isStatic: true}),
+              ],
+              "r": () => [
+                k.sprite("Wall-side-right"),
+                k.scale(4),
+                k.area(),
+                k.body({isStatic: true}),
+              ],
+              "j": () => [
+                k.sprite("Door-left"),
+                k.scale(4),
+                k.body({isStatic: true}),
+                k.area(),
+                "porta",
+              ],
+              "k": () => [
+                k.sprite("Door-right"),
+                k.scale(4),
                 k.body({isStatic: true}),
                 k.area(),
                 "porta",

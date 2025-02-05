@@ -1,7 +1,7 @@
 import kaplay, { type KAPLAYCtx } from "kaplay";
 
 export async function loadSprites(k : KAPLAYCtx) {
-    await k.loadSpriteAtlas("/assets/sprites/Player.png", {
+    await k.loadSpriteAtlas("/assets/sprites/Player.png", {       
         "Kael" : {
             "x" : 0, 
             "y" : 0,
@@ -71,13 +71,95 @@ export async function loadSprites(k : KAPLAYCtx) {
                     "loop" : true,
                 },
             } 
-        }
+        },
+    })
+    await k.loadSpriteAtlas("/assets/sprites/world.png", {
+        "Wall-top-left" : {
+            "x" : 0, 
+            "y" : 0,
+            "width" : 16,
+            "height" : 16,
+            
+        },
+        "Wall-top-right" : {
+            "x" : 80, 
+            "y" : 0,
+            "width" : 16,
+            "height" : 16,
+            
+        },
+        "Wall-bottom-left" : {
+            "x" : 0, 
+            "y" : 64,
+            "width" : 16,
+            "height" : 16,
+            
+        },
+        "Wall-bottom-right" : {
+            "x" : 80, 
+            "y" : 64,
+            "width" : 16,
+            "height" : 16,
+            
+        },
+        "Wall-middle" : {
+            "x" : 16, 
+            "y" : 0,
+            "sliceX" : 4, 
+            "width" : 64,
+            "height" : 16,
+            
+        },
+        "Wall-side-left" : {
+            "x" : 0, 
+            "y" : 16,
+            "sliceY" : 3,
+            "width" : 16,
+            "height" : 48,
+            
+        },
+        "Wall-side-right" : {
+            "x" : 80, 
+            "y" : 16,
+            "sliceY" : 3,
+            "width" : 16,
+            "height" : 48,
+
+        },
+        "Floor" : {
+            "x" : 96, 
+            "y" : 0,
+            "sliceX" : 4,
+            "sliceY" : 3,
+            "width" : 64,
+            "height" : 48,
+
+        },
+        
+        "Door-left" : {
+            "x" : 96, 
+            "y" : 48,
+            "sliceX" : 4,
+            "sliceY" : 3,
+            "width" : 64,
+            "height" : 48,
+
+        },
+        "Door-right" : {
+            "x" : 112, 
+            "y" : 48,
+            "sliceX" : 4,
+            "sliceY" : 3,
+            "width" : 64,
+            "height" : 48,
+
+        },
     })
 }
 
+
 const k : KAPLAYCtx = kaplay ({
-    width: 1920,
-    height: 960,
+    background: [37, 19, 26],
 });
 
 
