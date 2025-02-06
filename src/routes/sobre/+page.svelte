@@ -3,57 +3,102 @@
 
   let activeTab = 'project';
   let isTyping = false;
-  let textContent = '';
+  let displayedContent: string[] = [];
   let intervalId: ReturnType<typeof setInterval>;
 
   const handleTabClick = (tab: string) => {
     clearInterval(intervalId);
     activeTab = tab;
-    startTyping(getTabContent(tab));
+    startTyping();
   };
 
   const handleFechar = () => {
     goto('/');
   };
 
-  const startTyping = (text: string) => {
-    isTyping = true;
-    textContent = '';
-    let index = 0;
-
-    intervalId = setInterval(() => {
-      if (index < text.length) {
-        textContent += text[index];
-        index++;
-      } else {
-        isTyping = false;
-        clearInterval(intervalId);
-      }
-    }, 50);
-  };
+  const equipeLinks = [
+    { 
+      nome: 'Victor', 
+      linkedin: 'https://linkedin.com/in/victor', 
+      github: 'https://github.com/victor' 
+    },
+    { 
+      nome: 'Ester', 
+      linkedin: 'https://linkedin.com/in/ester', 
+      github: 'https://github.com/ester' 
+    },
+    { 
+      nome: 'Guilherme', 
+      linkedin: 'https://linkedin.com/in/guilherme', 
+      github: 'https://github.com/guilherme' 
+    },
+    { 
+      nome: 'Saruba', 
+      linkedin: 'https://linkedin.com/in/saruba', 
+      github: 'https://github.com/saruba' 
+    },
+    { 
+      nome: 'Henrique', 
+      linkedin: 'https://linkedin.com/in/henrique', 
+      github: 'https://github.com/henrique' 
+    }
+  ];
 
   const getTabContent = (tab: string) => {
     switch (tab) {
       case 'project':
         return 'saruba safado "projeto".';
       case 'idea':
-        return 'iuewhufeuwifhewuifghewfuiewghfewiufhgewiuf "idea".';
+        return 'iuewhufeuwifhewuifghewfuiewghfewiuf "idea".';
       case 'devel':
         return 'dopwjqwqodwjqdopwqjdqwopdjqwdwqjdwqpodpo "devel".';
       case 'team':
-        return '';
+        return equipeLinks.map(membro => 
+          `${membro.nome} - LinkedIn GitHub`
+        );
       default:
         return '';
     }
   };
 
-  const equipeLinks = [
-    { nome: 'Victor', linkedin: '', github: '' },
-    { nome: 'Ester', linkedin: '', github: '' },
-    { nome: 'Guilherme', linkedin: '', github: '' },
-    { nome: 'Saruba', linkedin: '', github: '' },
-    { nome: 'Henrique', linkedin: '', github: '' }
-  ];
+  const startTyping = () => {
+    isTyping = true;
+    displayedContent = activeTab === 'team' ? [] : [''];
+    let currentText = '';
+    let currentLine = 0;
+    let currentChar = 0;
+
+    const content = activeTab === 'team' ? 
+      getTabContent(activeTab) as string[] : 
+      [getTabContent(activeTab) as string];
+
+    intervalId = setInterval(() => {
+      if (currentLine >= content.length) {
+        isTyping = false;
+        clearInterval(intervalId);
+        return;
+      }
+
+      if (currentChar < content[currentLine].length) {
+        if (activeTab === 'team') {
+          if (currentChar === 0) {
+            displayedContent[currentLine] = '';
+          }
+          displayedContent[currentLine] = (displayedContent[currentLine] || '') + content[currentLine][currentChar];
+        } else {
+          currentText += content[currentLine][currentChar];
+          displayedContent[0] = currentText;
+        }
+        currentChar++;
+      } else {
+        currentLine++;
+        currentChar = 0;
+        if (activeTab === 'team' && currentLine < content.length) {
+          displayedContent = [...displayedContent, ''];
+        }
+      }
+    }, 50);
+  };
 </script>
 
 <main class="w-full min-h-screen flex flex-col justify-center items-center bg-[#2D1B2E] font-['Press_Start_2P'] relative">
@@ -112,42 +157,43 @@
     </div>
 
     <!-- Conteúdo das abas -->
-    {#if activeTab !== 'team'}
-      <!-- Caixa de conteúdo -->
-      <div class="bg-[#DEB887] p-8 rounded-md max-w-[900px] w-full border-2 border-black">
-        <p class="m-0 text-[0.8rem] leading-6 text-black text-justify font-['Press_Start_2P']">
-          {isTyping ? textContent : getTabContent(activeTab)}
-        </p>
-      </div>
-    {:else}
-      <!-- Links dos membros da equipe -->
-      <div class="flex justify-center gap-8 flex-wrap">
-        {#each equipeLinks as membro}
-          <!-- Cada membro da equipe -->
-          <div class="flex flex-col items-center">
-            <p class="text-white mb-2">{membro.nome}</p>
-            <div class="flex gap-2">
-              <a 
-                href={membro.linkedin} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="text-white hover:text-yellow-300"
-              >
-                LinkedIn
-              </a>
-              <a 
-                href={membro.github} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="text-white hover:text-yellow-300"
-              >
-                GitHub
-              </a>
+    <div class="bg-[#DEB887] p-8 rounded-md max-w-[900px] w-full border-2 border-black">
+      {#if activeTab === 'team'}
+        <div class="flex flex-col gap-4">
+          {#each equipeLinks as membro, index}
+            <div class="flex items-center gap-4 text-[0.8rem]">
+              {#if displayedContent[index]}
+                <span class="text-black w-32">{membro.nome}</span>
+                {#if displayedContent[index].includes('LinkedIn')}
+                  <a 
+                    href={membro.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-blue-800 hover:text-yellow-600 transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                {/if}
+                {#if displayedContent[index].includes('GitHub')}
+                  <a 
+                    href={membro.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-blue-800 hover:text-yellow-600 transition-colors"
+                  >
+                    GitHub
+                  </a>
+                {/if}
+              {/if}
             </div>
-          </div>
-        {/each}
-      </div>
-    {/if}
+          {/each}
+        </div>
+      {:else}
+        <p class="m-0 text-[0.8rem] leading-6 text-black text-justify">
+          {displayedContent[0]}
+        </p>
+      {/if}
+    </div>
   </div>
 </main>
 
