@@ -73,6 +73,79 @@ export async function loadSprites(k : KAPLAYCtx) {
             } 
         },
     })
+
+    await k.loadSpriteAtlas("/assets/sprites/ogre.png", {
+        "Ogre" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 232,
+            "height" : 35,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 5,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/demon.png", {
+        "Demon" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 264,
+            "height" : 41,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 5,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/ze.png", {
+        "Ze" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 312,
+            "height" : 48,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 5,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
     await k.loadSpriteAtlas("/assets/sprites/world.png", {
         "Wall-top-left" : {
             "x" : 0, 
