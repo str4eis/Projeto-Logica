@@ -30,7 +30,7 @@
   </div>
   
   <div class="menu">
-    <h1>DUGEON OF ETERNITY</h1>
+    <h1>DUNGEON OF ETERNITY</h1>
     
     <div class="botoes">
       <button on:click={() => goto('/jogar')}>PLAY</button>

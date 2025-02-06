@@ -25,25 +25,25 @@ export async function loadSprites(k : KAPLAYCtx) {
                 "idle-up" : {
                     "from" : 12,
                     "to" : 17,
-                    "speed" : 3,
+                    "speed" : 5,
                     "loop" : true,
                 },
                 "run-down" : {
                     "from" : 18,
                     "to" : 23,
-                    "speed" : 5,
+                    "speed" : 13,
                     "loop" : true,
                 },
                 "run-right" : {
                     "from" : 24,
                     "to" : 29,
-                    "speed" : 5,
+                    "speed" : 13,
                     "loop" : true,
                 },
                 "run-up" : {
                     "from" : 30,
                     "to" : 35,
-                    "speed" : 5,
+                    "speed" : 13,
                     "loop" : true,
                 },
                 "attack-down" : {
@@ -162,17 +162,25 @@ export async function loadSprites(k : KAPLAYCtx) {
             "height" : 48,
 
         },
+        
+        
+
     })
+    
+
 }
 
 
 const k : KAPLAYCtx = kaplay ({
     background: [37, 19, 26],
 });
+
+
 type TileDefinitions = {
     [key: string]: () => any[];
 };
  
+
 export function createLevel(levelData: string[], tileSize: number = TILE_SIZE) {
     const tileDefinitions: TileDefinitions = {
         "t": () => [k.sprite("Wall-middle", { frame: k.randi(4) }), k.scale(4), k.area(), k.body({ isStatic: true })],
@@ -193,6 +201,8 @@ export function createLevel(levelData: string[], tileSize: number = TILE_SIZE) {
         tiles: tileDefinitions,
     });
 }
+
+export const title = "hello word"
 export const SPEED = 350;
 export const TILE_SIZE = 64;
 

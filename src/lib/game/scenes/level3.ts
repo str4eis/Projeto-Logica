@@ -1,7 +1,7 @@
 import k, {createLevel, SPEED, TILE_SIZE} from "../kaplay";  
 import { spawnPlayer } from "../objetos/player/player";
 
-import './levelWin.ts'
+import './level4'
 
   k.scene( 'level3', () => {
     
@@ -55,7 +55,7 @@ import './levelWin.ts'
       const player = spawnPlayer(15, 12)
 
       player.onCollide('porta', () => {
-        k.go("levelWin")
+        k.go("level4")
       })
       
 })

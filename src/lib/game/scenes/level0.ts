@@ -1,9 +1,11 @@
-import k, {createLevel, SPEED, TILE_SIZE} from "../kaplay";  
+import k, {createLevel, loadSprites, SPEED, TILE_SIZE} from "../kaplay";  
 import { spawnPlayer } from "../objetos/player/player";
 
 import './level1'
 
-  k.scene( 'levelWin', () => {
+await loadSprites(k)
+
+  k.scene( 'level0', () => {
     
     k.addLevel([
       "qttttttttttttt||tttttttttttttp",
@@ -49,12 +51,14 @@ import './level1'
       "l                            r",
 			"zbbbbbbbbbbbbbbbbbbbbbbbbbbbbm",
 	]
- const LEVEL = createLevel (LEVEL_AREA)
-   
+
+    const LEVEL = createLevel(LEVEL_AREA)
   
       const player = spawnPlayer(15, 12)
 
       player.onCollide('porta', () => {
-        window.location.href = "/"
+        k.go("level1")
       })
+
 })
+
