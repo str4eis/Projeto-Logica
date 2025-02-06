@@ -30,14 +30,14 @@
   </div>
   
   <div class="menu">
-    <h1>DUGEON OF ETERNITY</h1>
+    <h1>DUNGEON OF ETERNITY</h1>
     
     <div class="botoes">
-      <button on:click={() => goto('/jogar')}>JOGAR</button>
+      <button on:click={() => goto('/jogar')}>PLAY</button>
       
-      <button on:click={alternarHistoriaModal}>HISTÓRIA</button>
+      <button on:click={alternarHistoriaModal}>HISTORY</button>
       
-      <button on:click={navegarParaSobre}>SOBRE</button>
+      <button on:click={navegarParaSobre}>ABOUT</button>
     </div>
 
   </div>

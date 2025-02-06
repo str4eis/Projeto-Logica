@@ -115,7 +115,7 @@
     
     <!-- Conteiner da logo -->
     <div class="flex justify-center items-center w-full h-[200px] mb-6 relative">
-      <!-- Moldura da logo -->
+      <!-- Moldura ifpe -->
       <div class="absolute w-[300px] h-[150px] border-4 border-[#DEB887] rounded-md" style="top: -80px;"></div>
     </div>
 
