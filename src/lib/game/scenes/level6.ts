@@ -1,10 +1,10 @@
 import { k, TILE_SIZE, loadSprites, spawnPlayer, createLevel } from "../levelUtils/imports";
-import { LEVEL4 } from "../levelUtils/levelLayout";
+import { LEVEL6 } from "../levelUtils/levelLayout";
 import { FLOOR } from "../levelUtils/levelLayout";
-import './level5'
+import './levelWin.ts'
 await loadSprites(k)
 
-k.scene('level4', () => {
+k.scene('level6', () => {
 
     k.setBackground(37,19,26);
 
@@ -19,12 +19,12 @@ k.scene('level4', () => {
         }
     })
 
-    const LEVEL = createLevel(LEVEL4)
+    const LEVEL = createLevel(LEVEL6)
 
     const player = spawnPlayer(15, 12)
 
     player.onCollide('porta', () => {
-        k.go("level5")
+        k.go("levelWin")
     })
 
 })

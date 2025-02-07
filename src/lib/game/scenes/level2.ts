@@ -1,61 +1,31 @@
-import k, {createLevel, SPEED, TILE_SIZE} from "../kaplay";  
-import { spawnPlayer } from "../objetos/player/player";
-
+import { k, TILE_SIZE, loadSprites, spawnPlayer, createLevel } from "../levelUtils/imports";
+import { LEVEL2 } from "../levelUtils/levelLayout";
+import { FLOOR } from "../levelUtils/levelLayout";
 import './level3'
+await loadSprites(k)
 
-  k.scene( 'level2', () => {
-    
-    k.addLevel([
-      "qttttttttttttt||tttttttttttttp",
-			"                              ",
-			"                              ",
-			"                              ",
-      "                              ",
-      "                              ",
-			"                              ",
-      "                              ",
-      "                              ",
-      "                              ",
-      "                              ",
-			"                              ",
-			"                              ",
-      "                              ",
-			"                              ",
-    ], {
-      tileHeight : TILE_SIZE,
-      tileWidth : TILE_SIZE,
-      tiles : {
-            " ": () => [
-              k.sprite("Floor", {frame : k.randi(12)}),
-              k.scale(4),
-              ],
-      }
-    })
 
-    const LEVEL_AREA: string[] = [
-			"qtttttttttttttjktttttttttttttp",
-			"l                            r",
-			"l                            r",
-			"l                            r",
-      "l                            r",
-      "l                            r",
-			"l                            r",
-      "l            jj              r",
-      "l                            r",
-      "l                            r",
-      "l                            r",
-			"l                            r",
-			"l                            r",
-      "l                            r",
-			"zbbbbbbbbbbbbbbbbbbbbbbbbbbbbm",
-	]
-
-    const LEVEL = createLevel(LEVEL_AREA)
+k.scene('level2', () => {
   
-      const player = spawnPlayer(15, 12)
+  k.setBackground(37,19,26);
+  
+  k.addLevel(FLOOR, {
+    tileHeight: TILE_SIZE,
+    tileWidth: TILE_SIZE,
+    tiles: {
+      " ": () => [
+        k.sprite("Floor", { frame: k.randi(12) }),
+        k.scale(4),
+      ],
+    }
+  })
 
-      player.onCollide('porta', () => {
-        k.go("level3")
-      })
-      
+  const LEVEL = createLevel(LEVEL2)
+
+  const player = spawnPlayer(15, 12)
+
+  player.onCollide('porta', () => {
+    k.go("level3")
+  })
+
 })
