@@ -74,6 +74,30 @@ export async function loadSprites(k : KAPLAYCtx) {
         },
     })
 
+    await k.loadSpriteAtlas("/assets/sprites/npc.png", {
+        "Npc" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 129,
+            "height" : 19,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 7,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
     await k.loadSpriteAtlas("/assets/sprites/ogre.png", {
         "Ogre" : {
             "x" : 0,
@@ -85,7 +109,80 @@ export async function loadSprites(k : KAPLAYCtx) {
                 "idle": {
                 "from": 0,
                 "to": 3,
-                "speed": 5,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    
+    await k.loadSpriteAtlas("/assets/sprites/ogre-sec1.png", {
+        "ogre-sec1" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 144,
+            "height" : 18,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/ogre-sec2.png", {
+        "ogre-sec2" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 128,
+            "height" : 20,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/ogre-sec3.png", {
+        "ogre-sec3" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 128,
+            "height" : 40,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
                 "loop": true,
                 },
                 "run": {
@@ -109,7 +206,79 @@ export async function loadSprites(k : KAPLAYCtx) {
                 "idle": {
                 "from": 0,
                 "to": 3,
-                "speed": 5,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/demon-sec1.png", {
+        "demon-sec1" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 144,
+            "height" : 20,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/demon-sec2.png", {
+        "demon-sec2" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 136,
+            "height" : 24,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/demon-sec3.png", {
+        "demon-sec3" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 120,
+            "height" : 20,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
                 "loop": true,
                 },
                 "run": {
@@ -133,7 +302,7 @@ export async function loadSprites(k : KAPLAYCtx) {
                 "idle": {
                 "from": 0,
                 "to": 3,
-                "speed": 5,
+                "speed": 10,
                 "loop": true,
                 },
                 "run": {
@@ -142,6 +311,78 @@ export async function loadSprites(k : KAPLAYCtx) {
                     "speed": 10,
                     "loop": true,
                 },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/ze-sec1.png", {
+        "ze-sec1" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 144,
+            "height" : 18,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/ze-sec2.png", {
+        "ze-sec2" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 104,
+            "height" : 18,
+            "sliceX" : 8,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 4,
+                    "to": 7,
+                    "speed": 10,
+                    "loop": true,
+                },
+            }
+        }
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/ze-sec3.png", {
+        "ze-sec3" : {
+            "x" : 0,
+            "y" : 0,
+            "width" : 60,
+            "height" : 19,
+            "sliceX" : 4,
+            "anims" : {
+                "idle": {
+                "from": 0,
+                "to": 3,
+                "speed": 10,
+                "loop": true,
+                },
+                "run": {
+                    "from": 2,
+                    "to": 3,
+                    "speed": 10,
+                    "loop": true,
+                }
             }
         }
     })
