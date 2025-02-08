@@ -177,7 +177,7 @@ export async function loadSprites(k: KAPLAYCtx) {
             "x": 0,
             "y": 0,
             "width": 128,
-            "height": 40,
+            "height": 19,
             "sliceX": 8,
             "anims": {
                 "idle": {
