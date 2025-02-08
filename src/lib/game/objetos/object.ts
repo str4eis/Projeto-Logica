@@ -1,34 +1,27 @@
 import type { GameObj } from "kaplay";
-import k, {TILE_SIZE} from "../kaplay";
+import k, { TILE_SIZE } from "../kaplay";
 
-export const createObject = (tag: string, cantMove: boolean) => {
+export const createObject = (tag: string, cantMove: boolean, spriteName: string, hasAnimation: boolean = false) => {
+    const spriteConfig = hasAnimation ? { anim: "idle" } : {}; // Só adiciona animação se necessário
+
     const object = k.make([
-        k.sprite("Npc", {anim : 'idle'}),    
+        k.sprite(spriteName, spriteConfig), // Configura o sprite de acordo com hasAnimation
         k.scale(4),
         k.pos(),
         k.area(),
         k.body({ isStatic: cantMove }),
-        
         tag
     ]);
 
     return object;
-}
+};
 
-export const spawnObject = (x: number, y: number, tag: string, cantMove: boolean = true) => {
-    const object = k.add(createObject(tag, cantMove));
+export const spawnObject = (x: number, y: number, tag: string, cantMove: boolean = true, spriteName: string, hasAnimation: boolean = false) => {
+    const object = k.add(createObject(tag, cantMove, spriteName, hasAnimation));
     object.pos = k.vec2(x * TILE_SIZE, y * TILE_SIZE);
-
     return object;
 };
 
 export const updateObjectFlipX = (object: GameObj, player: GameObj) => {
-    // Verifica a posição do player em relação ao objeto
-    if (player.pos.x < object.pos.x) {
-        // Player está à esquerda do objeto
-        object.flipX = true; // Objeto olha para a esquerda
-    } else {
-        // Player está à direita do objeto
-        object.flipX = false; // Objeto olha para a direita
-    }
+    object.flipX = player.pos.x < object.pos.x;
 };

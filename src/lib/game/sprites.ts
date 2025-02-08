@@ -390,6 +390,30 @@ export async function loadSprites(k: KAPLAYCtx) {
 
     //Sprites de cenario
 
+    await k.loadSpriteAtlas("assets/sprites/big-tree.png", {
+        "Tree": {
+            "x": 11,
+            "y": 9,
+            "width": 41,
+            "height": 63,
+        },
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/small-trees.png", {
+        "Small-tree": {
+            "x": 32,
+            "y": 0,
+            "width": 32,
+            "height": 48,
+        },
+        "Small-tree-cut": {
+            "x": 0,
+            "y": 0,
+            "width": 32,
+            "height": 48,
+        },
+    })
+
     await k.loadSpriteAtlas("/assets/sprites/grass.png", {
 
         //Sprites do Level 0
@@ -484,6 +508,85 @@ export async function loadSprites(k: KAPLAYCtx) {
     //Sprites da dungeon 
 
     await k.loadSpriteAtlas("/assets/sprites/world.png", {
+        //Decoração
+        "Front-torch": {
+            "x": 0,
+            "y": 144,
+            "width": 16,
+            "height": 16,
+
+        },  
+        "Left-torch": {
+            "x": 16,
+            "y": 144,
+            "width": 16,
+            "height": 16,
+
+        },"Tall-candle": {
+            "x": 48,
+            "y": 144,
+            "width": 16,
+            "height": 16,
+
+        },  
+        "Low-candle": {
+            "x": 80,
+            "y": 144,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        "Flag": {
+            "x": 64,
+            "y": 112,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        "Skull-and-bone": {
+            "x": 112,
+            "y": 112,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        "Bones": {
+            "x": 128,
+            "y": 96,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        "Right-spider-web": {
+            "x": 80,
+            "y": 96,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        "Left-spider-web": {
+            "x": 64,
+            "y": 96,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        "Small-stones": {
+            "x": 144,
+            "y": 80,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        "Big-stones": {
+            "x": 144,
+            "y": 64,
+            "width": 16,
+            "height": 16,
+
+        }, 
+        
+        //Tiles
         "Wall-top-left": {
             "x": 0,
             "y": 0,
