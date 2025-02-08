@@ -20,12 +20,12 @@ k.setBackground(37,19,26);
   })
 
   const LEVEL = createLevel(LEVEL1)
-  const mob = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
-  const mob1 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
-  const mob2= spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
-  const mob3 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
-  const mob4 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
-  const mob5 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
+  // const mob = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
+  // const mob1 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
+  // const mob2= spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
+  // const mob3 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
+  // const mob4 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
+  // const mob5 = spawnEnemy(k.randi(1,28),k.randi(1,7),"mob", false, "ze")
   const player = spawnPlayer(15, 12,)
 
   player.onCollide('porta', () => {

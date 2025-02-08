@@ -39,7 +39,7 @@ k.addLevel(FLOOR, {
 });
 
   const LEVEL = createLevel(LEVEL0)
-  const npc = spawnObject(28,12,"npc")
+  const npc = spawnObject(17,4,"npc")
   const player = spawnPlayer(15, 12)
 
 

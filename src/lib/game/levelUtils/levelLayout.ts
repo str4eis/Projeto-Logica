@@ -16,20 +16,20 @@ export const FLOOR = [
 ];
 
 export const LEVEL0 = [
-    "ewwwwwwwwwwwwwjkwwwwwwwwwwwwwo",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    "s                            d",
-    ",aaaaaaaaaaaaaaaaaaaaaaaaaaaa.",
+    "         ewwwwjkwwwwwo        ",
+    "         s           d        ",
+    "     ewwwh           d        ",
+    "     s               nwwo     ",
+    "     s                  d     ",
+    "     s                  d     ",
+    "     ,aaaaf             d     ",
+    "          s             nwwwwo",
+    "          ,af                d",
+    "            s                d",
+    "            s                d",
+    "            s        gaaaaaaa.",
+    "            s        d        ",
+    "            ,aaaaaaaa.        ",
 ];
 
 export const LEVEL1 = [

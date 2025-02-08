@@ -2,6 +2,7 @@ import kaplay, { type KAPLAYCtx } from "kaplay";
 
 export async function loadSprites(k: KAPLAYCtx) {
     await k.loadSpriteAtlas("/assets/sprites/Player.png", {
+        //Sprites de personagens
         "Kael": {
             "x": 0,
             "y": 0,
@@ -387,7 +388,11 @@ export async function loadSprites(k: KAPLAYCtx) {
         }
     })
 
+    //Sprites de cenario
+
     await k.loadSpriteAtlas("/assets/sprites/grass.png", {
+
+        //Sprites do Level 0
         "Grass": {
             "x": 16,
             "y": 16,
@@ -449,8 +454,34 @@ export async function loadSprites(k: KAPLAYCtx) {
             "width": 16,
             "height": 16,
         },
+        "Top-right-border": {
+            "x": 16,
+            "y": 48,
+            "width": 16,
+            "height": 16,
+        },
+        "Top-left-border": {
+            "x": 0,
+            "y": 48,
+            "width": 16,
+            "height": 16,
+        },
+        "Bottom-left-border": {
+            "x": 0,
+            "y": 64,
+            "width": 16,
+            "height": 16,
+        },
+        "Bottom-right-border": {
+            "x": 16,
+            "y": 64,
+            "width": 16,
+            "height": 16,
+        },
 
     })
+
+    //Sprites da dungeon 
 
     await k.loadSpriteAtlas("/assets/sprites/world.png", {
         "Wall-top-left": {
@@ -541,10 +572,5 @@ export async function loadSprites(k: KAPLAYCtx) {
             "height": 48,
 
         },
-
-
-
     })
-
-
 }
