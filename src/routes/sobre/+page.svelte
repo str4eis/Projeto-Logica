@@ -1,23 +1,23 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import logoIfpe from '$lib/assets/logo_ifpe.jpeg'; 
+  import logoIfpe from '$lib/assets/logo_ifpe.png'; 
 
-  let activeTab = 'project';
-  let isTyping = false;
-  let displayedContent: string[] = [];
-  let intervalId: ReturnType<typeof setInterval>;
+  let abaAtiva = 'projeto';
+  let estaDigitando = false;
+  let conteudoExibido: string[] = [];
+  let idIntervalo: ReturnType<typeof setInterval>;
 
-  const handleTabClick = (tab: string) => {
-    clearInterval(intervalId);
-    activeTab = tab;
-    startTyping();
+  const cliqueAba = (aba: string) => {
+    limparIntervalo();
+    abaAtiva = aba;
+    iniciarDigitacao();
   };
 
-  const handleFechar = () => {
-    goto('/');
+  const fechar = () => {
+    window.location.href = '/';
   };
 
-  const equipeLinks = [
+  const linksEquipe = [
     { 
       nome: 'Victor Daniel', 
       linkedin: 'https://www.linkedin.com/in/victor-daneil-bezerra-da-silva-a1a956323/', 
@@ -30,13 +30,13 @@
     },
     { 
       nome: 'Guilherme', 
-      linkedin: 'https://linkedin.com/in/guilherme', 
-      github: 'https://github.com/guilherme' 
+      linkedin: 'https://www.linkedin.com/in/guilherme-felipe-7184ab30a', 
+      github: 'https://github.com/BalaZxx' 
     },
     { 
       nome: 'Saruba', 
-      linkedin: 'https://linkedin.com/in/saruba', 
-      github: 'https://github.com/saruba' 
+      linkedin: 'https://www.linkedin.com/in/gabriel-saruba-2778522a6', 
+      github: 'https://github.com/gabrielsaruba' 
     },
     { 
       nome: 'Henrique', 
@@ -45,16 +45,16 @@
     }
   ];
 
-  const getTabContent = (tab: string) => {
-    switch (tab) {
-      case 'project':
+  const obterConteudoAba = (aba: string) => {
+    switch (aba) {
+      case 'projeto':
         return 'Este jogo foi desenvolvido para o projeto de Lógica de Programação da faculdade, com o objetivo de aplicar os conceitos aprendidos na disciplina, como loops, operadores lógicos e funções. O foco foi criar uma experiência interativa em que a programação lógica fosse essencial para a mecânica do jogo.';
       case 'idea':
         return 'iuewhufeuwifhewuifghewfuiewghfewiuf "idea".';
       case 'devel':
         return 'dopwjqwqodwjqdopwqjdqwopdjqwdwqjdwqpodpo "devel".';
       case 'team':
-        return equipeLinks.map(membro => 
+        return linksEquipe.map(membro => 
           `${membro.nome} - LinkedIn GitHub`
         );
       default:
@@ -62,96 +62,109 @@
     }
   };
 
-  const startTyping = () => {
-    isTyping = true;
-    displayedContent = activeTab === 'team' ? [] : [''];
-    let currentText = '';
-    let currentLine = 0;
-    let currentChar = 0;
+  const limparIntervalo = () => {
+    if (idIntervalo) {
+      clearInterval(idIntervalo);
+    }
+  };
 
-    const content = activeTab === 'team' ? 
-      getTabContent(activeTab) as string[] : 
-      [getTabContent(activeTab) as string];
+  const iniciarDigitacao = () => {
+    estaDigitando = true;
+    conteudoExibido = abaAtiva === 'team' ? [] : [''];
+    let textoAtual = '';
+    let linhaAtual = 0;
+    let caracterAtual = 0;
 
-    intervalId = setInterval(() => {
-      if (currentLine >= content.length) {
-        isTyping = false;
-        clearInterval(intervalId);
+    const conteudo = abaAtiva === 'team' ? 
+      obterConteudoAba(abaAtiva) as string[] : 
+      [obterConteudoAba(abaAtiva) as string];
+
+    idIntervalo = setInterval(() => {
+      if (linhaAtual >= conteudo.length) {
+        estaDigitando = false;
+        limparIntervalo();
         return;
       }
 
-      if (currentChar < content[currentLine].length) {
-        if (activeTab === 'team') {
-          if (currentChar === 0) {
-            displayedContent[currentLine] = '';
+      if (caracterAtual < conteudo[linhaAtual].length) {
+        if (abaAtiva === 'team') {
+          if (caracterAtual === 0) {
+            conteudoExibido[linhaAtual] = '';
           }
-          displayedContent[currentLine] = (displayedContent[currentLine] || '') + content[currentLine][currentChar];
+          conteudoExibido[linhaAtual] = (conteudoExibido[linhaAtual] || '') + conteudo[linhaAtual][caracterAtual];
         } else {
-          currentText += content[currentLine][currentChar];
-          displayedContent[0] = currentText;
+          textoAtual += conteudo[linhaAtual][caracterAtual];
+          conteudoExibido[0] = textoAtual;
         }
-        currentChar++;
+        caracterAtual++;
       } else {
-        currentLine++;
-        currentChar = 0;
-        if (activeTab === 'team' && currentLine < content.length) {
-          displayedContent = [...displayedContent, ''];
+        linhaAtual++;
+        caracterAtual = 0;
+        if (abaAtiva === 'team' && linhaAtual < conteudo.length) {
+          conteudoExibido = [...conteudoExibido, ''];
         }
       }
     }, 50);
   };
+
+  // Iniciar digitação quando o componente for montado
+  let mounted = false;
+  if (!mounted) {
+    mounted = true;
+    iniciarDigitacao();
+  }
 </script>
 
 <main class="w-full min-h-screen flex flex-col justify-center items-center bg-[#2D1B2E] font-['Press_Start_2P'] relative">
   <button
     class="absolute top-4 right-4 bg-transparent border-none text-white text-2xl cursor-pointer p-2 leading-none"
-    on:click={handleFechar}
+    on:click={fechar}
   >
     ×
   </button>
   
   <div class="w-[90%] max-w-[1200px] p-8 flex flex-col items-center">
     <div class="flex justify-center items-center w-full h-[250px] mb-6 relative">
-      <div class="flex justify-center items-center mt-[-200px]">
-        <img src={logoIfpe} alt="Logo IFPE" class="w-[300px] h-auto object-contain">
+      <div class="flex justify-center items-center mt-[-100px]">
+        <img src={logoIfpe} alt="Logo IFPE" class="w-[150px] h-auto object-contain">
       </div>
     </div>
 
     <div class="flex justify-center gap-8 flex-wrap mb-6">
       <button
-        class={`px-4 py-2 rounded-md ${activeTab === 'project' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
-        on:click={() => handleTabClick('project')}
+        class={`px-4 py-2 rounded-md ${abaAtiva === 'projeto' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
+        on:click={() => cliqueAba('projeto')}
       >
         projeto
       </button>
       <button
-        class={`px-4 py-2 rounded-md ${activeTab === 'idea' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
-        on:click={() => handleTabClick('idea')}
+        class={`px-4 py-2 rounded-md ${abaAtiva === 'idea' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
+        on:click={() => cliqueAba('idea')}
       >
         ideia
       </button>
       <button
-        class={`px-4 py-2 rounded-md ${activeTab === 'devel' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
-        on:click={() => handleTabClick('devel')}
+        class={`px-4 py-2 rounded-md ${abaAtiva === 'devel' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
+        on:click={() => cliqueAba('devel')}
       >
         desenvolvimento
       </button>
       <button
-        class={`px-4 py-2 rounded-md ${activeTab === 'team' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
-        on:click={() => handleTabClick('team')}
+        class={`px-4 py-2 rounded-md ${abaAtiva === 'team' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
+        on:click={() => cliqueAba('team')}
       >
         equipe
       </button>
     </div>
 
     <div class="bg-[#DEB887] p-8 rounded-md max-w-[900px] w-full border-2 border-black">
-      {#if activeTab === 'team'}
+      {#if abaAtiva === 'team'}
         <div class="flex flex-col gap-4">
-          {#each equipeLinks as membro, index}
+          {#each linksEquipe as membro, index}
             <div class="flex items-center gap-4 text-[0.8rem]">
-              {#if displayedContent[index]}
+              {#if conteudoExibido[index]}
                 <span class="text-black w-32">{membro.nome}</span>
-                {#if displayedContent[index].includes('LinkedIn')}
+                {#if conteudoExibido[index].includes('LinkedIn')}
                   <a 
                     href={membro.linkedin}
                     target="_blank"
@@ -161,7 +174,7 @@
                     LinkedIn
                   </a>
                 {/if}
-                {#if displayedContent[index].includes('GitHub')}
+                {#if conteudoExibido[index].includes('GitHub')}
                   <a 
                     href={membro.github}
                     target="_blank"
@@ -177,7 +190,7 @@
         </div>
       {:else}
         <p class="m-0 text-[0.8rem] leading-6 text-black text-justify">
-          {displayedContent[0]}
+          {conteudoExibido[0]}
         </p>
       {/if}
     </div>
