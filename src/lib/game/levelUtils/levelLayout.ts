@@ -16,7 +16,7 @@ export const FLOOR = [
 ];
 
 export const LEVEL0 = [
-    "         ewwwwjkwwwwwo        ",
+    "         ewwwwwwwwwwwo        ",
     "         s           d        ",
     "     ewwwh           d        ",
     "     s               nwwo     ",

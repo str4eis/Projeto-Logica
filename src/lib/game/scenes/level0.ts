@@ -72,18 +72,19 @@ k.scene('level0', () => {
 
   function startDialogue() {
     k.scene('dialogue', () => {
-      k.setBackground(255, 184, 121);
-
+      k.setBackground(0, 0, 0);
+  
       type CharacterData = {
         sprite: string;
         name: string;
       };
-
+  
       type Characters = {
         Kael: CharacterData;
         Npc: CharacterData;
+        Narrador: CharacterData; // Adicionando o narrador
       };
-
+  
       const characters: Characters = {
         Kael: {
           sprite: "Kael",
@@ -93,85 +94,93 @@ k.scene('level0', () => {
           sprite: "Npc",
           name: "Npc",
         },
+        Narrador: {
+          sprite: "", // Narrador não tem sprite
+          name: "Narrador",
+        },
       };
-
-      const dialogs = [
-        ["Kael", "Olá! Como você está?"],
-        ["Npc", "Estou bem, obrigado! E você?"],
-        ["Kael", "Também estou bem, pronto para a aventura!"],
-        ["Npc", "Boa sorte então!"],
-        ["Kael", "Obrigado!"],
+  
+      const dialogs: [string, string][] = [
+        ["Kael", "Quem diabos é você?"],
+        ["Npc", "Um viajante, assim como você… Mas diferente de você, eu conheço os perigos desta floresta."],
+        ["Kael", "Se é um aviso, guarde para si. Eu sei me cuidar."],
+        ["Npc", "Ah, eu não duvido. Mas há algo que você ainda não entende… Não é você quem escolhe o caminho. O caminho escolhe você."],
+        ["Kael", "Do que está falando?"],
+        ["Npc", "Você já pisou onde não devia. Agora, o destino selará seu futuro."],
+        ["Narrador", "O encapuzado levanta a mão, e um círculo arcano se forma sob os pés de Kael. Correntes sombrias emergem, prendendo seus braços e pernas."],
+        ["Kael", "O quê?! Maldito! O que você está fazendo?!"], 
+        ["Npc", "Você será uma peça importante no jogo. Se sobreviver… talvez nos encontremos de novo."],
+        ["Narrador", "Com um último gesto do encapuzado, as correntes brilham intensamente, e Kael é sugado por um vórtice negro. A floresta desaparece, dando lugar a escuridão total… Até que ele desperta na Dungeon of Eternity."]
       ];
-
+  
       let curDialog = 0;
       let isTalking = false;
       let currentText = "";
       let currentIndex = 0;
-
+  
       const textbox = k.add([
         k.rect(k.width() - 140, 140, { radius: 4 }),
         k.anchor("center"),
         k.pos(k.center().x, k.height() - 100),
         k.outline(4),
+        k.color(150, 150, 150), // Cor da textbox
       ]);
-
+  
       const txt = k.add([
         k.text("", {
           size: 32,
           width: k.width() - 230,
           align: "center",
         }),
-        k.color(0, 0, 0), // Define a cor preta corretamente
+        k.color(0, 0, 0), // Texto preto
         k.pos(textbox.pos),
         k.anchor("center"),
       ]);
-      
-
+  
       const avatar = k.add([
         k.sprite("Kael"),
         k.scale(14),
         k.anchor("center"),
         k.pos(k.center().sub(0, 50)),
       ]);
-
-      type Effects = {
-        shake: () => void;
-      };
-
-      const effects: Effects = {
-        shake: () => {
-          k.shake();
-        },
-      };
-
+    
       k.onKeyPress("space", () => {
         if (isTalking) return;
-      
+  
         if (curDialog >= dialogs.length - 1) {
-          k.go("level0"); // Volta para o jogo quando o diálogo termina
+          k.go("level1"); 
         } else {
           curDialog++;
           updateDialog();
         }
       });
-      
-
+  
       function updateDialog() {
-        const [char, dialog, eff] = dialogs[curDialog];
-        avatar.use(k.sprite(characters[char as keyof typeof characters].sprite));
-        startWriting(dialog, char);
-
-        if (eff) {
-          effects[eff as keyof Effects]();
+        const [char, dialog] = dialogs[curDialog];
+        if (char === "Narrador") {
+          // Esconde o avatar e a textbox para o narrador
+          avatar.hidden = true;
+          textbox.hidden = true;
+          txt.pos = k.center(); // Centraliza o texto na tela
+          txt.color = k.Color.fromHex("#FFFFFF"); // Texto branco
+        } else {
+          // Mostra o avatar e a textbox para personagens normais
+          avatar.hidden = false;
+          textbox.hidden = false;
+          avatar.use(k.sprite(characters[char as keyof typeof characters].sprite));
+          txt.pos = textbox.pos; // Volta o texto para a caixa de diálogo
+          txt.color = k.Color.fromHex("#000000"); // Texto preto
         }
+        startWriting(dialog, char);
+        
       }
-
+  
       function startWriting(dialog: string, char: string) {
         isTalking = true;
         currentText = dialog;
         currentIndex = 0;
         txt.text = "";
-
+  
         const writing = k.loop(0.03, () => {
           if (currentIndex < currentText.length) {
             txt.text += currentText[currentIndex];
@@ -182,10 +191,10 @@ k.scene('level0', () => {
           }
         });
       }
-
+  
       updateDialog();
     });
-
+  
     k.go('dialogue');
   }
-});
+})

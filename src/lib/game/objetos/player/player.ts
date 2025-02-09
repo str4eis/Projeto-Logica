@@ -65,7 +65,7 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
    }
   });
 
-  k.onKeyDown("space", () => {
+  k.onKeyDown("i", () => {
     k.debug.inspect = !k.debug.inspect
 });
 
