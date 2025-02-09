@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import logoIfpe from '$lib/assets/logo_ifpe.jpeg'; 
 
   let activeTab = 'project';
   let isTyping = false;
@@ -18,14 +19,14 @@
 
   const equipeLinks = [
     { 
-      nome: 'Victor', 
-      linkedin: 'https://linkedin.com/in/victor', 
-      github: 'https://github.com/victor' 
+      nome: 'Victor Daniel', 
+      linkedin: 'https://www.linkedin.com/in/victor-daneil-bezerra-da-silva-a1a956323/', 
+      github: 'https://github.com/victordn620' 
     },
     { 
       nome: 'Ester', 
-      linkedin: 'https://linkedin.com/in/ester', 
-      github: 'https://github.com/ester' 
+      linkedin: 'https://www.linkedin.com/in/estervitoriareis', 
+      github: 'https://github.com/str4eis' 
     },
     { 
       nome: 'Guilherme', 
@@ -47,7 +48,7 @@
   const getTabContent = (tab: string) => {
     switch (tab) {
       case 'project':
-        return 'saruba safado "projeto".';
+        return 'Este jogo foi desenvolvido para o projeto de Lógica de Programação da faculdade, com o objetivo de aplicar os conceitos aprendidos na disciplina, como loops, operadores lógicos e funções. O foco foi criar uma experiência interativa em que a programação lógica fosse essencial para a mecânica do jogo.';
       case 'idea':
         return 'iuewhufeuwifhewuifghewfuiewghfewiuf "idea".';
       case 'devel':
@@ -102,7 +103,6 @@
 </script>
 
 <main class="w-full min-h-screen flex flex-col justify-center items-center bg-[#2D1B2E] font-['Press_Start_2P'] relative">
-  <!-- Botão de fechar no canto superior direito -->
   <button
     class="absolute top-4 right-4 bg-transparent border-none text-white text-2xl cursor-pointer p-2 leading-none"
     on:click={handleFechar}
@@ -110,53 +110,40 @@
     ×
   </button>
   
-  <!-- Conteiner principal da página -->
   <div class="w-[90%] max-w-[1200px] p-8 flex flex-col items-center">
-    
-    <!-- Conteiner da logo -->
-    <div class="flex justify-center items-center w-full h-[200px] mb-6 relative">
-      <!-- Moldura ifpe -->
-      <div class="absolute w-[300px] h-[150px] border-4 border-[#DEB887] rounded-md" style="top: -80px;"></div>
+    <div class="flex justify-center items-center w-full h-[250px] mb-6 relative">
+      <div class="flex justify-center items-center mt-[-200px]">
+        <img src={logoIfpe} alt="Logo IFPE" class="w-[300px] h-auto object-contain">
+      </div>
     </div>
 
-    <!-- Conteiner das abas -->
     <div class="flex justify-center gap-8 flex-wrap mb-6">
-      <!-- Botoes das abas -->
       <button
-        class:bg-yellow-300={activeTab === 'project'}
-        class:bg-transparent={activeTab !== 'project'}
-        class="px-4 py-2 rounded-md"
+        class={`px-4 py-2 rounded-md ${activeTab === 'project' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
         on:click={() => handleTabClick('project')}
       >
         projeto
       </button>
       <button
-        class:bg-yellow-300={activeTab === 'idea'}
-        class:bg-transparent={activeTab !== 'idea'}
-        class="px-4 py-2 rounded-md"
+        class={`px-4 py-2 rounded-md ${activeTab === 'idea' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
         on:click={() => handleTabClick('idea')}
       >
         ideia
       </button>
       <button
-        class:bg-yellow-300={activeTab === 'devel'}
-        class:bg-transparent={activeTab !== 'devel'}
-        class="px-4 py-2 rounded-md"
+        class={`px-4 py-2 rounded-md ${activeTab === 'devel' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
         on:click={() => handleTabClick('devel')}
       >
         desenvolvimento
       </button>
       <button
-        class:bg-yellow-300={activeTab === 'team'}
-        class:bg-transparent={activeTab !== 'team'}
-        class="px-4 py-2 rounded-md"
+        class={`px-4 py-2 rounded-md ${activeTab === 'team' ? 'bg-yellow-300 text-black' : 'bg-transparent text-white hover:bg-gray-700'}`}
         on:click={() => handleTabClick('team')}
       >
         equipe
       </button>
     </div>
 
-    <!-- Conteúdo das abas -->
     <div class="bg-[#DEB887] p-8 rounded-md max-w-[900px] w-full border-2 border-black">
       {#if activeTab === 'team'}
         <div class="flex flex-col gap-4">
