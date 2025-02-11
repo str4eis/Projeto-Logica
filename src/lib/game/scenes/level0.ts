@@ -1,6 +1,7 @@
 import { k, TILE_SIZE, loadSprites, spawnPlayer, createLevel, spawnObject } from "../levelUtils/imports";
 import { LEVEL0 } from "../levelUtils/levelLayout";
 import { FLOOR } from "../levelUtils/levelLayout";
+import { spawnBoss } from "../objetos/enemy/boss";
 import { updateObjectFlipX } from "../objetos/object";
 import './level1';
 
@@ -34,10 +35,17 @@ k.scene('level0', () => {
     },
   });
 
+
   const LEVEL = createLevel(LEVEL0);
 
   const npc = spawnObject(17, 4, "npc", true, "Npc", true);
   const player = spawnPlayer(15, 12);
+
+// const  Boss=spawnBoss(14,6,"B",false,"Ogre")
+// const  Boss2=spawnBoss(16,6,"B",false,"Demon")
+// const  Boss3=spawnBoss(18,6,"B",false,"Ze")
+
+
 
   // Árvores lado direito
   spawnObject(28, 12, "tree", true, "Small-tree", false);

@@ -24,8 +24,7 @@ k.scene('level3', () => {
   const mob1 = spawnEnemy(12, 4, "mob", false, "ogre")
   const mob2 = spawnEnemy(10, 4, "mob", false, "ogre")
   const mob3 = spawnEnemy(8, 4, "mob", false, "ogre")
-  const mob4 = spawnEnemy(8, 4, "mob", false, "ogre")
-  const mob5 = spawnEnemy(8, 4, "mob", false, "ogre")
+  
   const player = spawnPlayer(15, 12)
 
   player.onCollide('porta', () => {

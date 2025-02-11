@@ -116,7 +116,7 @@ export async function loadSprites(k: KAPLAYCtx) {
                 "run": {
                     "from": 4,
                     "to": 7,
-                    "speed": 10,
+                    "speed": 5,
                     "loop": true,
                 },
             }
@@ -213,7 +213,7 @@ export async function loadSprites(k: KAPLAYCtx) {
                 "run": {
                     "from": 4,
                     "to": 7,
-                    "speed": 10,
+                    "speed": 5,
                     "loop": true,
                 },
             }
@@ -309,7 +309,7 @@ export async function loadSprites(k: KAPLAYCtx) {
                 "run": {
                     "from": 4,
                     "to": 7,
-                    "speed": 10,
+                    "speed": 5,
                     "loop": true,
                 },
             }
