@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import logoIfpe from '$lib/assets/logo_ifpe.png'; 
+  import logoIfpe from '$lib/assets/logo.ifpe.jpeg'; 
 
   let abaAtiva = 'projeto';
   let estaDigitando = false;
@@ -40,8 +39,8 @@
     },
     { 
       nome: 'Henrique', 
-      linkedin: 'https://linkedin.com/in/henrique', 
-      github: 'https://github.com/henrique' 
+      linkedin: 'https://www.linkedin.com/in/jo%C3%A3o-henriquesilvasantos/', 
+      github: 'https://github.com/joaoHenriqueSS' 
     }
   ];
 
@@ -50,9 +49,9 @@
       case 'projeto':
         return 'Este jogo foi desenvolvido para o projeto de Lógica de Programação da faculdade, com o objetivo de aplicar os conceitos aprendidos na disciplina, como loops, operadores lógicos e funções. O foco foi criar uma experiência interativa em que a programação lógica fosse essencial para a mecânica do jogo.';
       case 'idea':
-        return 'iuewhufeuwifhewuifghewfuiewghfewiuf "idea".';
+        return 'A ideia surgiu da inspiração em jogos clássicos de aventura e ação, como Goof Troop, buscando desenvolver uma experiência focada em exploração e combate. O jogo foi projetado para desafiar os jogadores por meio de batalhas contra bosses, exigindo estratégia para derrotar inimigos e avançar na Dungeon of Eternity.';
       case 'devel':
-        return 'dopwjqwqodwjqdopwqjdqwopdjqwdwqjdwqpodpo "devel".';
+        return 'Durante o desenvolvimento, foram implementadas mecânicas que permitem a movimentação do personagem, interações com o ambiente e lutas contra bosses, utilizando lógica de programação para estruturar o fluxo do jogo. O projeto também serviu como uma oportunidade para aprimorar habilidades em desenvolvimento de jogos, planejamento de mecânicas e organização de código.';
       case 'team':
         return linksEquipe.map(membro => 
           `${membro.nome} - LinkedIn GitHub`
@@ -125,8 +124,8 @@
   
   <div class="w-[90%] max-w-[1200px] p-8 flex flex-col items-center">
     <div class="flex justify-center items-center w-full h-[250px] mb-6 relative">
-      <div class="flex justify-center items-center mt-[-100px]">
-        <img src={logoIfpe} alt="Logo IFPE" class="w-[150px] h-auto object-contain">
+      <div class="flex justify-center items-center mt-[-200px]">
+        <img src={logoIfpe} alt="Logo IFPE" class="w-[300px] h-auto object-contain">
       </div>
     </div>
 
