@@ -2,27 +2,28 @@ import k, { TILE_SIZE } from "$lib/game/kaplay";
 
 export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => {
     let mobSprite: string = "";
-    if (mobType == "demon") {
+    if (mobType === "demon") {
         mobSprite = "demon-sec" + k.randi(1, 4);
     }
-    if (mobType == "ogre") {
+    if (mobType === "ogre") {
         mobSprite = "ogre-sec" + k.randi(1, 4);
     }
-    if (mobType == "ze") {
+    if (mobType === "ze") {
         mobSprite = "ze-sec" + k.randi(1, 4);
     }
 
     const enemy = k.make([
-        k.sprite(mobSprite, { anim: "run" }),
+        k.sprite(mobSprite), // Removemos a animação padrão "run" daqui
         k.area(),
         k.pos(),
         k.scale(4),
         k.body({ isStatic: cantMove }),
         k.anchor("center"),
-        k.state("idle", ["idle", "move", "attack"]), // Adiciona estados
-        k.health(3), // Adiciona vida ao inimigo
+        k.state("idle", ["idle", "move", "attack"]),
+        k.health(3),
         tag,
     ]);
+
     return enemy;
 };
 
@@ -38,69 +39,59 @@ export const spawnEnemy = (x: number, y: number, tag: string, cantMove: boolean 
 
 // Configura os estados do inimigo
 const setupEnemyStates = (enemy: any) => {
-    const DETECTION_RANGE = 400; // Range de detecção do jogador (em pixels)
-    let moveUpdateHandler: any = null; // Armazena a função de atualização do estado "move"
+    const DETECTION_RANGE = 400; // Alcance de detecção do jogador
+    let moveUpdateHandler: any = null;
 
-    // Estado "idle": fica parado até o jogador entrar no range
+    // Estado "idle": fica parado e muda para "move" se detectar o player
     enemy.onStateEnter("idle", async () => {
+        enemy.play("idle"); // Define animação de idle
         while (enemy.state === "idle") {
-            const player = k.get("player")[0]; // Obtém o player
+            const player = k.get("player")[0];
             if (player && player.exists()) {
-                const distance = enemy.pos.dist(player.pos); // Calcula a distância entre o inimigo e o player
-
-                // Se o jogador estiver dentro do range, muda para o estado "move"
+                const distance = enemy.pos.dist(player.pos);
                 if (distance <= DETECTION_RANGE) {
                     enemy.enterState("move");
-                    break; // Sai do loop
+                    break;
                 }
             }
-
-            await k.wait(0.1); // Espera um pouco antes de verificar novamente
+            await k.wait(0.1);
         }
     });
 
-    // Estado "move": persegue o jogador sem parar
+    // Estado "move": persegue o jogador
     enemy.onStateEnter("move", () => {
-        // Remove o handler anterior (se existir)
+        enemy.play("run"); // Define animação de corrida
+
         if (moveUpdateHandler) {
             moveUpdateHandler.cancel();
         }
 
-        // Adiciona um novo handler de atualização
         moveUpdateHandler = enemy.onUpdate(() => {
-            const player = k.get("player")[0]; // Obtém o player
+            const player = k.get("player")[0];
             if (!player || !player.exists()) return;
 
-            // Move o inimigo em direção ao player
             const dir = player.pos.sub(enemy.pos).unit();
-            enemy.move(dir.scale(250)); // Velocidade do inimigo
+            enemy.move(dir.scale(250));
 
-            // Aplica flipX dependendo da direção do movimento
-            if (dir.x < 0) {
-                enemy.flipX = true; // Inverte o sprite se estiver se movendo para a esquerda
-            } else {
-                enemy.flipX = false; // Mantém o sprite normal se estiver se movendo para a direita
-            }
+            // Inverte sprite com base na direção do movimento
+            enemy.flipX = dir.x < 0;
 
-            // Verifica se o jogador saiu do range
-            const distance = enemy.pos.dist(player.pos);
-            if (distance > DETECTION_RANGE) {
-                enemy.enterState("idle"); // Volta para o estado "idle" se o jogador sair do range
+            // Se o player sair do range, volta para "idle"
+            if (enemy.pos.dist(player.pos) > DETECTION_RANGE) {
+                enemy.enterState("idle");
             }
         });
     });
 
-    // Estado "attack": causa dano ao player e volta para "move"
+    // Estado "attack": dano ao player e volta para "move"
     enemy.onStateEnter("attack", async () => {
-        const player = k.get("player")[0]; // Obtém o player
+        const player = k.get("player")[0];
         if (player && player.exists()) {
-            // Causa dano ao player
             player.hurt(1);
-            k.shake(10); // Efeito de tela tremendo
-            k.play("hit"); // Toca um som de hit (se houver um carregado)
+            k.shake(10);
         }
 
-        await k.wait(1); // Espera 1 segundo antes de voltar para "move"
+        await k.wait(1);
         enemy.enterState("move");
     });
 
@@ -108,15 +99,16 @@ const setupEnemyStates = (enemy: any) => {
     enemy.onUpdate(() => {
         if (enemy.hp() <= 0) {
             k.destroy(enemy);
-            k.addKaboom(enemy.pos); // Efeito de explosão ao morrer
+            k.addKaboom(enemy.pos);
         }
     });
 
-    // Limpa o handler de atualização quando o estado "move" terminar
+    // Limpa o handler quando o estado "move" termina
     enemy.onStateEnd("move", () => {
         if (moveUpdateHandler) {
-            moveUpdateHandler.cancel(); // Remove o handler de atualização
-            moveUpdateHandler = null; // Limpa a referência
+            moveUpdateHandler.cancel();
+            moveUpdateHandler = null;
         }
     });
-};
+
+}

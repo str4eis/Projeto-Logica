@@ -1,3 +1,4 @@
+import type { GameObj } from "kaplay";
 import { k, TILE_SIZE, loadSprites, spawnPlayer, createLevel, spawnEnemy } from "../levelUtils/imports";
 import { LEVEL5 } from "../levelUtils/levelLayout";
 import { FLOOR } from "../levelUtils/levelLayout";
@@ -19,14 +20,13 @@ k.scene('level5', () => {
         }
     })
 
-    const LEVEL = createLevel(LEVEL5)
-    const mob = spawnEnemy(18, 4, "mob", false, "demon")
-    const mob1 = spawnEnemy(12, 4, "mob", false, "demon")
-    const mob2 = spawnEnemy(10, 4, "mob", false, "demon")
-    const mob3 = spawnEnemy(8, 4, "mob", false, "demon")
-    const mob4 = spawnEnemy(8, 4, "mob", false, "demon")
-    const mob5 = spawnEnemy(8, 4, "mob", false, "demon")
-    const player = spawnPlayer(15, 12)
+    const LEVEL: GameObj = createLevel(LEVEL5)
+    const mob1: GameObj = spawnEnemy(12, 4, "mob", false, "demon")
+    const mob2: GameObj = spawnEnemy(10, 4, "mob", false, "demon")
+    const mob3: GameObj = spawnEnemy(8, 4, "mob", false, "demon")
+    const mob4: GameObj = spawnEnemy(8, 4, "mob", false, "demon")
+    const mob5: GameObj = spawnEnemy(8, 4, "mob", false, "demon")
+    const player: GameObj = spawnPlayer(15, 12)
 
     player.onCollide('porta', () => {
         k.go("level6")

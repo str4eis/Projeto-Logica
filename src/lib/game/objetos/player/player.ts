@@ -1,4 +1,12 @@
 import k, {SPEED, TILE_SIZE} from "$lib/game/kaplay";
+import '$lib/game/scenes/level0';
+import '$lib/game/scenes/level1';
+import '$lib/game/scenes/level2';
+import '$lib/game/scenes/level3';
+import '$lib/game/scenes/level4';
+import '$lib/game/scenes/level5';
+import '$lib/game/scenes/level6';
+import '$lib/game/scenes/levelWin';
 
 export const createPlayer = (direction: string) => {
   const player = k.make([
@@ -67,6 +75,38 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
 
   k.onKeyDown("i", () => {
     k.debug.inspect = !k.debug.inspect
+});
+
+k.onKeyDown("0", () => {
+  k.go("level0")
+});
+
+k.onKeyDown("1", () => {
+  k.go("level1")
+});
+
+k.onKeyDown("2", () => {
+  k.go("level2")
+});
+
+k.onKeyDown("3", () => {
+  k.go("level3")
+});
+
+k.onKeyDown("4", () => {
+  k.go("level4")
+});
+
+k.onKeyDown("5", () => {
+  k.go("level5")
+});
+
+k.onKeyDown("6", () => {
+  k.go("level6")
+});
+
+k.onKeyDown("7", () => {
+  k.go("levelWin")
 });
 
 const directions : any = {

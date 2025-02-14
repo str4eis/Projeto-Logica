@@ -1,3 +1,4 @@
+import type { GameObj, TimerController } from "kaplay";
 import { k, TILE_SIZE, loadSprites, spawnPlayer, createLevel, spawnObject } from "../levelUtils/imports";
 import { LEVEL0 } from "../levelUtils/levelLayout";
 import { FLOOR } from "../levelUtils/levelLayout";
@@ -15,7 +16,7 @@ k.scene('level0', () => {
     tileWidth: TILE_SIZE,
     tiles: {
       " ": () => {
-        const tileType = k.choose(["Marked-grass", "Grass", "Grass", "Grass", "Grass", "Grass", "Grass"]);
+        const tileType: string = k.choose(["Marked-grass", "Grass", "Grass", "Grass", "Grass", "Grass", "Grass"]);
         if (tileType === "Grass") {
           return [
             k.sprite("Grass"),
@@ -36,17 +37,8 @@ k.scene('level0', () => {
   });
 
 
-  const LEVEL = createLevel(LEVEL0);
-
-  const npc = spawnObject(17, 4, "npc", true, "Npc", true);
-  const player = spawnPlayer(15, 12);
-
-// const  Boss=spawnBoss(14,6,"B",false,"Ogre")
-// const  Boss2=spawnBoss(16,6,"B",false,"Demon")
-// const  Boss3=spawnBoss(18,6,"B",false,"Ze")
-
-
-
+  const LEVEL: GameObj = createLevel(LEVEL0);
+  const npc: GameObj = spawnObject(17, 4, "npc", true, "Npc", true);
   // Árvores lado direito
   spawnObject(28, 12, "tree", true, "Small-tree", false);
   spawnObject(26, -1, "tree", true, "Small-tree", false);
@@ -55,7 +47,6 @@ k.scene('level0', () => {
   spawnObject(22, -1, "tree", true, "Tree", false);
   spawnObject(26, 2, "tree", true, "Tree", false);
   spawnObject(24, 12, "tree", true, "Tree", false);
-
   // Árvores do lado esquerdo
   spawnObject(3, 2, "tree", true, "Small-tree", false);
   spawnObject(4, 8, "tree", true, "Small-tree", false);
@@ -65,6 +56,7 @@ k.scene('level0', () => {
   spawnObject(1, -1, "tree", true, "Tree", false);
   spawnObject(7, 9, "tree", true, "Tree", false);
   spawnObject(1, 10, "tree", true, "Tree", false);
+  const player: GameObj = spawnPlayer(15, 12);
 
   player.onCollide('porta', () => {
     k.go("level1");
@@ -81,18 +73,18 @@ k.scene('level0', () => {
   function startDialogue() {
     k.scene('dialogue', () => {
       k.setBackground(0, 0, 0);
-  
+
       type CharacterData = {
         sprite: string;
         name: string;
       };
-  
+
       type Characters = {
         Kael: CharacterData;
         Npc: CharacterData;
-        Narrador: CharacterData; // Adicionando o narrador
+        Narrador: CharacterData;
       };
-  
+
       const characters: Characters = {
         Kael: {
           sprite: "Kael",
@@ -103,93 +95,105 @@ k.scene('level0', () => {
           name: "Npc",
         },
         Narrador: {
-          sprite: "", // Narrador não tem sprite
+          sprite: "",
           name: "Narrador",
         },
       };
-  
+
       const dialogs: [string, string][] = [
-        ["Kael", "Quem diabos é você?"],
-        ["Npc", "Um viajante, assim como você… Mas diferente de você, eu conheço os perigos desta floresta."],
-        ["Kael", "Se é um aviso, guarde para si. Eu sei me cuidar."],
-        ["Npc", "Ah, eu não duvido. Mas há algo que você ainda não entende… Não é você quem escolhe o caminho. O caminho escolhe você."],
-        ["Kael", "Do que está falando?"],
-        ["Npc", "Você já pisou onde não devia. Agora, o destino selará seu futuro."],
-        ["Narrador", "O encapuzado levanta a mão, e um círculo arcano se forma sob os pés de Kael. Correntes sombrias emergem, prendendo seus braços e pernas."],
-        ["Kael", "O quê?! Maldito! O que você está fazendo?!"], 
-        ["Npc", "Você será uma peça importante no jogo. Se sobreviver… talvez nos encontremos de novo."],
-        ["Narrador", "Com um último gesto do encapuzado, as correntes brilham intensamente, e Kael é sugado por um vórtice negro. A floresta desaparece, dando lugar a escuridão total… Até que ele desperta na Dungeon of Eternity."]
+        ["Kael", "Who are you?"],
+        ["Npc", "A traveler... But unlike you, I know the dangers of this forest."],
+        ["Kael", "I don't need warnings. I can take care of myself."],
+        ["Npc", "We'll see... The path has already chosen you."],
+        ["Kael", "What do you mean by that?"],
+        ["Npc", "Your fate is sealed."],
+        ["Narrador", "The hooded figure raises his hand. An arcane circle appears, and dark chains bind Kael."],
+        ["Kael", "What?! Damn you!"],
+        ["Npc", "If you survive... perhaps we shall meet again."],
+        ["Narrador", "The chains glow, and Kael is pulled into a dark vortex. The forest fades, leaving only darkness... Until he awakens in the *Dungeon of Eternity*."]
       ];
-  
-      let curDialog = 0;
-      let isTalking = false;
-      let currentText = "";
-      let currentIndex = 0;
-  
-      const textbox = k.add([
+
+      let curDialog: number = 0;
+      let isTalking: boolean = false;
+      let currentText: string = "";
+      let currentIndex: number = 0;
+
+      const textbox: GameObj = k.add([
         k.rect(k.width() - 140, 140, { radius: 4 }),
         k.anchor("center"),
         k.pos(k.center().x, k.height() - 100),
         k.outline(4),
-        k.color(150, 150, 150), // Cor da textbox
+        k.color(150, 150, 150),
       ]);
-  
-      const txt = k.add([
+
+      const txt: GameObj = k.add([
         k.text("", {
           size: 32,
           width: k.width() - 230,
           align: "center",
         }),
-        k.color(0, 0, 0), // Texto preto
+        k.color(0, 0, 0),
         k.pos(textbox.pos),
         k.anchor("center"),
       ]);
-  
-      const avatar = k.add([
+
+      const avatar: GameObj = k.add([
         k.sprite("Kael"),
         k.scale(14),
         k.anchor("center"),
         k.pos(k.center().sub(0, 50)),
       ]);
-    
+
+      const skipButton: GameObj = k.add([
+        k.text("Skip", { size: 24 }),
+        k.color(255, 255, 255),
+        k.area(),
+        k.pos(k.width() - 100, 20),
+        k.anchor("topright"),
+        k.outline(2),
+        "skipButton",
+      ]);
+
+      skipButton.onClick(() => k.go("level1"));
+
       k.onKeyPress("space", () => {
         if (isTalking) return;
-  
+
         if (curDialog >= dialogs.length - 1) {
-          k.go("level1"); 
+          k.go("level1");
         } else {
           curDialog++;
           updateDialog();
         }
       });
-  
+
       function updateDialog() {
         const [char, dialog] = dialogs[curDialog];
         if (char === "Narrador") {
           // Esconde o avatar e a textbox para o narrador
           avatar.hidden = true;
           textbox.hidden = true;
-          txt.pos = k.center(); // Centraliza o texto na tela
-          txt.color = k.Color.fromHex("#FFFFFF"); // Texto branco
+          txt.pos = k.center();
+          txt.color = k.Color.fromHex("#FFFFFF");
         } else {
           // Mostra o avatar e a textbox para personagens normais
           avatar.hidden = false;
           textbox.hidden = false;
           avatar.use(k.sprite(characters[char as keyof typeof characters].sprite));
-          txt.pos = textbox.pos; // Volta o texto para a caixa de diálogo
-          txt.color = k.Color.fromHex("#000000"); // Texto preto
+          txt.pos = textbox.pos;
+          txt.color = k.Color.fromHex("#000000");
         }
         startWriting(dialog, char);
-        
+
       }
-  
+
       function startWriting(dialog: string, char: string) {
         isTalking = true;
         currentText = dialog;
         currentIndex = 0;
         txt.text = "";
-  
-        const writing = k.loop(0.03, () => {
+
+        const writing: TimerController = k.loop(0.04, () => {
           if (currentIndex < currentText.length) {
             txt.text += currentText[currentIndex];
             currentIndex++;
@@ -199,10 +203,10 @@ k.scene('level0', () => {
           }
         });
       }
-  
+
       updateDialog();
     });
-  
+
     k.go('dialogue');
   }
 })
