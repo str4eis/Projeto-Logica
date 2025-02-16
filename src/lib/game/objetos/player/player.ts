@@ -105,44 +105,6 @@ k.onKeyRelease(() => {
   }
 });
 
-  // Debug
-  k.onKeyDown("i", () => {
-    k.debug.inspect = !k.debug.inspect;
-  });
-
-  k.onKeyDown("0", () => {
-    k.go("level0");
-  });
-
-  k.onKeyDown("1", () => {
-    k.go("level1");
-  });
-
-  k.onKeyDown("2", () => {
-    k.go("level2");
-  });
-
-  k.onKeyDown("3", () => {
-    k.go("level3");
-  });
-
-  k.onKeyDown("4", () => {
-    k.go("level4");
-  });
-
-  k.onKeyDown("5", () => {
-    k.go("level5");
-  });
-
-  k.onKeyDown("6", () => {
-    k.go("level6");
-  });
-
-  k.onKeyDown("7", () => {
-    k.go("levelWin");
-  });
-
-
   const directions: any = {
     "left": "run-right",
     "right": "run-right",
@@ -195,6 +157,43 @@ setInterval(() => {
 //   });
 // });
 
+// Debug
+k.onKeyDown("i", () => {
+  k.debug.inspect = !k.debug.inspect;
+});
+
+k.onKeyDown("0", () => {
+  k.go("level0");
+});
+
+k.onKeyDown("1", () => {
+  k.go("level1");
+});
+
+k.onKeyDown("2", () => {
+  k.go("level2");
+});
+
+k.onKeyDown("3", () => {
+  k.go("level3");
+});
+
+k.onKeyDown("4", () => {
+  k.go("level4");
+});
+
+k.onKeyDown("5", () => {
+  k.go("level5");
+});
+
+k.onKeyDown("6", () => {
+  k.go("level6");
+});
+
+k.onKeyDown("7", () => {
+  k.go("levelWin");
+});
 
   return player;
 };
+

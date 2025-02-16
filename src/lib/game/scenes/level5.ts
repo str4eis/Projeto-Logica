@@ -21,11 +21,11 @@ k.scene('level5', () => {
     })
 
     const LEVEL: GameObj = createLevel(LEVEL5)
-    const mob1: GameObj = spawnEnemy(12, 4, "mob", false, "demon")
-    const mob2: GameObj = spawnEnemy(10, 4, "mob", false, "demon")
-    const mob3: GameObj = spawnEnemy(8, 4, "mob", false, "demon")
-    const mob4: GameObj = spawnEnemy(8, 4, "mob", false, "demon")
-    const mob5: GameObj = spawnEnemy(8, 4, "mob", false, "demon")
+    const mob1: GameObj = spawnEnemy(k.randi(1, 28), k.randi(1, 7), "mob", false, "demon")
+    const mob2: GameObj = spawnEnemy(k.randi(1, 28), k.randi(1, 7), "mob", false, "demon")
+    const mob3: GameObj = spawnEnemy(k.randi(1, 28), k.randi(1, 7), "mob", false, "demon")
+    const mob4: GameObj = spawnEnemy(k.randi(1, 28), k.randi(1, 7), "mob", false, "demon")
+    const mob5: GameObj = spawnEnemy(k.randi(1, 28), k.randi(1, 7), "mob", false, "demon")
     const player: GameObj = spawnPlayer(15, 12)
 
     player.onCollide('porta', () => {
