@@ -1,4 +1,4 @@
-import k, {SPEED, TILE_SIZE} from "$lib/game/kaplay";
+import k, { SPEED, TILE_SIZE } from "$lib/game/kaplay";
 import '$lib/game/scenes/level0';
 import '$lib/game/scenes/level1';
 import '$lib/game/scenes/level2';
@@ -10,138 +10,176 @@ import '$lib/game/scenes/levelWin';
 
 export const createPlayer = (direction: string) => {
   const player = k.make([
-      k.sprite("Kael", {anim : `idle-${direction}`}),
-      k.pos(0, 0), 
-      k.area({
-        shape: new k.Rect(k.vec2(0, 0), 14, 14),
-      }),
-      k.body(),       
-      k.anchor("center"), 
-      k.scale(4),
-      {
-        dir: direction
-      },
-      "player"
+    k.sprite("Kael", { anim: `idle-${direction}` }),
+    k.pos(0, 0),
+    k.area({
+      shape: new k.Rect(k.vec2(0, 0), 14, 14),
+    }),
+    k.body(),
+    k.anchor("center"),
+    k.scale(4),
+    {
+      dir: direction
+    },
+    "player"
   ]);
 
-  return player;    
+  return player;
 }
 
 export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
   const player = k.add(createPlayer(dir));
   player.pos = k.vec2(x * TILE_SIZE, y * TILE_SIZE);
 
+  
   k.onKeyDown("left", () => {
-      player.flipX = true;
-      player.flipY = false;
-      player.move(-SPEED, 0);
-      player.dir = 'left'
+    player.flipX = true;
+    player.flipY = false;
+    player.move(-SPEED, 0);
+    player.dir = 'left'
 
   });
 
   k.onKeyDown("right", () => {
-      player.flipX = false;
-      player.flipY = false;
-      player.move(SPEED, 0);
-      player.dir = 'right'
+    player.flipX = false;
+    player.flipY = false;
+    player.move(SPEED, 0);
+    player.dir = 'right'
 
   });
 
   k.onKeyDown("up", () => {
-      player.flipY = false;
-      player.flipX = false;
-      player.move(0, -SPEED);
-      player.dir = 'up'
+    player.flipY = false;
+    player.flipX = false;
+    player.move(0, -SPEED);
+    player.dir = 'up'
 
   });
 
   k.onKeyDown("down", () => {
-      player.flipY = false;
-      player.flipY = false;
-      player.move(0, SPEED);
-      player.dir = 'down'
+    player.flipY = false;
+    player.flipY = false;
+    player.move(0, SPEED);
+    player.dir = 'down'
 
   });
 
-  k.onKeyRelease( () => {
+  k.onKeyDown("a", () => {
+    player.flipX = true;
+    player.flipY = false;
+    player.move(-SPEED, 0);
+    player.dir = 'left'
+
+  });
+
+  k.onKeyDown("d", () => {
+    player.flipX = false;
+    player.flipY = false;
+    player.move(SPEED, 0);
+    player.dir = 'right'
+
+  });
+
+  k.onKeyDown("w", () => {
+    player.flipY = false;
+    player.flipX = false;
+    player.move(0, -SPEED);
+    player.dir = 'up'
+
+  });
+
+  k.onKeyDown("s", () => {
     player.flipY = false;
     player.flipY = false;
-    if(player.dir == 'left') {
-      player.play("idle-right");
+    player.move(0, SPEED);
+    player.dir = 'down'
+
+  });
+
+  // Quando soltar qualquer tecla, voltar para a animação "idle"
+  k.onKeyRelease(() => {
+    if (player.dir === 'left') {
+      player.play("idle-right"); // Usa "idle-right" para a esquerda com flipX
     } else {
-      player.play(`idle-${player.dir}`);
-   }
+      player.play(`idle-${player.dir}`); // Usa a animação "idle" correspondente
+    }
   });
 
+  // Debug
   k.onKeyDown("i", () => {
-    k.debug.inspect = !k.debug.inspect
-});
+    k.debug.inspect = !k.debug.inspect;
+  });
 
-k.onKeyDown("0", () => {
-  k.go("level0")
-});
+  k.onKeyDown("0", () => {
+    k.go("level0");
+  });
 
-k.onKeyDown("1", () => {
-  k.go("level1")
-});
+  k.onKeyDown("1", () => {
+    k.go("level1");
+  });
 
-k.onKeyDown("2", () => {
-  k.go("level2")
-});
+  k.onKeyDown("2", () => {
+    k.go("level2");
+  });
 
-k.onKeyDown("3", () => {
-  k.go("level3")
-});
+  k.onKeyDown("3", () => {
+    k.go("level3");
+  });
 
-k.onKeyDown("4", () => {
-  k.go("level4")
-});
+  k.onKeyDown("4", () => {
+    k.go("level4");
+  });
 
-k.onKeyDown("5", () => {
-  k.go("level5")
-});
+  k.onKeyDown("5", () => {
+    k.go("level5");
+  });
 
-k.onKeyDown("6", () => {
-  k.go("level6")
-});
+  k.onKeyDown("6", () => {
+    k.go("level6");
+  });
 
-k.onKeyDown("7", () => {
-  k.go("levelWin")
-});
-
-const directions : any = {
-  "left": "run-right",
-  "right": "run-right",
-  "up": "run-up",
-  "down": "run-down"
-};
+  k.onKeyDown("7", () => {
+    k.go("levelWin");
+  });
 
 
-let activeKeys : any = {};
+  const directions: any = {
+    "left": "run-right",
+    "right": "run-right",
+    "up": "run-up",
+    "down": "run-down",
+    "a": "run-right",
+    "d": "run-right",
+    "w": "run-up",
+    "s": "run-down"
+  };
 
-["left", "right", "up", "down"].forEach((key) => {
+  let activeKeys: any = {};
+
+  const keys = ["left", "right", "up", "down", "a", "d", "w", "s"];
+
+  keys.forEach((key) => {
     k.onKeyPress(key, () => {
-        activeKeys[key] = true;
-        player.play(directions[key]);
+      activeKeys[key] = true;
+      player.play(directions[player.dir]);
     });
 
     k.onKeyRelease(key, () => {
-        activeKeys[key] = false;
+      activeKeys[key] = false;
     });
-});
+  });
 
-// Verifica a cada 100ms se a animação precisa ser corrigida
-setInterval(() => {
+  // Verifica a cada 100ms se a animação precisa ser corrigida
+  setInterval(() => {
     if (player.getCurAnim()?.name?.startsWith("idle")) {
-        for (const key in activeKeys) {
-            if (activeKeys[key]) {
-                player.play(directions[key]);
-                break; // Garante que só uma animação de movimento seja ativada
-            }
+      for (const key in activeKeys) {
+        if (activeKeys[key]) {
+          player.play(directions[player.dir]);
+          break; // Garante que só uma animação de movimento seja ativada
         }
+      }
     }
-}, 250);
-
+  }, 250);
 
   return player;
 };
