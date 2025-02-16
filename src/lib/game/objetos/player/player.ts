@@ -35,75 +35,75 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
   k.onKeyDown("left", () => {
     player.flipX = true;
     player.flipY = false;
-    player.move(-SPEED, 0);
     player.dir = 'left'
+    player.move(-SPEED, 0);
 
   });
 
   k.onKeyDown("right", () => {
     player.flipX = false;
     player.flipY = false;
-    player.move(SPEED, 0);
     player.dir = 'right'
+    player.move(SPEED, 0);
 
   });
 
   k.onKeyDown("up", () => {
     player.flipY = false;
     player.flipX = false;
-    player.move(0, -SPEED);
     player.dir = 'up'
+    player.move(0, -SPEED);
 
   });
 
   k.onKeyDown("down", () => {
     player.flipY = false;
     player.flipY = false;
-    player.move(0, SPEED);
     player.dir = 'down'
+    player.move(0, SPEED);
 
   });
 
   k.onKeyDown("a", () => {
     player.flipX = true;
     player.flipY = false;
-    player.move(-SPEED, 0);
     player.dir = 'left'
+    player.move(-SPEED, 0);
 
   });
 
   k.onKeyDown("d", () => {
     player.flipX = false;
     player.flipY = false;
-    player.move(SPEED, 0);
     player.dir = 'right'
+    player.move(SPEED, 0);
 
   });
 
   k.onKeyDown("w", () => {
     player.flipY = false;
     player.flipX = false;
-    player.move(0, -SPEED);
     player.dir = 'up'
+    player.move(0, -SPEED);
 
   });
 
   k.onKeyDown("s", () => {
     player.flipY = false;
     player.flipY = false;
-    player.move(0, SPEED);
     player.dir = 'down'
+    player.move(0, SPEED);
 
   });
 
   // Quando soltar qualquer tecla, voltar para a animação "idle"
-  k.onKeyRelease(() => {
-    if (player.dir === 'left') {
-      player.play("idle-right"); // Usa "idle-right" para a esquerda com flipX
-    } else {
-      player.play(`idle-${player.dir}`); // Usa a animação "idle" correspondente
-    }
-  });
+k.onKeyRelease(() => {
+  if (player.dir === 'left') {
+    player.play("idle-right"); // Usa "idle-right" para a esquerda com flipX
+  } else {
+    player.play(`idle-${player.dir}`); // Usa a animação "idle" correspondente
+  }
+});
 
   // Debug
   k.onKeyDown("i", () => {
@@ -148,6 +148,7 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
     "right": "run-right",
     "up": "run-up",
     "down": "run-down",
+
     "a": "run-right",
     "d": "run-right",
     "w": "run-up",
@@ -156,30 +157,44 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
 
   let activeKeys: any = {};
 
-  const keys = ["left", "right", "up", "down", "a", "d", "w", "s"];
+const keys = ["left", "right", "up", "down", "a", "d", "w", "s"];
 
-  keys.forEach((key) => {
-    k.onKeyPress(key, () => {
-      activeKeys[key] = true;
-      player.play(directions[player.dir]);
-    });
-
-    k.onKeyRelease(key, () => {
-      activeKeys[key] = false;
-    });
+keys.forEach((key) => {
+  k.onKeyPress(key, () => {
+    activeKeys[key] = true;
+    player.play(directions[key]);
   });
 
-  // Verifica a cada 100ms se a animação precisa ser corrigida
-  setInterval(() => {
-    if (player.getCurAnim()?.name?.startsWith("idle")) {
-      for (const key in activeKeys) {
-        if (activeKeys[key]) {
-          player.play(directions[player.dir]);
-          break; // Garante que só uma animação de movimento seja ativada
-        }
+  k.onKeyRelease(key, () => {
+    activeKeys[key] = false;
+    if (!Object.values(activeKeys).includes(true)) {
+      if(player.dir === 'left') {
+        player.play("idle-right");
+      } else {
+        player.play(`idle-${player.dir}`);
+    }
+    }
+  });
+});
+
+// Verifica a cada 100ms se a animação precisa ser corrigida
+setInterval(() => {
+  if (player.getCurAnim()?.name?.startsWith("idle")) {
+    for (const key in activeKeys) {
+      if (activeKeys[key]) {
+        player.play(directions[key]);
+        break; // Garante que só uma animação de movimento seja ativada
       }
     }
-  }, 250);
+  }
+}, 100);
+
+// keys.forEach((key) => {
+//   k.onKeyPress(key, () => {
+//     k.debug.log(player.dir);
+//   });
+// });
+
 
   return player;
 };
