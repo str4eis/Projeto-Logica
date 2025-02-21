@@ -21,7 +21,7 @@ export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => 
         k.body({ isStatic: cantMove }),
         k.anchor("center"),
         k.state("idle", ["idle", "move", "attack"]),
-        k.health(3),
+        k.health(4),
         {
             isTakingDmg: false,
         },
@@ -126,10 +126,13 @@ const setupEnemyStates = (enemy: any) => {
         if (enemy.hp() <= 0) {
             k.destroy(enemy);
             k.add([
+                k.color(190, 0, 0),
                 k.sprite("Explosion", { anim: "explode" }),
                 k.pos(enemy.pos),
                 k.scale(3),
                 k.anchor("center"),
+                k.lifespan(0.4),
+                k.opacity(1),
             ]);
             
         }

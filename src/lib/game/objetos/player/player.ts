@@ -16,6 +16,7 @@ export const createPlayer = (direction: string) => {
       shape: new k.Rect(k.vec2(0, 0), 14, 14),
     }),
     k.body(),
+    k.health(20),
     k.anchor("center"),
     k.scale(4),
     {

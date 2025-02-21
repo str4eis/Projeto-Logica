@@ -113,7 +113,15 @@ const setupBossStates = ( boss: any) => {
      boss.onUpdate(() => {
         if ( boss.hp() <= 0) {
             k.destroy( boss);
-            k.addKaboom( boss.pos); // Efeito de explosão ao morrer
+            k.add([
+                k.color(190, 0, 0),
+                k.sprite("Explosion", { anim: "explode" }),
+                k.pos(boss.pos),
+                k.scale(4),
+                k.anchor("center"),
+                k.lifespan(0.4), // Duração da explosão
+                k.opacity(1),
+            ]);
         }
     });
 

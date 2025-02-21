@@ -103,14 +103,15 @@ export async function loadSprites(k: KAPLAYCtx) {
         "Explosion": {
             "x": 0,
             "y": 0,
-            "width": 192,
+            "width": 175,
             "height": 32,
-            "sliceX": 6,
+            "sliceX": 5,
             "anims": {
                 "explode": {
                     "from": 0,
-                    "to": 5,
+                    "to": 4,
                     "speed": 10,
+                    "loop": false,
                 },
             }
         }
