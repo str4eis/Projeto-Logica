@@ -23,7 +23,11 @@ export const createBoss = (tag: string, cantMove: boolean, mobType: string) => {
         k.anchor("center"),
         k.state("idle", ["idle", "move", "attack"]), // Adiciona estados
         k.health(15), // Adiciona vida ao inimigo
+        {
+            isTakingDmg: false,
+        },
         tag,
+        "enemy"
     ]);
     return  boss;
 };
@@ -99,7 +103,6 @@ const setupBossStates = ( boss: any) => {
             // Causa dano ao player
             player.hurt(1);
             k.shake(10); // Efeito de tela tremendo
-            k.play("hit"); // Toca um som de hit (se houver um carregado)
         }
 
         await k.wait(1); // Espera 1 segundo antes de voltar para "move"
@@ -121,4 +124,32 @@ const setupBossStates = ( boss: any) => {
             moveUpdateHandler = null; // Limpa a referência
         }
     });
+
+    boss.onHurt(() => {
+        if (boss.isTakingDmg) return; // se o boss já estiver tomando dano, não faz nada
+
+        boss.isTakingDmg = true;
+        boss.color = k.rgb(120, 20, 0); // Define a cor para vermelho
+
+        const player = k.get("player")[0]; // pega o player
+
+        if (player && player.exists()) {
+            const dir = boss.pos.sub(player.pos).unit(); // a direção do knockback
+            
+            const targetPos = boss.pos.add(dir.scale(25)); // a posição final do knockback
+
+            k.tween(boss.pos, targetPos, 0.15, (p) => { 
+                boss.pos = p;
+
+            }); // Animação de knockback
+
+            
+        }
+        k.wait(0.5, () => { // espera 0.5 segundos
+            boss.color = undefined; // reseta a cor
+            boss.isTakingDmg = false; // reseta a flag de dano
+        });
+
+    });
+
 };

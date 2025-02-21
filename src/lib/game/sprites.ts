@@ -99,6 +99,23 @@ export async function loadSprites(k: KAPLAYCtx) {
         }
     })
 
+    await k.loadSpriteAtlas("/assets/sprites/explosion.png", {
+        "Explosion": {
+            "x": 0,
+            "y": 0,
+            "width": 192,
+            "height": 32,
+            "sliceX": 6,
+            "anims": {
+                "explode": {
+                    "from": 0,
+                    "to": 5,
+                    "speed": 10,
+                },
+            }
+        }
+    })
+
     await k.loadSpriteAtlas("/assets/sprites/ogre.png", {
         "Ogre": {
             "x": 0,

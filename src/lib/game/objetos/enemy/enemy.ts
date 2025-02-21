@@ -14,6 +14,7 @@ export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => 
 
     const enemy = k.make([
         k.sprite(mobSprite), // Removemos a animação padrão "run" daqui
+        k.opacity(1),
         k.area(),
         k.pos(),
         k.scale(4),
@@ -21,7 +22,11 @@ export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => 
         k.anchor("center"),
         k.state("idle", ["idle", "move", "attack"]),
         k.health(3),
+        {
+            isTakingDmg: false,
+        },
         tag,
+        "enemy"
     ]);
 
     return enemy;
@@ -60,26 +65,47 @@ const setupEnemyStates = (enemy: any) => {
 
     // Estado "move": persegue o jogador
     enemy.onStateEnter("move", () => {
-        enemy.play("run"); // Define animação de corrida
+ enemy.play("run"); // Define animação de corrida
 
-        if (moveUpdateHandler) {
-            moveUpdateHandler.cancel();
+ if (moveUpdateHandler) {
+     moveUpdateHandler.cancel();
+ }
+
+ moveUpdateHandler = enemy.onUpdate(() => {
+     const player = k.get("player")[0];
+     if (!player || !player.exists()) return;
+
+     const dir = player.pos.sub(enemy.pos).unit();
+     enemy.move(dir.scale(250));
+
+     // Inverte sprite com base na direção do movimento
+     enemy.flipX = dir.x < 0;
+
+     // Se o player sair do range, volta para "idle"
+     if (enemy.pos.dist(player.pos) > DETECTION_RANGE) {
+         enemy.enterState("idle");
+     }
+ });
+    });
+
+    enemy.onHurt(() => {
+        if (enemy.isTakingDmg) return;
+        enemy.isTakingDmg = true;
+        enemy.color = k.rgb(120, 20, 0); // Define a cor para vermelho
+        const player = k.get("player")[0];
+        if (player && player.exists()) {
+            const dir = enemy.pos.sub(player.pos).unit();
+            const targetPos = enemy.pos.add(dir.scale(50));
+            k.tween(enemy.pos, targetPos, 0.3, (p) => {
+                enemy.pos = p;
+
+            }); // Animação de knockbac
+
+            
         }
-
-        moveUpdateHandler = enemy.onUpdate(() => {
-            const player = k.get("player")[0];
-            if (!player || !player.exists()) return;
-
-            const dir = player.pos.sub(enemy.pos).unit();
-            enemy.move(dir.scale(250));
-
-            // Inverte sprite com base na direção do movimento
-            enemy.flipX = dir.x < 0;
-
-            // Se o player sair do range, volta para "idle"
-            if (enemy.pos.dist(player.pos) > DETECTION_RANGE) {
-                enemy.enterState("idle");
-            }
+        k.wait(0.5, () => {
+            enemy.color = undefined;
+            enemy.isTakingDmg = false;
         });
     });
 
@@ -99,7 +125,13 @@ const setupEnemyStates = (enemy: any) => {
     enemy.onUpdate(() => {
         if (enemy.hp() <= 0) {
             k.destroy(enemy);
-            k.addKaboom(enemy.pos);
+            k.add([
+                k.sprite("Explosion", { anim: "explode" }),
+                k.pos(enemy.pos),
+                k.scale(3),
+                k.anchor("center"),
+            ]);
+            
         }
     });
 
