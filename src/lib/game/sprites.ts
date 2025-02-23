@@ -117,6 +117,7 @@ export async function loadSprites(k: KAPLAYCtx) {
         }
     })
 
+    //Mobs
     await k.loadSpriteAtlas("/assets/sprites/ogre.png", {
         "Ogre": {
             "x": 0,
@@ -406,8 +407,8 @@ export async function loadSprites(k: KAPLAYCtx) {
         }
     })
 
-    //Sprites de cenario
-
+    //Sprites do Level 0
+    //Decoração
     await k.loadSpriteAtlas("assets/sprites/big-tree.png", {
         "Tree": {
             "x": 11,
@@ -434,7 +435,7 @@ export async function loadSprites(k: KAPLAYCtx) {
 
     await k.loadSpriteAtlas("/assets/sprites/grass.png", {
 
-        //Sprites do Level 0
+        //Tiles
         "Grass": {
             "x": 16,
             "y": 16,
@@ -524,43 +525,100 @@ export async function loadSprites(k: KAPLAYCtx) {
     })
 
     //Sprites da dungeon 
+    
+    //Decoração
+    await k.loadSpriteAtlas("/assets/sprites/candlestick1.png", {
+        "Small-candlestick": {
+            "x": 0, 
+            "y": 0,
+            "sliceX": 4,
+            "width": 64,    
+            "height": 16,
+            "anims": {
+                "idle": {
+                    "from": 0,
+                    "to": 3,
+                    "speed": 5,
+                    "loop": true,
+                },
+            }
+        },
+
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/candlestick2.png", {
+        "Big-candlestick": {
+            "x": 0, 
+            "y": 0,
+            "sliceX": 4,
+            "width": 64,    
+            "height": 16,
+            "anims": {
+                "idle": {
+                    "from": 0,
+                    "to": 3,
+                    "speed": 5,
+                    "loop": true,
+                },
+            }
+        },
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/side-torch.png", {
+        "Side-torch": {
+            "x": 0, 
+            "y": 0,
+            "sliceX": 4,
+            "width": 64,    
+            "height": 16,
+            "anims": {
+                "idle": {
+                    "from": 0,
+                    "to": 3,
+                    "speed": 5,
+                    "loop": true,
+                },
+            }
+        },
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/torch.png", {
+        "Torch": {
+            "x": 0, 
+            "y": 0,
+            "sliceX": 4,
+            "width": 64,    
+            "height": 16,
+            "anims": {
+                "idle": {
+                    "from": 0,
+                    "to": 3,
+                    "speed": 5,
+                    "loop": true,
+                },
+            }
+        },
+    })
+
+    await k.loadSpriteAtlas("/assets/sprites/flag.png", {
+        "Flag": {
+            "x": 0, 
+            "y": 0,
+            "sliceX": 4,
+            "width": 64,    
+            "height": 16,
+            "anims": {
+                "idle": {
+                    "from": 0,
+                    "to": 3,
+                    "speed": 5,
+                    "loop": true,
+                },
+            }
+        },
+    })
 
     await k.loadSpriteAtlas("/assets/sprites/world.png", {
-        //Decoração
-        "Front-torch": {
-            "x": 0,
-            "y": 144,
-            "width": 16,
-            "height": 16,
-
-        },  
-        "Left-torch": {
-            "x": 16,
-            "y": 144,
-            "width": 16,
-            "height": 16,
-
-        },"Tall-candle": {
-            "x": 48,
-            "y": 144,
-            "width": 16,
-            "height": 16,
-
-        },  
-        "Low-candle": {
-            "x": 80,
-            "y": 144,
-            "width": 16,
-            "height": 16,
-
-        }, 
-        "Flag": {
-            "x": 64,
-            "y": 112,
-            "width": 16,
-            "height": 16,
-
-        }, 
         "Skull-and-bone": {
             "x": 112,
             "y": 112,
@@ -605,6 +663,20 @@ export async function loadSprites(k: KAPLAYCtx) {
         }, 
         
         //Tiles
+        "Bottom-left-corner-wall": {
+            "x": 0,
+            "y": 80,
+            "width": 16,
+            "height": 16,
+
+        },
+        "Bottom-right-corner-wall": {
+            "x": 48,
+            "y": 80,
+            "width": 16,
+            "height": 16,
+
+        },
         "Wall-top-left": {
             "x": 0,
             "y": 0,
@@ -665,6 +737,7 @@ export async function loadSprites(k: KAPLAYCtx) {
             "height": 16,
 
         },
+
         "Floor": {
             "x": 96,
             "y": 0,

@@ -33,20 +33,20 @@ export const LEVEL0 = [
 ];
 
 export const LEVEL1 = [
-    "qtttttttttttttjktttttttttttttp",
+    "qtttttttttpqttjkttpqtttttttttp",
+    "l         pq      pq         r",
+    "l         pq      pq         r",
+    "l         pq      pq         r",
+    "l         tt      tt         r",
     "l                            r",
     "l                            r",
     "l                            r",
     "l                            r",
-    "l                            r",
-    "l                            r",
-    "l                            r",
-    "l                            r",
-    "l                            r",
-    "l                            r",
-    "l                            r",
-    "l                            r",
-    "zbbbbbbbbbbbbbbbbbbbbbbbbbbbbm",
+    "l         yu      yu         r",
+    "l         rl      rl         r",
+    "l         rl      rl         r",
+    "l         rl      rl         r",
+    "zbbbbbbbbbmzbbbbbbmzbbbbbbbbbm",
 ];
 
 export const LEVEL2 = [
