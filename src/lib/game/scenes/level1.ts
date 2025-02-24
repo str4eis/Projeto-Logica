@@ -27,16 +27,16 @@ k.scene('level1', () => {
   const torch1: GameObj = spawnObject(16, 0, "torch", true, "Torch", true);
   const torch2: GameObj = spawnObject(13, 0, "torch", true, "Torch", true);
   //bandeiras
-  const flag1: GameObj = spawnObject(12, 0, "flag", true, "Flag", true);
-  const flag2: GameObj = spawnObject(17, 0, "flag", true, "Flag", true);
+  const flag1: GameObj = spawnObject(7, 0, "flag", true, "Flag", true);
+  const flag2: GameObj = spawnObject(4, 0, "flag", true, "Flag", true);
   //candelabros
-  const candlestick1: GameObj = spawnObject(1, 1, "candlestick", true, "Big-candlestick", true);
-  const candlestick2: GameObj = spawnObject(28, 1, "candlestick", true, "Big-candlestick", true);
-  const candlestick3: GameObj = spawnObject(1, 12, "candlestick", true, "Small-candlestick", true);
-  const candlestick4: GameObj = spawnObject(28, 12, "candlestick", true, "Small-candlestick", true);
+  const candlestick1: GameObj = spawnObject(2, 2, "candlestick", true, "Big-candlestick", true);
+  const candlestick2: GameObj = spawnObject(27, 2, "candlestick", true, "Big-candlestick", true);
+  const candlestick3: GameObj = spawnObject(3, 11, "candlestick", true, "Small-candlestick", true);
+  const candlestick4: GameObj = spawnObject(26, 11, "candlestick", true, "Small-candlestick", true);
   //teias
-  const teia1: GameObj = spawnObject(1,k.randi(2, 12), "teia", true, "Left-spider-web", false,false);
-  const teia2: GameObj = spawnObject(28, k.randi(2, 12), "teia", true, "Right-spider-web", false,false);
+  const teia1: GameObj = spawnObject(1,k.randi(3, 10), "teia", true, "Left-spider-web", false,false);
+  const teia2: GameObj = spawnObject(28, k.randi(3, 10), "teia", true, "Right-spider-web", false,false);
   //pedras
   const stone1: GameObj = spawnObject(k.randi(2, 9), k.randi(1, 13), "stone", true, "Small-stones", false, false);
   const stone2: GameObj = spawnObject(k.randi(2, 9), k.randi(1, 13), "stone", true, "Big-stones", false,false);

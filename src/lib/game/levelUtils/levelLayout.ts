@@ -33,9 +33,9 @@ export const LEVEL0 = [
 ];
 
 export const LEVEL1 = [
-    "qtttttttttpqttjkttpqtttttttttp",
-    "l         pq      pq         r",
-    "l         pq      pq         r",
+    "iiiqttttpiiqttjkttpiiqttttriii",
+    "iqtt    ttpq      pqtt    ttpi",
+    "lt        pq      pq        tr",
     "l         pq      pq         r",
     "l         tt      tt         r",
     "l                            r",
@@ -44,9 +44,9 @@ export const LEVEL1 = [
     "l                            r",
     "l         yu      yu         r",
     "l         rl      rl         r",
-    "l         rl      rl         r",
-    "l         rl      rl         r",
-    "zbbbbbbbbbmzbbbbbbmzbbbbbbbbbm",
+    "zbu       rl      rl       ybm",
+    "iizu    ybmzbu  ybmzbu    ymii",
+    "iiizbbbbmiiiizbbmiiiizbbbbmiii",
 ];
 
 export const LEVEL2 = [
