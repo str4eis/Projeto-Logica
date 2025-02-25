@@ -20,6 +20,7 @@ export function createLevel(levelData: string[], tileSize: number = TILE_SIZE) {
         "b": () => [k.sprite("Wall-bottom-middle", { frame: k.randi(4) }), k.scale(4), k.body({ isStatic: true }), k.area(), "parede"],
         "y": () => [k.sprite("Bottom-left-corner-wall"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "u": () => [k.sprite("Bottom-right-corner-wall"), k.scale(4), k.area(), k.body({ isStatic: true })],
+        "i": () => [k.sprite("Shadow"), k.scale(4), k.area(), k.body({ isStatic: true })],
         //Sprites Grama
         "w": () => [k.sprite("Wall-top-grass"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "a": () => [k.sprite("Wall-bottom-grass"), k.scale(4), k.area(), k.body({ isStatic: true })],

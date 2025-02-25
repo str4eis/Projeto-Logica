@@ -663,6 +663,13 @@ export async function loadSprites(k: KAPLAYCtx) {
         }, 
         
         //Tiles
+        "Shadow": {
+            "x": 128,
+            "y": 112,
+            "width": 16,
+            "height": 16,
+
+        },
         "Bottom-left-corner-wall": {
             "x": 0,
             "y": 80,
