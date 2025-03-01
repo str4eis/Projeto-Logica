@@ -93,6 +93,9 @@ const setupBossStates = ( boss: any) => {
             if (distance > DETECTION_RANGE) {
                  boss.enterState("idle"); // Volta para o estado "idle" se o jogador sair do range
             }
+            if (boss.pos.dist(player.pos) <= 75) {
+                boss.enterState("attack");
+            }
         });
     });
 
@@ -101,8 +104,8 @@ const setupBossStates = ( boss: any) => {
         const player = k.get("player")[0]; // Obtém o player
         if (player && player.exists()) {
             // Causa dano ao player
-            player.hurt(1);
-            k.shake(10); // Efeito de tela tremendo
+            player.hurt(3);
+            k.shake(20); // Efeito de tela tremendo
         }
 
         await k.wait(1); // Espera 1 segundo antes de voltar para "move"

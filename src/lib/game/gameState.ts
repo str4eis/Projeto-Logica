@@ -1,5 +1,7 @@
 //variaveis globais
 import { writable } from 'svelte/store';
+// Variável para controlar a vida do jogador
+export const playerHealth = writable(20);
 
 // Cria um store writable com o estado inicial
 export const gameState = writable({
@@ -13,3 +15,4 @@ export const updateGameState = (newState: { COIN?: boolean }) => {
         ...newState
     }));
 };
+

@@ -65,27 +65,30 @@ const setupEnemyStates = (enemy: any) => {
 
     // Estado "move": persegue o jogador
     enemy.onStateEnter("move", () => {
- enemy.play("run"); // Define animação de corrida
+        enemy.play("run"); // Define animação de corrida
 
- if (moveUpdateHandler) {
-     moveUpdateHandler.cancel();
- }
+        if (moveUpdateHandler) {
+            moveUpdateHandler.cancel();
+        }
 
- moveUpdateHandler = enemy.onUpdate(() => {
-     const player = k.get("player")[0];
-     if (!player || !player.exists()) return;
+        moveUpdateHandler = enemy.onUpdate(() => {
+            const player = k.get("player")[0];
+            if (!player || !player.exists()) return;
 
-     const dir = player.pos.sub(enemy.pos).unit();
-     enemy.move(dir.scale(250));
+            const dir = player.pos.sub(enemy.pos).unit();
+            enemy.move(dir.scale(250));
 
-     // Inverte sprite com base na direção do movimento
-     enemy.flipX = dir.x < 0;
+            // Inverte sprite com base na direção do movimento
+            enemy.flipX = dir.x < 0;
 
-     // Se o player sair do range, volta para "idle"
-     if (enemy.pos.dist(player.pos) > DETECTION_RANGE) {
-         enemy.enterState("idle");
-     }
- });
+            // Se o player sair do range, volta para "idle"
+            if (enemy.pos.dist(player.pos) > DETECTION_RANGE) {
+                enemy.enterState("idle");
+            }
+            if (enemy.pos.dist(player.pos) <= 50) {
+                enemy.enterState("attack");
+            }
+        });
     });
 
     enemy.onHurt(() => {
@@ -101,7 +104,7 @@ const setupEnemyStates = (enemy: any) => {
 
             }); // Animação de knockbac
 
-            
+
         }
         k.wait(0.5, () => {
             enemy.color = undefined;
@@ -134,7 +137,7 @@ const setupEnemyStates = (enemy: any) => {
                 k.lifespan(0.4),
                 k.opacity(1),
             ]);
-            
+
         }
     });
 

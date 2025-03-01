@@ -774,4 +774,25 @@ export async function loadSprites(k: KAPLAYCtx) {
 
         },
     })
+
+    await k.loadSpriteAtlas("/assets/sprites/Healthbar.png", {
+        "mold": {
+            "x": 1, 
+            "y": 1,
+            "width": 78,    
+            "height": 20,
+            
+        },
+        "bar":{
+            "x": 21, 
+            "y": 27,
+            "width": 56,    
+            "height": 4,
+
+          }
+    })
+
+
+
+
 }

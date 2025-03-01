@@ -8,7 +8,7 @@ import '$lib/game/scenes/level5';
 import '$lib/game/scenes/level6';
 import '$lib/game/scenes/levelWin';
 
-export const createPlayer = (direction: string) => {
+export const createPlayer = (direction: string, hp: number) => {
   const player = k.make([
     k.sprite("Kael", { anim: `idle-${direction}` }),
     k.pos(0, 0),
@@ -16,7 +16,7 @@ export const createPlayer = (direction: string) => {
       shape: new k.Rect(k.vec2(0, 0), 14, 14),
     }),
     k.body(),
-    k.health(20),
+    k.health(hp),
     k.anchor("center"),
     k.scale(4),
     {
@@ -30,8 +30,8 @@ export const createPlayer = (direction: string) => {
   return player;
 }
 
-export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
-  const player = k.add(createPlayer(dir));
+export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: number = 20) => {
+  const player = k.add(createPlayer(dir , hp));
   player.pos = k.vec2(x * TILE_SIZE, y * TILE_SIZE);
 
   const movePlayer = (dx: number, dy: number, direction: string) => {
@@ -243,6 +243,35 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
     setTimeout(() => {
     }, 100); // Ajuste o tempo conforme necessário
   });
+
+  k.add([
+    k.sprite("mold"),
+    k.scale(5),
+    k.pos(10, 10),
+    k.layer('ui')
+  ]);
+
+  const healthBar = k.add([
+    k.sprite("bar"),
+    k.scale(5),
+    k.pos(109, 52),
+    k.layer('ui')
+  ]);
+
+  // Atualiza a barra de vida com base na porcentagem de vida do jogador
+  const updateHealthBar = () => {
+    const healthPercentage = player.hp() / 20 ;
+    healthBar.scale.x = healthPercentage * 5; // Ajuste o valor conforme necessário
+  };
+
+  // Chame updateHealthBar sempre que a vida do jogador mudar
+  player.on("hurt", updateHealthBar);
+  player.on("heal", updateHealthBar);
+
+  // Inicialize a barra de vida na criação do jogador
+  updateHealthBar();
+
+
 
   return player;
 };
