@@ -1,28 +1,29 @@
 import type { GameObj } from 'kaplay';
 import {
 	k,
-	TILE_SIZE,
 	loadSprites,
+	loadDecorationSprites,
+	loadEnemies3Sprites,
+	loadEffectsSprites,
+	loadDungeonSprites,
+
 	spawnPlayer,
 	createLevel,
 	spawnEnemy,
 	spawnObject
 } from '../levelUtils/imports';
 import { LEVEL5 } from '../levelUtils/levelLayout';
-import { FLOOR } from '../levelUtils/levelLayout';
 import './level6.ts';
 await loadSprites(k);
+await loadDecorationSprites(k);
+await loadEnemies3Sprites(k);
+await loadEffectsSprites(k);
+await loadDungeonSprites(k);
 
 k.scene('level5', () => {
 	k.setBackground(37, 19, 26);
 
-	k.addLevel(FLOOR, {
-		tileHeight: TILE_SIZE,
-		tileWidth: TILE_SIZE,
-		tiles: {
-			' ': () => [k.sprite('Floor', { frame: k.randi(12) }), k.scale(4)]
-		}
-	});
+
 
 	createLevel(LEVEL5);
 	//decoração
@@ -56,6 +57,14 @@ k.scene('level5', () => {
 	spawnObject(k.randi(12, 17), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Bones', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
+	
+	
+	spawnObject(0,4, 'porta', true, 'Door', false, true,6 );
+	spawnObject(0,5, 'porta', true, 'Door', false, true,10 );
+	
+	spawnObject(23,0, 'porta', true, 'Door', false, true,0 );
+	spawnObject(24,0, 'porta', true, 'Door', false, true,1 );
+
 	//mobs
 	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'demon');
 	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'demon');
@@ -63,6 +72,7 @@ k.scene('level5', () => {
 	spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'demon');
 	spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'demon');
 	spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'demon');
+
 	//player
 	const player: GameObj = spawnPlayer(15, 12);
 

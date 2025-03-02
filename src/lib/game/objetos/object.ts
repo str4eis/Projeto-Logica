@@ -6,12 +6,13 @@ export const createObject = (
     cantMove: boolean,
     spriteName: string,
     hasAnimation: boolean = false,
-    canCollide: boolean = true
+    canCollide: boolean = true,
+    frame: number = 0
 ) => {
-    const spriteConfig = hasAnimation ? { anim: "idle" } : {}; // Só adiciona animação se necessário
+    const spriteConfig = hasAnimation ? { anim: "idle" } : {frame:frame}; // Só adiciona animação se necessário
 
     const object = k.make([
-        k.sprite(spriteName, spriteConfig), // Configura o sprite de acordo com hasAnimation
+        k.sprite(spriteName, spriteConfig ), // Configura o sprite de acordo com hasAnimation
         k.scale(4),
         k.pos(),
         canCollide ? k.area() : null, // Adiciona área de colisão apenas se canCollide for true
@@ -29,9 +30,10 @@ export const spawnObject = (
     cantMove: boolean = true,
     spriteName: string,
     hasAnimation: boolean = false,
-    canCollide: boolean = true 
+    canCollide: boolean = true ,
+    frame: number = 0
 ) => {
-    const object = k.add(createObject(tag, cantMove, spriteName, hasAnimation, canCollide));
+    const object = k.add(createObject(tag, cantMove, spriteName, hasAnimation, canCollide,frame));
     object.pos = k.vec2(x * TILE_SIZE, y * TILE_SIZE);
     return object;
 };

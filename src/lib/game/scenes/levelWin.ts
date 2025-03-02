@@ -1,26 +1,24 @@
 import type { GameObj } from 'kaplay';
 import {
 	k,
-	TILE_SIZE,
 	loadSprites,
+	loadDecorationSprites,
+	loadEffectsSprites,
+	loadDungeonSprites,
 	spawnPlayer,
 	createLevel,
 	spawnObject
 } from '../levelUtils/imports';
 import { LEVEL_WIN } from '../levelUtils/levelLayout';
-import { FLOOR } from '../levelUtils/levelLayout';
+import { goto } from '$app/navigation';
 await loadSprites(k);
+await loadDecorationSprites(k);
+await loadEffectsSprites(k);
+await loadDungeonSprites(k);
 
 k.scene('levelWin', () => {
 	k.setBackground(37, 19, 26);
 
-	k.addLevel(FLOOR, {
-		tileHeight: TILE_SIZE,
-		tileWidth: TILE_SIZE,
-		tiles: {
-			' ': () => [k.sprite('Floor', { frame: k.randi(12) }), k.scale(4)]
-		}
-	});
 
 	createLevel(LEVEL_WIN);
 	//decoração
@@ -45,6 +43,15 @@ k.scene('levelWin', () => {
 	spawnObject(k.randi(12, 17), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'stone', true, 'Small-stones', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
+	
+	//potas
+	spawnObject(15,0, 'porta', true, 'Door', false, true,0 );
+	spawnObject(14,0, 'porta', true, 'Door', false, true,1 );
+	spawnObject(14,13, 'porta', true, 'Door', false, true,0 );
+	spawnObject(15,13, 'porta', true, 'Door', false, true,1 );
+	
+	
+	
 	//caveiras e ossos
 	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Bones', false, false);
 	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Skull-and-bone', false, false);
@@ -56,6 +63,6 @@ k.scene('levelWin', () => {
 	const player: GameObj = spawnPlayer(15, 12);
 
 	player.onCollide('porta', () => {
-		window.location.href = '/';
+		goto('/')
 	});
 });

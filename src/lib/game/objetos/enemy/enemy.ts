@@ -16,18 +16,48 @@ export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => 
         k.sprite(mobSprite), // Removemos a animação padrão "run" daqui
         k.opacity(1),
         k.area(),
+        k.z(4),
         k.pos(),
         k.scale(4),
         k.body({ isStatic: cantMove }),
         k.anchor("center"),
         k.state("idle", ["idle", "move", "attack"]),
-        k.health(4),
+        k.health(4,4),
         {
             isTakingDmg: false,
         },
         tag,
         "enemy"
     ]);
+
+    // Cria a barra de vida
+    const healthBarBg = k.add([
+        k.rect(40, 5),
+        k.color(255, 0, 0),
+        k.z(6),
+        k.pos(enemy.pos.x , enemy.pos.y - 30),
+        k.follow(enemy, k.vec2(-15, -30)),
+        "healthBarBg"
+    ]);
+
+    const healthBar = k.add([
+        k.rect(40, 5),
+        k.color(0, 255, 0),
+        k.z(6),
+        k.pos(enemy.pos.x, enemy.pos.y - 30),
+        k.follow(enemy, k.vec2(-15, -30)),
+        "healthBar"
+    ]);
+
+    enemy.onHurt(() => {
+        const healthPercentage = enemy.hp() / 4;
+        healthBar.width = 40 * healthPercentage;
+    });
+
+    enemy.onDestroy(() => {
+        k.destroy(healthBar);
+        k.destroy(healthBarBg);
+    });
 
     return enemy;
 };
@@ -115,7 +145,7 @@ const setupEnemyStates = (enemy: any) => {
     // Estado "attack": dano ao player e volta para "move"
     enemy.onStateEnter("attack", async () => {
         const player = k.get("player")[0];
-        if (player && player.exists()) {
+        if (player && player.exists() && player.hp() > 0) {
             player.hurt(1);
             k.shake(10);
         }
@@ -124,9 +154,23 @@ const setupEnemyStates = (enemy: any) => {
         enemy.enterState("move");
     });
 
+
     // Verifica se o inimigo morreu
     enemy.onUpdate(() => {
         if (enemy.hp() <= 0) {
+            if(k.rand(1) < 0.5){ 
+                k.add([
+                    k.sprite("heart", { anim: "idle" }),
+                    k.color(255, 0, 0),
+                    k.pos(enemy.pos),
+                    k.scale(2),
+                    k.area(),
+                    k.z(0),
+                    k.anchor("center"),
+                    "heart",
+                ]);
+            }
+        
             k.destroy(enemy);
             k.add([
                 k.color(190, 0, 0),
@@ -139,7 +183,10 @@ const setupEnemyStates = (enemy: any) => {
             ]);
 
         }
-    });
+    }
+    );
+
+    
 
     // Limpa o handler quando o estado "move" termina
     enemy.onStateEnd("move", () => {

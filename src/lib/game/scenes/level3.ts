@@ -3,6 +3,11 @@ import {
 	k,
 	TILE_SIZE,
 	loadSprites,
+	loadDecorationSprites,
+	loadEnemies2Sprites,
+	loadEffectsSprites,
+	loadDungeonSprites,
+
 	spawnPlayer,
 	createLevel,
 	spawnEnemy,
@@ -12,17 +17,14 @@ import { LEVEL3 } from '../levelUtils/levelLayout';
 import { FLOOR } from '../levelUtils/levelLayout';
 import './level4';
 await loadSprites(k);
+await loadDecorationSprites(k);
+await loadEnemies2Sprites(k);
+await loadEffectsSprites(k);
+await loadDungeonSprites(k);
 
 k.scene('level3', () => {
 	k.setBackground(37, 19, 26);
 
-	k.addLevel(FLOOR, {
-		tileHeight: TILE_SIZE,
-		tileWidth: TILE_SIZE,
-		tiles: {
-			' ': () => [k.sprite('Floor', { frame: k.randi(12) }), k.scale(4)]
-		}
-	});
 	createLevel(LEVEL3);
 	//decoração
 	//tochas
@@ -55,6 +57,13 @@ k.scene('level3', () => {
 	spawnObject(k.randi(12, 17), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Bones', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
+	
+	spawnObject(14,13, 'porta', true, 'Door', false, true,0 );
+	spawnObject(15,13, 'porta', true, 'Door', false, true,1 );
+	
+	spawnObject(29,6, 'porta', true, 'Door', false, true,5 );
+	spawnObject(29,7, 'porta', true, 'Door', false, true,9 );
+
 	//mobs
 	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ogre');
 	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ogre');

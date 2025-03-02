@@ -1,4 +1,5 @@
 import k, { SPEED, TILE_SIZE } from "$lib/game/kaplay";
+import { playerState } from "$lib/game/gameState";
 import '$lib/game/scenes/level0';
 import '$lib/game/scenes/level1';
 import '$lib/game/scenes/level2';
@@ -7,39 +8,39 @@ import '$lib/game/scenes/level4';
 import '$lib/game/scenes/level5';
 import '$lib/game/scenes/level6';
 import '$lib/game/scenes/levelWin';
+import { goto } from "$app/navigation";
 
-export const createPlayer = (direction: string, hp: number) => {
-  const player = k.make([
-    k.sprite("Kael", { anim: `idle-${direction}` }),
-    k.pos(0, 0),
+export const spawnPlayer = (x: number, y: number, dir: string = 'down') => {
+  const player = k.add([
+    k.sprite("Kael", { anim: `idle-${dir}` }),
+    k.pos(x * TILE_SIZE, y * TILE_SIZE),
     k.area({
       shape: new k.Rect(k.vec2(0, 0), 14, 14),
     }),
     k.body(),
-    k.health(hp),
+    k.z(4),
+
+    k.health(playerState.hp, playerState.maxHp),
     k.anchor("center"),
     k.scale(4),
     {
-      dir: direction,
-      isAttacking: false
+      dir: playerState.dir || dir,
+      isAttacking: false,
+      canMove: true,
+      hasDied: false,
     },
     "player",
     "kael"
   ]);
 
-  return player;
-}
-
-export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: number = 20) => {
-  const player = k.add(createPlayer(dir , hp));
-  player.pos = k.vec2(x * TILE_SIZE, y * TILE_SIZE);
-
   const movePlayer = (dx: number, dy: number, direction: string) => {
-    if (player.isAttacking) return;
+    if (player.isAttacking || playerState.hp <= 0 || player.hasDied) return;
     player.flipX = direction === 'left';
     player.flipY = false;
     player.dir = direction;
     player.move(dx, dy);
+    playerState.pos = player.pos;
+    playerState.dir = direction;
   };
 
   k.onKeyDown("left", () => movePlayer(-SPEED, 0, 'left'));
@@ -54,7 +55,7 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
 
   // Quando soltar qualquer tecla, voltar para a animação "idle"
   k.onKeyRelease(() => {
-    if (player.isAttacking) return;
+    if (player.isAttacking || playerState.hp <= 0 || player.hasDied) return;
 
     if (player.dir === 'left') {
       player.play("idle-right"); // Usa "idle-right" para a esquerda com flipX
@@ -100,6 +101,10 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
     k.go("levelWin");
   });
 
+  k.onKeyDown('e', () => {
+    player.heal(5)
+  });
+
   const directions: any = {
     "left": "run-right",
     "right": "run-right",
@@ -118,7 +123,8 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
 
   keys.forEach((key) => {
     k.onKeyPress(key, () => {
-      if (player.isAttacking) return;
+     
+      if (player.isAttacking || !player.canMove || player.hasDied) return;
 
       activeKeys[key] = true;
 
@@ -128,6 +134,8 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
     k.onKeyRelease(key, () => {
       activeKeys[key] = false;
       if (!Object.values(activeKeys).includes(true)) {
+        if (player.isAttacking || !player.canMove || player.hasDied) return;
+
         if (player.dir === 'left') {
           player.play(`idle-right`);
         } else {
@@ -139,12 +147,13 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
 
   // Verifica a cada 100ms se a animação precisa ser corrigida
   setInterval(() => {
+    if (!player.canMove || player.hp () <= 0 || player.hasDied) return;
     if (player.getCurAnim()?.name?.startsWith("idle")) {
       for (const key in activeKeys) {
         if (activeKeys[key]) {
           player.play(directions[key]);
           break; // Garante que só uma animação de movimento seja ativada
-        }
+        } 
       }
     }
   }, 100);
@@ -157,7 +166,7 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
 
   // Função para realizar o ataque
   const attack = () => {
-    if (player.isAttacking) return;
+    if (player.isAttacking || player.hp() <= 0 || player.hasDied) return;
 
     player.isAttacking = true;
     let attackArea;
@@ -231,10 +240,7 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
     }, attackDuration);
   };
 
-  // Evento de tecla para ataque (por exemplo, tecla "space")
-  k.onKeyPress("space", () => {
-    attack();
-  });
+  
 
   // Detectar colisão com inimigos
   k.onCollide("attack", "enemy", (attackArea, enemy) => {
@@ -244,33 +250,149 @@ export const spawnPlayer = (x: number, y: number, dir: string = 'down', hp: numb
     }, 100); // Ajuste o tempo conforme necessário
   });
 
-  k.add([
+  // Adiciona o texto do FPS na tela
+  const fpsText = k.add([
+    k.text(`FPS: ${k.debug.fps()}`, { size: 42 }),
+    k.pos(k.width() /2 , 0),
+    k.layer('ui'),
+  ]);
+
+  k.onUpdate(() => {
+    fpsText.text = `FPS: ${k.debug.fps()}`;
+  })
+
+  const healthFrame = k.add([
     k.sprite("mold"),
     k.scale(5),
     k.pos(10, 10),
-    k.layer('ui')
+    k.layer('ui'),
+    k.opacity(1)
+
   ]);
 
   const healthBar = k.add([
     k.sprite("bar"),
     k.scale(5),
     k.pos(109, 52),
-    k.layer('ui')
+    k.layer('ui'),
+    k.opacity(1)
+
   ]);
+
+  let healthUIVisible = true;
+  let healthUITimer: number = 3000;
+  
+  const showHealthUI = () => {
+    if (healthUIVisible) {
+      clearTimeout(healthUITimer);
+    } else {
+      healthBar.hidden = false;
+      healthFrame.hidden = false;
+      healthBar.opacity = 1;
+      healthFrame.opacity = 1;
+
+      
+      healthFrame.fadeIn(0.5);
+      healthBar.fadeIn(0.5);
+
+      healthUIVisible = true;
+    }
+  
+    healthUITimer = setTimeout(() => {
+      healthFrame.fadeOut(0.5);
+      healthBar.fadeOut(0.5);
+      healthUIVisible = false;
+    }, 3000);
+  };
+
+  k.onKeyPress("space", () => {
+    attack();
+    showHealthUI();
+  });
+
+  player.onCollide('heart', (heart) => {
+    player.heal(5);
+    heart.destroy();
+  })
 
   // Atualiza a barra de vida com base na porcentagem de vida do jogador
   const updateHealthBar = () => {
-    const healthPercentage = player.hp() / 20 ;
+    const healthPercentage = player.hp() / playerState.maxHp;
     healthBar.scale.x = healthPercentage * 5; // Ajuste o valor conforme necessário
   };
 
   // Chame updateHealthBar sempre que a vida do jogador mudar
-  player.on("hurt", updateHealthBar);
-  player.on("heal", updateHealthBar);
+  player.on("hurt", (amount) => {
+    if(!player.canMove) return
+    
+    if (player.hp() <= 0) {
+      player.hasDied = true;
+      player.canMove = false;
+      player.play("dead");
+      
+      k.wait(6, () => {
+        // Cria o menu com dois botões
+        const menu = k.add([
+          k.rect(200, 100),
+          k.z(5 ),
+          k.pos(k.width() / 2 - 100, k.height() / 2 - 50),
+          k.color(0, 0, 0),
+          k.layer('ui'),
+        ]);
+
+        const restartButton = k.add([
+          k.text("Restart", { size: 24 }),
+          k.pos(k.width() / 2 - 50, k.height() / 2 - 30),
+          k.layer('ui'),
+          k.z(6),
+          k.area(),
+          {
+        clickAction: () => {
+          location.reload();
+        }
+          },
+          "restart" 
+        ]);
+
+        const quitButton = k.add([
+          k.text("Quit", { size: 24 }),
+          k.pos(k.width() / 2 - 50, k.height() / 2 + 10),
+          k.layer('ui'),
+          k.area(),
+          k.z(6),
+          {
+        clickAction: () => {
+          goto("/").then(()=>{
+            location.reload();
+          });}
+          }
+        , "quit"
+        ]);
+
+        // Adiciona eventos de clique aos botões
+        k.onClick("restart",(restartButton) => {
+          restartButton.clickAction();
+        });
+
+        k.onClick("quit",(quitButton) => {
+          quitButton.clickAction();
+        });
+      });
+    }
+   
+    playerState.hp = player.hp();
+    
+
+    updateHealthBar();
+  });
+  player.on("heal", (amount) => {
+    playerState.hp = player.hp();
+    updateHealthBar();
+  });
 
   // Inicialize a barra de vida na criação do jogador
   updateHealthBar();
-
+  showHealthUI();
 
 
   return player;

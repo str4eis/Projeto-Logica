@@ -11,43 +11,17 @@ import { LEVEL0 } from '../levelUtils/levelLayout';
 import { FLOOR } from '../levelUtils/levelLayout';
 import { updateObjectFlipX } from '../objetos/object';
 import './level1';
+import { loadWorldSprites } from '../worldSprites';
 
 await loadSprites(k);
+await loadWorldSprites(k);
 
 k.scene('level0', () => {
 	k.setBackground(62, 137, 72);
 
-	k.addLevel(FLOOR, {
-		tileHeight: TILE_SIZE,
-		tileWidth: TILE_SIZE,
-		tiles: {
-			' ': () => {
-				const tileType: string = k.choose([
-					'Marked-grass',
-					'Grass',
-					'Grass',
-					'Grass',
-					'Grass',
-					'Grass',
-					'Grass'
-				]);
-				if (tileType === 'Grass') {
-					return [k.sprite('Grass'), k.scale(4)];
-				} else {
-					return [
-						k.sprite('Marked-grass', {
-							frame: k.randi(3),
-							flipX: k.choose([true, false]),
-							flipY: k.choose([true, false])
-						}),
-						k.scale(4)
-					];
-				}
-			}
-		}
-	});
+	
 
-	createLevel(LEVEL0);
+	createLevel(LEVEL0, "forest");
 	const npc: GameObj = spawnObject(17, 4, 'npc', true, 'Npc', true);
 	// Árvores lado direito
 	spawnObject(28, 12, 'tree', true, 'Small-tree', false);
