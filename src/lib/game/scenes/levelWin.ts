@@ -98,12 +98,12 @@ k.scene('levelWin', () => {
 				['Npc', 'I am Aelric, the Guardian of the Dungeon. This place is a test for those who seek power.'],
 				['Kael', 'A test? You imprisoned innocent people just for that?'],
 				['Npc', 'No one here is innocent, Kael. Everyone carries guilt. You know that.'],
-				['Kael', 'I did what I had to do to survive.'],
+				['Kael', 'I did what I had to do to survive.z'],
 				['Npc', 'You have proven yourself worthy. Now, you have a choice: leave this place or take my place as the Guardian.'],
 				['Kael', 'Take your place? Trapped here forever? Never.'],
 				['Npc', 'Then, your journey ends here. Use the power you’ve found wisely.'],
 				['Kael', 'I just want my freedom.'],
-				['Narrator', 'Aelric raises his hands, and a bright light envelops Kael. The ground shakes, and the walls of the Dungeon begin to dissolve. In an instant, Kael is pulled away, as if the labyrinth itself is expelling him.'],
+				['Narrator', 'Aelric raises his hands, and a bright light envelops Kael. The ground shakes, and the walls of the Dungeon begin to dissolve. In an instant, Kael is pulled away, as if the dungeon itself is expelling him.'],
 			];
 		
 			let curDialog: number = 0;
