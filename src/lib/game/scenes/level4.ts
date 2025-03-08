@@ -21,10 +21,13 @@ await loadEnemies2Sprites(k);
 await loadEffectsSprites(k);
 await loadDungeonSprites(k);
 
-
 k.scene('level4', () => {
 	k.setBackground(37, 19, 26);
 	createLevel(LEVEL4);
+
+	let enemiesRemaining = 7;
+	let canEnter = false;
+
 	//decoração
 	//tochas
 	spawnObject(16, 0, 'torch', true, 'Torch', true);
@@ -54,25 +57,44 @@ k.scene('level4', () => {
 	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Skull-and-bone', false, false);
 	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Bones', false, false);
 	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Skull-and-bone', false, false);
-	
 
-	spawnObject(0,6, 'porta', true, 'Door', false, true,6 );
-	spawnObject(0,7, 'porta', true, 'Door', false, true,10 );
-	spawnObject(29,4, 'porta', true, 'Door', false, true,5 );
-	spawnObject(29,5, 'porta', true, 'Door', false, true,9 );
-	
+	const door1 = spawnObject(0, 6, 'porta', true, 'Door', false, true, 6);
+	const door2 = spawnObject(0, 7, 'porta', true, 'Door', false, true, 10);
+	const door3 = spawnObject(29, 4, 'porta', true, 'Door', false, true, 5);
+	const door4 = spawnObject(29, 5, 'porta', true, 'Door', false, true, 9);
+
 	//mobs
-	spawnBoss(17, 4, 'Boss', false, 'Ogre');
-	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ogre');
-	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ogre');
-	spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ogre');
-	spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ogre');
-	spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ogre');
-	spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ogre');
+	const enemies: GameObj[] = [
+		spawnBoss(17, 4, 'Boss', false, 'Ogre'),
+		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ogre'),
+		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ogre'),
+		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ogre'),
+		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ogre'),
+		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ogre'),
+		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ogre')
+	];
+
+	enemies.forEach((enemy) => {
+		enemy.onDestroy(() => {
+			enemiesRemaining--;
+			k.debug.log(`Inimigos restantes: ${enemiesRemaining}`);
+
+			// Se todos os inimigos foram derrotados, permite a entrada
+			if (enemiesRemaining <= 0) {
+				canEnter = true;
+				k.debug.log('A porta está aberta!');
+			}
+		});
+	});
+
 	//player
-	const player: GameObj = spawnPlayer(15, 12);
+	const player: GameObj = spawnPlayer(2, 7);
 
 	player.onCollide('porta', () => {
-		k.go('level5');
+		if (canEnter) {
+			k.go('level5');
+		} else {
+			k.debug.log('Derrote todos os inimigos primeiro!');
+		}
 	});
 });

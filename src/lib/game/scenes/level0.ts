@@ -19,9 +19,7 @@ await loadWorldSprites(k);
 k.scene('level0', () => {
 	k.setBackground(62, 137, 72);
 
-	
-
-	createLevel(LEVEL0, "forest");
+	createLevel(LEVEL0, 'forest');
 	const npc: GameObj = spawnObject(17, 4, 'npc', true, 'Npc', true);
 	// Árvores lado direito
 	spawnObject(28, 12, 'tree', true, 'Small-tree', false);
