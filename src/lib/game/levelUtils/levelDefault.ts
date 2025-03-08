@@ -10,12 +10,33 @@ export function createLevel(
 	tileSize: number = TILE_SIZE
 ) {
 	const tileDefinitions: TileDefinitions = {
-		' ': () => [
-			k.sprite(world === 'dungeon' ? 'Floor' : k.randi(5) === 1 ? 'Marked-grass' : 'Grass', {
-				frame: world === 'dungeon' ? k.randi(2) : 0
-			}),
-			k.scale(4)
-		],
+		' ': () => {
+            if (world === "dungeon") {
+                return [k.sprite("Floor", { frame: k.randi(2) }), k.scale(4)];
+            } else {
+                const tileType: string = k.choose([
+                    'Marked-grass',
+                    'Grass',
+                    'Grass',
+                    'Grass',
+                    'Grass',
+                    'Grass',
+                    'Grass'
+                ]);
+                if (tileType === 'Grass') {
+                    return [k.sprite('Grass'), k.scale(4)];
+                } else {
+                    return [
+                        k.sprite('Marked-grass', {
+                            frame: k.randi(3),
+                            flipX: k.choose([true, false]),
+                            flipY: k.choose([true, false])
+                        }),
+                        k.scale(4)
+                    ];
+                }
+            }
+        },
 
 		// Sprites Dungeon
 		t: () => [
