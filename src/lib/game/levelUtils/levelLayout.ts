@@ -155,18 +155,18 @@ export const LEVEL6 = [
 ];
 
 export const LEVEL_WIN = [
-	'---qttttttttttttttttttttttr---',
-	'-qtt                      ttp-',
-	'lt                          tr',
-	'l                            r',
-	'l                            r',
-	'l                            r',
-	'l                            r',
-	'l                            r',
-	'l                            r',
-	'l                            r',
-	'l                            r',
-	'zbu                        ybm',
-	'--zu                      ym--',
-	'---zbbbbbbbbbbbbbbbbbbbbbbm---'
+	'------qttttttttttttttttr-----',
+	'----qtt                ttp----',
+	'---lt                    tr---',
+	'---l                      r---',
+	'---l                      r---',
+	'---l                      r---',
+	'---l                      r---',
+	'---l                      r---',
+	'---l                      r---',
+	'---l                      r---',
+	'---l                      r---',
+	'---zbu                  ybm---',
+	'-----zu                ym-----',
+	'------zbbbbbbbbbbbbbbbbm------'
 ];

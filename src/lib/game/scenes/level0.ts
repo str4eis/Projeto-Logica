@@ -18,7 +18,7 @@ await loadWorldSprites(k);
 
 k.scene('level0', () => {
 	k.setBackground(62, 137, 72);
-
+	
 	createLevel(LEVEL0, 'forest');
 	const npc: GameObj = spawnObject(17, 4, 'npc', true, 'Npc', true);
 	// Árvores lado direito
@@ -39,10 +39,6 @@ k.scene('level0', () => {
 	spawnObject(7, 9, 'tree', true, 'Tree', false);
 	spawnObject(1, 10, 'tree', true, 'Tree', false);
 	const player: GameObj = spawnPlayer(15, 12);
-
-	player.onCollide('porta', () => {
-		k.go('level1');
-	});
 
 	player.onCollide('npc', () => {
 		startDialogue();
