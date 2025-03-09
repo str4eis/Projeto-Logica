@@ -11,7 +11,7 @@ import { LEVEL0 } from '../levelUtils/levelLayout';
 import { FLOOR } from '../levelUtils/levelLayout';
 import { updateObjectFlipX } from '../objetos/object';
 import './level1';
-import { loadWorldSprites } from '../worldSprites';
+import { loadWorldSprites } from './sprites/worldSprites';
 
 await loadSprites(k);
 await loadWorldSprites(k);
@@ -85,16 +85,10 @@ k.scene('level0', () => {
 				['Npc', "We'll see... The path has already chosen you."],
 				['Kael', 'What do you mean by that?'],
 				['Npc', 'Your fate is sealed.'],
-				[
-					'Narrador',
-					'The hooded figure raises his hand. An arcane circle appears, and dark chains bind Kael.'
-				],
+				['Narrador', 'The hooded figure raises his hand. An arcane circle appears, and dark chains bind Kael.'],
 				['Kael', 'What?! Damn you!'],
 				['Npc', 'If you survive... perhaps we shall meet again.'],
-				[
-					'Narrador',
-					'The chains glow, and Kael is pulled into a dark vortex. The forest fades, leaving only darkness... Until he awakens in the *Dungeon of Eternity*.'
-				]
+				['Narrador', 'The chains glow, and Kael is pulled into a dark vortex. The forest fades, leaving only darkness... Until he awakens in the Dungeon of Eternity.']
 			];
 
 			let curDialog: number = 0;

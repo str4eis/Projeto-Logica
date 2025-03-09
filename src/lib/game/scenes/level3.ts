@@ -80,7 +80,7 @@ k.scene('level3', () => {
 	enemies.forEach((enemy) => {
 		enemy.onDestroy(() => {
 			enemiesRemaining--;
-			k.debug.log(`Inimigos restantes: ${enemiesRemaining}`);
+			// k.debug.log(`Inimigos restantes: ${enemiesRemaining}`);
 
 			// Se todos os inimigos foram derrotados, permite a entrada
 			if (enemiesRemaining <= 0) {
@@ -97,7 +97,7 @@ k.scene('level3', () => {
 		if (canEnter) {
 			k.go('level4');
 		} else {
-			k.debug.log('Derrote todos os inimigos primeiro!');
+			// k.debug.log('Derrote todos os inimigos primeiro!');
 		}
 	});
 });
