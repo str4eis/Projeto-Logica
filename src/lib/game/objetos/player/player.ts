@@ -414,7 +414,7 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   // Atualiza a barra de vida com base na porcentagem de vida do jogador
   const updateHealthBar = () => {
     const healthPercentage = player.hp() / playerState.maxHp;
-    healthBar.scale.x = healthPercentage * 5; // Ajuste o valor conforme necessário
+    healthBar.scale.x = healthPercentage * 20; // Ajuste o valor conforme necessário
   };
 
   // Chame updateHealthBar sempre que a vida do jogador mudar
