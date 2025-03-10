@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 export const playerHealth = writable(20);
 
 export const playerState = {
-	hp: 5,
+	hp: 20,
 	maxHp: 20,
 	pos: { x: 0, y: 0 },
 	dir: 'down'

@@ -406,15 +406,30 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   });
 
   player.onCollide("heart", (heart) => {
-    player.heal(5);
+
+    const currentHP = player.hp(); // Obtenha o HP atual do jogador
+    const healAmount = 5; // Quantidade de cura padrão
+  
+    // Verifica se a cura excede o limite máximo de HP
+    if (currentHP + healAmount > playerState.maxHp) {
+      // Cura apenas o necessário para atingir o máximo
+      player.heal(playerState.maxHp - currentHP);
+    } else {
+      // Cura a quantidade padrão
+      player.heal(healAmount);
+    }
+  
+    // Destroi o coração após a cura
     heart.destroy();
+  
+    // Atualiza a interface de saúde
     showHealthUI();
   });
 
   // Atualiza a barra de vida com base na porcentagem de vida do jogador
   const updateHealthBar = () => {
     const healthPercentage = player.hp() / playerState.maxHp;
-    healthBar.scale.x = healthPercentage * 20; // Ajuste o valor conforme necessário
+    healthBar.scale.x = healthPercentage * 5; // Ajuste o valor conforme necessário
   };
 
   // Chame updateHealthBar sempre que a vida do jogador mudar
