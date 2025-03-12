@@ -39,6 +39,101 @@ export async function loadEffectsSprites(k: KAPLAYCtx) {
             
         }
     })
+
+    // buttons
+    await k.loadSpriteAtlas("/assets/sprites/ui.png", {
+        "pause-btn": {
+            "x": 448,
+            "y": 32,
+            "width": 86,
+            "height": 44,
+            "sliceX": 2,
+        },
+
+        "mini-close-btn": {
+            "x": 545,
+            "y": 33,
+            "width": 14,
+            "height": 14,
+        },
+
+        "primary-btn-lg": {
+            "x": 16,
+            "y": 16,
+            "width": 232,
+            "height": 30,
+            "sliceX": 2,
+            
+        },
+        "secondary-btn-lg": {
+            "x": 16,
+            "y": 48,
+            "width": 232,
+            "height": 23,
+            "sliceX": 2,
+        },
+        "secondary-btn-lg-alt": {
+            "x": 176,
+            "y": 192,
+            "width": 232,
+            "height": 23,
+            "sliceX": 2,
+        },
+        "danger-btn-lg": {
+            "x": 16,
+            "y": 80,
+            "width": 232,
+            "height": 23,
+            "sliceX": 2
+        },
+        "primary-btn-sm": {
+            "x": 256,
+            "y": 16,
+            "width": 126,
+            "height": 24,
+            "sliceX": 2,
+            
+        },
+        "secondary-btn-sm": {
+            "x": 256,
+            "y": 48,
+            "width": 126,
+            "height": 24,
+            "sliceX": 2,
+            
+        },
+        "danger-btn-sm": {
+            "x": 256,
+            "y": 80,
+            "width": 126,
+            "height": 24,
+            "sliceX": 2,
+            
+        },
+    })
+
+    // screens
+    await k.loadSpriteAtlas("/assets/sprites/ui.png", {
+        "pause-menu": {
+            "x": 16,
+            "y": 112,
+            "width": 148,
+            "height": 167
+        },
+        "game-over": {
+            "x": 176,
+            "y": 112,
+            "width": 148,
+            "height": 62,
+        },
+        "controls": {
+            "x": 176,
+            "y": 224,
+            "width": 230,
+            "height": 158,
+        },
+
+    })
 }
 
 

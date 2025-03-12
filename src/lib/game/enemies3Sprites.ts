@@ -18,7 +18,7 @@ export async function loadEnemies3Sprites(k: KAPLAYCtx) {
                 "run": {
                     "from": 4,
                     "to": 7,
-                    "speed": 5,
+                    "speed": 24,
                     "loop": true,
                 },
             }

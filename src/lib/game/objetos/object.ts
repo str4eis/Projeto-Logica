@@ -17,7 +17,8 @@ export const createObject = (
         k.pos(),
         canCollide ? k.area() : null, // Adiciona área de colisão apenas se canCollide for true
         k.body({ isStatic: cantMove }),
-        tag
+        tag,
+        hasAnimation ? "animated" : null, // Adiciona tag "animated" se hasAnimation for true
     ].filter(Boolean)); // Filtra para remover null/undefined
 
     return object;

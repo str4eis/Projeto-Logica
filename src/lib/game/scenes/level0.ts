@@ -5,10 +5,9 @@ import {
 	loadSprites,
 	spawnPlayer,
 	createLevel,
-	spawnObject
+	spawnObject,
 } from '../levelUtils/imports';
 import { LEVEL0 } from '../levelUtils/levelLayout';
-import { FLOOR } from '../levelUtils/levelLayout';
 import { updateObjectFlipX } from '../objetos/object';
 import './level1';
 import { loadWorldSprites } from '../worldSprites';
@@ -17,12 +16,12 @@ await loadSprites(k);
 await loadWorldSprites(k);
 
 k.scene('level0', () => {
-	k.setBackground(62, 137, 72);
 
-	
+	k.setBackground(62, 137, 72);
 
 	createLevel(LEVEL0, "forest");
 	const npc: GameObj = spawnObject(17, 4, 'npc', true, 'Npc', true);
+	k.debug.log(npc.tags)
 	// Árvores lado direito
 	spawnObject(28, 12, 'tree', true, 'Small-tree', false);
 	spawnObject(26, -1, 'tree', true, 'Small-tree', false);

@@ -12,4 +12,7 @@ import { createLevel } from "./levelDefault"; // Importe a função de criação
 import k, { TILE_SIZE } from "../kaplay"; // Importe constantes, se necessário
 import { spawnObject } from "../objetos/object";
 import { spawnEnemy } from "../objetos/enemy/enemy";
-export { k, TILE_SIZE, loadSprites, spawnPlayer, createLevel, spawnObject, spawnEnemy, loadDungeonSprites, loadDecorationSprites, loadEnemies1Sprites, loadEnemies2Sprites, loadEnemies3Sprites, loadEffectsSprites };
+
+import { togglePause } from "./pauseFunction";
+
+export { k, TILE_SIZE, loadSprites, spawnPlayer, createLevel, spawnObject, spawnEnemy, loadDungeonSprites, loadDecorationSprites, loadEnemies1Sprites, loadEnemies2Sprites, loadEnemies3Sprites, loadEffectsSprites, togglePause}; // Exporte tudo que for necessário

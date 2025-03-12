@@ -6,8 +6,6 @@
   import bonecoDireita from '$lib/assets/boneco_direita.png';
   import StoryModal from './historia/Storymodal.svelte';
   
-  
-  
   let historiaModalAberto = false;
 
   const alternarHistoriaModal = () => {
@@ -19,40 +17,89 @@
   };
 </script>
 
+<style>
+  main {
+    background-color: #25131a;
+    background-image: url('/assets/imgs/background.png');
+    background-size: 65%; /* Ensure the image is not stretched */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    image-rendering: pixelated;
+  }
+
+  .button {
+    position: relative;
+    display: inline-block;
+    width: 300px; /* Mesma largura para todos os botões */
+    padding: 16px 32px;
+    font-size: 28px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #f8ffe5;
+    border: 2px solid black; /* Bordas pretas */
+    background-color: #6e4b49;
+  }
+
+  .button::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background-color: black; /* Bordas pretas */
+    transition: all 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: #4e3534;
+  }
+
+  .button:active {
+    transform: translateY(6px);
+    color: #191520; /* Cor do texto ao clicar */
+  }
+
+  .button:active::before {
+    transform: translateY(-6px);
+  }
+
+  .button-primary {
+    background-color: #3083dc;
+    height: 100px; /* Altura maior para o botão "PLAY" */
+  }
+
+  .button-primary:hover {
+    background-color: #1c5ca8;
+  }
+
+  .button-primary:active {
+    background-color: #1c5ca8;
+    color: #191520; /* Cor do texto ao clicar */
+  }
+</style>
+
 <main class="w-full h-screen flex justify-center items-center relative">
-  <div class="absolute top-0 left-0 w-full pointer-events-none">
-    <img src={arvoreEsquerda} alt="Árvore esquerda" class="absolute top-0 left-0 w-[180px] h-auto" />
-    <img src={arvoreDireita} alt="Árvore direita" class="absolute top-0 right-0 w-[180px] h-auto" />
-  </div>
-  
-  <div class="absolute bottom-[100px] w-full pointer-events-none">
-    <img src={bonecoEsquerda} alt="Personagem esquerda" class="absolute left-[100px] bottom-0 w-[200px] h-auto" />
-    <img src={bonecoDireita} alt="Personagem direita" class="absolute right-[100px] bottom-0 w-[180px] h-auto" />
-  </div>
-  
   <div class="text-center z-10">
-    <h1 class="text-black mb-8 text-5xl font-['Press_Start_2P'] drop-shadow-[2px_2px_0_#000]">
-      DUNGEON OF ETERNITY
-    </h1>
-    
     <div class="flex flex-col gap-4 items-center">
       <button 
         on:click={() => goto('/jogar')}
-        class="px-8 py-4 text-[28px] border-2 border-[#8B4513] bg-[#DEB887] text-black cursor-pointer font-['Press_Start_2P'] transition-all duration-300 w-[350px] uppercase hover:bg-[#8B4513] hover:text-white hover:scale-115"
+        class="button button-primary"
       >
         PLAY
       </button>
       
       <button 
         on:click={alternarHistoriaModal}
-        class="px-8 py-4 text-lg border-2 border-[#8B4513] bg-[#DEB887] text-black cursor-pointer font-['Press_Start_2P'] transition-all duration-300 w-[300px] uppercase hover:bg-[#8B4513] hover:text-white hover:scale-105"
+        class="button"
       >
         HISTORY
       </button>
       
       <button 
         on:click={navegarParaSobre}
-        class="px-8 py-4 text-lg border-2 border-[#8B4513] bg-[#DEB887] text-black cursor-pointer font-['Press_Start_2P'] transition-all duration-300 w-[300px] uppercase hover:bg-[#8B4513] hover:text-white hover:scale-105"
+        class="button"
       >
         ABOUT
       </button>

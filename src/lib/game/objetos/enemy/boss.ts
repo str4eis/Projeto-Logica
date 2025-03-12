@@ -1,4 +1,4 @@
-import k, { TILE_SIZE } from "$lib/game/kaplay";
+import k, { TILE_SIZE, GAME } from "$lib/game/kaplay";
 
 export const createBoss = (tag: string, cantMove: boolean, mobType: string) => {
     let mobSprite: string = "";
@@ -28,7 +28,9 @@ export const createBoss = (tag: string, cantMove: boolean, mobType: string) => {
             isTakingDmg: false,
         },
         tag,
-        "enemy"
+        "enemy",
+        "boss",
+        "animated",
     ]);
 
     // Cria a barra de vida do boss na parte superior direita da tela
@@ -96,6 +98,8 @@ const setupBossStates = (boss: any) => {
 
     // Estado "move": persegue o jogador sem parar
     boss.onStateEnter("move", () => {
+
+
         // Remove o handler anterior (se existir)
         if (moveUpdateHandler) {
             moveUpdateHandler.cancel();
@@ -103,6 +107,7 @@ const setupBossStates = (boss: any) => {
 
         // Adiciona um novo handler de atualização
         moveUpdateHandler = boss.onUpdate(() => {
+            if (GAME.paused) return; // Verifica se o jogo está pausado
             const player = k.get("player")[0]; // Obtém o player
             if (!player || !player.exists()) return;
 
@@ -130,6 +135,8 @@ const setupBossStates = (boss: any) => {
 
     // Estado "attack": causa dano ao player e volta para "move"
     boss.onStateEnter("attack", async () => {
+        if (GAME.paused) return; // Verifica se o jogo está pausado
+
         const player = k.get("player")[0]; // Obtém o player
         if (player && player.exists()) {
             // Causa dano ao player

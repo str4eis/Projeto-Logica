@@ -1,4 +1,4 @@
-import k, { TILE_SIZE } from "$lib/game/kaplay";
+import k, { GAME, TILE_SIZE } from "$lib/game/kaplay";
 
 export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => {
     let mobSprite: string = "";
@@ -27,7 +27,8 @@ export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => 
             isTakingDmg: false,
         },
         tag,
-        "enemy"
+        "enemy",
+        "animated",
     ]);
 
     // Cria a barra de vida
@@ -102,6 +103,8 @@ const setupEnemyStates = (enemy: any) => {
         }
 
         moveUpdateHandler = enemy.onUpdate(() => {
+            if (GAME.paused) return; // Check if the game is paused
+
             const player = k.get("player")[0];
             if (!player || !player.exists()) return;
 
@@ -144,6 +147,7 @@ const setupEnemyStates = (enemy: any) => {
 
     // Estado "attack": dano ao player e volta para "move"
     enemy.onStateEnter("attack", async () => {
+        if (GAME.paused) return; // Check if the game is paused
         const player = k.get("player")[0];
         if (player && player.exists() && player.hp() > 0) {
             player.hurt(1);

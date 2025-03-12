@@ -3,15 +3,28 @@
 @import 'tailwindcss/utilities';
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+@font-face {
+  font-family: 'forwa';
+  src: url('/assets/fonts/FFFFORWA.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   margin: 0;
   padding: 0;
+  overflow-y: hidden;
+
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'forwa', cursive;
   background-color: #4CAF50 !important;
   min-height: 100vh;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
