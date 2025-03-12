@@ -1,3 +1,4 @@
+
 import kaplay, { type KAPLAYCtx } from "kaplay";
 
 const k: KAPLAYCtx = kaplay({
@@ -13,4 +14,4 @@ export const GAME = k.add([
 
 
 
-export default k;
+export default k;

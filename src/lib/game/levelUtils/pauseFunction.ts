@@ -2,7 +2,10 @@ import k, { GAME } from "../kaplay";
 
 let lastAnims = new Map(); // Agora o Map não é recriado a cada chamada
 
+<<<<<<< HEAD
 k.loadFont("forwa", "/assets/fonts/FFFFORWA.TTF", {size: 48});
+=======
+>>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 
 export const togglePause = () => {
     const animatedObjects = k.get("animated");
@@ -85,3 +88,7 @@ export const togglePause = () => {
         pauseButton.frame = 0
     }
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f

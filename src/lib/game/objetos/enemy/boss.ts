@@ -1,3 +1,4 @@
+
 import k, { TILE_SIZE, GAME } from "$lib/game/kaplay";
 
 export const createBoss = (tag: string, cantMove: boolean, mobType: string) => {

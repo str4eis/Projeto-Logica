@@ -25,53 +25,65 @@ k.scene('level2', () => {
 	k.setBackground(37, 19, 26);
 
 	createLevel(LEVEL2);
-	//decoração
-	//tochas
+
+	let enemiesRemaining = 7;
+	let canEnter = false;
+
+	// Decoração
 	spawnObject(16, 0, 'torch', true, 'Torch', true);
 	spawnObject(13, 0, 'torch', true, 'Torch', true);
-	//bandeiras
 	spawnObject(4, 0, 'flag', true, 'Flag', true);
 	spawnObject(25, 0, 'flag', true, 'Flag', true);
-	//candelabros
 	spawnObject(2, 2, 'candlestick', true, 'Big-candlestick', true);
 	spawnObject(27, 2, 'candlestick', true, 'Big-candlestick', true);
 	spawnObject(3, 11, 'candlestick', true, 'Small-candlestick', true);
 	spawnObject(26, 11, 'candlestick', true, 'Small-candlestick', true);
-	//teias
 	spawnObject(1, k.randi(3, 10), 'teia', true, 'Left-spider-web', false, false);
 	spawnObject(28, k.randi(3, 10), 'teia', true, 'Right-spider-web', false, false);
-	//pedras
 	spawnObject(k.randi(3, 9), k.randi(2, 10), 'stone', true, 'Small-stones', false, false);
 	spawnObject(k.randi(3, 9), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
 	spawnObject(k.randi(12, 17), k.randi(2, 10), 'stone', true, 'Small-stones', false, false);
 	spawnObject(k.randi(12, 17), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'stone', true, 'Small-stones', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
-	//caveiras e ossos
-	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Bones', false, false);
-	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Skull-and-bone', false, false);
-	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Bones', false, false);
-	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Skull-and-bone', false, false);
-	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Bones', false, false);
-	spawnObject(k.randi(3, 25), k.randi(1, 10), 'caveira', true, 'Skull-and-bone', false, false);
-	
-	spawnObject(0,6, 'porta', true, 'Door', false, true,6 );
-	spawnObject(0,7, 'porta', true, 'Door', false, true,10 );
-	spawnObject(14,0, 'porta', true, 'Door', false, true,0 );
-	spawnObject(15,0, 'porta', true, 'Door', false, true,1 );
 
-	//mobs
-	spawnBoss(17, 4, 'Boss', false, 'Ze');
-	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ze');
-	spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ze');
-	spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ze');
-	spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ze');
-	spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ze');
-	spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ze');
-	//player
-	const player: GameObj = spawnPlayer(15, 12);
+	const door1 = spawnObject(0, 6, 'porta', true, 'Door', false, true, 6);
+	const door2 = spawnObject(0, 7, 'porta', true, 'Door', false, true, 10);
+	const door3 = spawnObject(14, 0, 'porta', true, 'Door', false, true, 0);
+	const door4 = spawnObject(15, 0, 'porta', true, 'Door', false, true, 1);
+
+	// Inimigos
+	const enemies: GameObj[] = [
+		spawnBoss(17, 4, 'Boss', false, 'Ze'),
+		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ze'),
+		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ze'),
+		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ze'),
+		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ze'),
+		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ze'),
+		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ze')
+	];
+
+	enemies.forEach((enemy) => {
+		enemy.onDestroy(() => {
+			enemiesRemaining--;
+			// k.debug.log(`Inimigos restantes: ${enemiesRemaining}`);
+
+			// Se todos os inimigos foram derrotados, permite a entrada
+			if (enemiesRemaining <= 0) {
+				canEnter = true;
+				k.debug.log('A porta está aberta!');
+			}
+		});
+	});
+
+	// Jogador
+	const player: GameObj = spawnPlayer(2, 7);
 
 	player.onCollide('porta', () => {
-		k.go('level3');
+		if (canEnter) {
+			k.go('level3');
+		} else {
+			// k.debug.log('Derrote todos os inimigos primeiro!');
+		}
 	});
 });

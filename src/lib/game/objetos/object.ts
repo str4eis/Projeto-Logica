@@ -1,3 +1,4 @@
+
 import type { GameObj } from "kaplay";
 import k, { TILE_SIZE } from "../kaplay";
 

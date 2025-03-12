@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import k, { GAME, SPEED, TILE_SIZE } from "$lib/game/kaplay";
 import { togglePause } from "$lib/game/levelUtils/pauseFunction";
 import { playerState } from "$lib/game/gameState";
@@ -13,6 +14,24 @@ import { goto } from "$app/navigation";
 import { gameOver } from "$lib/game/levelUtils/gameOver";
 import { gameControlsUI } from "$lib/game/levelUtils/gameControlsUI";
 
+=======
+
+import k, { GAME, SPEED, TILE_SIZE } from "$lib/game/kaplay";
+import { togglePause } from "$lib/game/levelUtils/pauseFunction";
+import { playerState } from "$lib/game/gameState";
+import "$lib/game/scenes/level0";
+import "$lib/game/scenes/level1";
+import "$lib/game/scenes/level2";
+import "$lib/game/scenes/level3";
+import "$lib/game/scenes/level4";
+import "$lib/game/scenes/level5";
+import "$lib/game/scenes/level6";
+import "$lib/game/scenes/levelWin";
+import { goto } from "$app/navigation";
+import { gameOver } from "$lib/game/levelUtils/gameOver";
+import { gameControlsUI } from "$lib/game/levelUtils/gameControlsUI";
+
+>>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   const player = k.add([
     k.sprite("Kael", { anim: `idle-${dir}` }),
@@ -74,9 +93,9 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   });
 
   // Debug
-  k.onKeyDown("i", () => {
-    k.debug.inspect = !k.debug.inspect;
-  });
+//   k.onKeyDown("i", () => {
+//     k.debug.inspect = !k.debug.inspect;
+//   });
 
   k.onKeyDown("0", () => {
     k.go("level0");
@@ -171,11 +190,11 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     }
   }, 100);
 
-  keys.forEach((key) => {
-    k.onKeyPress(key, () => {
-      k.debug.log(player.dir);
-    });
-  });
+//   keys.forEach((key) => {
+//     k.onKeyPress(key, () => {
+//       k.debug.log(player.dir);
+//     });
+//   });
 
   // Função para realizar o ataque
   const attack = () => {
@@ -260,6 +279,74 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     player.stop();
     player.canMove = !player.canMove;
   });
+<<<<<<< HEAD
+
+  k.onKeyPress("p", () => {
+    if (!player.canPause) return;
+    if (player.hasDied) return;
+    activeKeys = {};
+    togglePause();
+    player.stop();
+    player.canMove = !player.canMove;
+  });
+
+  k.onClick("pause-btn", () => {
+    if (!player.canPause) return;
+    if (player.hasDied) return;
+    activeKeys = {};
+    togglePause();
+    player.stop();
+    player.canMove = !player.canMove;
+  }
+  );
+
+  k.onClick("resumeButton", (resumeButton) => {
+    activeKeys = {};
+    resumeButton.frame = 1;
+    k.wait(0.1, () => {
+      togglePause();
+
+      player.stop();
+      player.canMove = !player.canMove;
+    });
+  });
+
+  k.onClick("restartButton", (restartButton) => {
+    activeKeys = {};
+    restartButton.frame = 1;
+    k.wait(0.1, () => {
+      location.reload();
+    });
+  });
+
+  k.onClick("controlsButton", (controlsButton) => {
+    if (!player.canPause) return;
+    player.canPause = false;
+    controlsButton.frame = 1;
+    gameControlsUI();
+    const controls = k.get("controls")[0];
+
+    // Remove qualquer evento de clique anterior no botão de fechar
+    k.get("closeButton").forEach((closeButton) => {
+        closeButton.off("click");
+    });
+
+    k.onClick("closeButton", (closeButton) => {
+        k.destroy(controls);
+        player.canPause = true;
+        controlsButton.frame = 0;
+    });
+});
+  k.onClick("exitButton", (exitButton) => {
+    exitButton.frame = 1;
+    k.wait(0.1, () => {
+      goto("/").then(() => {
+        location.reload();
+      });
+    });
+  });
+=======
+>>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 
   k.onKeyPress("p", () => {
     if (!player.canPause) return;
@@ -326,14 +413,15 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     });
   });
 
-  // Detectar colisão com inimigos
+//   Detectar colisão com inimigos
   k.onCollide("attack", "enemy", (attackArea, enemy) => {
     enemy.hurt(1); // Ajuste conforme necessário para causar dano ao inimigo
-    k.debug.log("Enemy hit!", enemy.hp());
+    // k.debug.log("Enemy hit!", enemy.hp());
     setTimeout(() => {
     }, 100); // Ajuste o tempo conforme necessário
   });
 
+<<<<<<< HEAD
   // Adiciona o texto do FPS na tela
   const fpsText = k.add([
     k.text(`FPS: ${k.debug.fps()}`, { size: 42 }),
@@ -344,6 +432,18 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   k.onUpdate(() => {
     fpsText.text = `FPS: ${k.debug.fps()}`;
   });
+=======
+//   // Adiciona o texto do FPS na tela
+//   const fpsText = k.add([
+//     k.text(`FPS: ${k.debug.fps()}`, { size: 42 }),
+//     k.pos(k.width() / 2, 0),
+//     k.layer("ui"),
+//   ]);
+
+//   k.onUpdate(() => {
+//     fpsText.text = `FPS: ${k.debug.fps()}`;
+//   });
+>>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 
   const healthFrame = k.add([
     k.sprite("mold"),
@@ -405,8 +505,28 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   });
 
   player.onCollide("heart", (heart) => {
+<<<<<<< HEAD
     player.heal(5);
     heart.destroy();
+=======
+
+    const currentHP = player.hp(); // Obtenha o HP atual do jogador
+    const healAmount = 5; // Quantidade de cura padrão
+  
+    // Verifica se a cura excede o limite máximo de HP
+    if (currentHP + healAmount > playerState.maxHp) {
+      // Cura apenas o necessário para atingir o máximo
+      player.heal(playerState.maxHp - currentHP);
+    } else {
+      // Cura a quantidade padrão
+      player.heal(healAmount);
+    }
+  
+    // Destroi o coração após a cura
+    heart.destroy();
+  
+    // Atualiza a interface de saúde
+>>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
     showHealthUI();
   });
 

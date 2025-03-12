@@ -1,14 +1,14 @@
 import k, { TILE_SIZE } from "../kaplay";
 
 type TileDefinitions = {
-    [key: string]: () => any[];
+	[key: string]: () => any[];
 };
- 
+
 
 export function createLevel(levelData: string[], world: string = "dungeon", tileSize: number = TILE_SIZE, ) {
-    const tileDefinitions: TileDefinitions = {
+	const tileDefinitions: TileDefinitions = {
         
-        ' ': () => {
+		' ': () => {
             if (world === "dungeon") {
                 return [k.sprite("Floor", { frame: k.randi(2) }), k.scale(4)];
             } else {
@@ -35,7 +35,7 @@ export function createLevel(levelData: string[], world: string = "dungeon", tile
                 }
             }
         },
-        // Sprites Dungeon
+		// Sprites Dungeon
         "t": () => [k.sprite("Wall-middle", { frame: 1 }), k.scale(4), k.area(), k.body({ isStatic: true })],
         "q": () => [k.sprite("Wall-top-left"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "p": () => [k.sprite("Wall-top-right"), k.scale(4), k.area(), k.body({ isStatic: true })],
@@ -43,7 +43,7 @@ export function createLevel(levelData: string[], world: string = "dungeon", tile
         "m": () => [k.sprite("Wall-bottom-right"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "l": () => [k.sprite("Wall-side-left"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "r": () => [k.sprite("Wall-side-right"), k.scale(4), k.area(), k.body({ isStatic: true })],
-        
+
         "j": () => [k.sprite("Door", {frame: 0}), k.scale(4), k.body({ isStatic: true }), k.area(), "porta"],
         "k": () => [k.sprite("Door", {frame: 1}), k.scale(4), k.body({ isStatic: true }), k.area(), "porta"],
         "[": () => [k.sprite("Door", {frame: 5}), k.scale(4), k.body({ isStatic: true }), k.area(), "porta"],
@@ -56,8 +56,8 @@ export function createLevel(levelData: string[], world: string = "dungeon", tile
         "y": () => [k.sprite("Bottom-left-corner-wall"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "u": () => [k.sprite("Bottom-right-corner-wall"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "i": () => [k.sprite("Shadow"), k.scale(4), k.area(), k.body({ isStatic: true })],
-        
-        // Sprites Grama
+
+		// Sprites Grama
         "w": () => [k.sprite("Wall-top-grass"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "a": () => [k.sprite("Wall-bottom-grass"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "s": () => [k.sprite("Wall-left-grass"), k.scale(4), k.area(), k.body({ isStatic: true })],
@@ -70,11 +70,11 @@ export function createLevel(levelData: string[], world: string = "dungeon", tile
         "g": () => [k.sprite("Top-left-border"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "h": () => [k.sprite("Bottom-right-border"), k.scale(4), k.area(), k.body({ isStatic: true })],
         "n": () => [k.sprite("Bottom-left-border"), k.scale(4), k.area(), k.body({ isStatic: true })],
-    };
+	};
 
-    return k.addLevel(levelData, {
-        tileWidth: tileSize,
-        tileHeight: tileSize,
+	return k.addLevel(levelData, {
+		tileWidth: tileSize,
+		tileHeight: tileSize,
         tiles: tileDefinitions,
-    });
+	});
 }
