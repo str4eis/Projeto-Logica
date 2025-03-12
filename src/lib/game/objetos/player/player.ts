@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import k, { GAME, SPEED, TILE_SIZE } from "$lib/game/kaplay";
 import { togglePause } from "$lib/game/levelUtils/pauseFunction";
 import { playerState } from "$lib/game/gameState";
@@ -14,24 +13,6 @@ import { goto } from "$app/navigation";
 import { gameOver } from "$lib/game/levelUtils/gameOver";
 import { gameControlsUI } from "$lib/game/levelUtils/gameControlsUI";
 
-=======
-
-import k, { GAME, SPEED, TILE_SIZE } from "$lib/game/kaplay";
-import { togglePause } from "$lib/game/levelUtils/pauseFunction";
-import { playerState } from "$lib/game/gameState";
-import "$lib/game/scenes/level0";
-import "$lib/game/scenes/level1";
-import "$lib/game/scenes/level2";
-import "$lib/game/scenes/level3";
-import "$lib/game/scenes/level4";
-import "$lib/game/scenes/level5";
-import "$lib/game/scenes/level6";
-import "$lib/game/scenes/levelWin";
-import { goto } from "$app/navigation";
-import { gameOver } from "$lib/game/levelUtils/gameOver";
-import { gameControlsUI } from "$lib/game/levelUtils/gameControlsUI";
-
->>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   const player = k.add([
     k.sprite("Kael", { anim: `idle-${dir}` }),
@@ -79,6 +60,34 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   k.onKeyDown("d", () => movePlayer(SPEED, 0, "right"));
   k.onKeyDown("w", () => movePlayer(0, -SPEED, "up"));
   k.onKeyDown("s", () => movePlayer(0, SPEED, "down"));
+
+  k.onGamepadStick("left", (v) => {
+    if (GAME.paused || !player.canMove || player.isAttacking || player.hasDied) return;
+  
+    const threshold = 0.2; // Define um limite para evitar movimentos indesejados
+    if (Math.abs(v.x) > threshold || Math.abs(v.y) > threshold) {
+      const dx = v.x * SPEED;
+      const dy = v.y * SPEED;
+  
+      let direction = "down";
+      if (Math.abs(v.x) > Math.abs(v.y)) {
+        direction = v.x > 0 ? "right" : "left";
+      } else {
+        direction = v.y > 0 ? "down" : "up";
+      }
+  
+      movePlayer(dx, dy, direction);
+      player.play(directions[direction]);
+    }
+  });
+  
+  // Adiciona suporte aos botões do gamepad
+  k.onGamepadButtonPress(["south"], () => {
+    if (!player.canMove) return;
+    attack();
+    showHealthUI();
+  });
+  
 
   // Quando soltar qualquer tecla, voltar para a animação "idle"
   k.onKeyRelease(() => {
@@ -279,7 +288,6 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     player.stop();
     player.canMove = !player.canMove;
   });
-<<<<<<< HEAD
 
   k.onKeyPress("p", () => {
     if (!player.canPause) return;
@@ -345,8 +353,6 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
       });
     });
   });
-=======
->>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 
   k.onKeyPress("p", () => {
     if (!player.canPause) return;
@@ -421,18 +427,6 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     }, 100); // Ajuste o tempo conforme necessário
   });
 
-<<<<<<< HEAD
-  // Adiciona o texto do FPS na tela
-  const fpsText = k.add([
-    k.text(`FPS: ${k.debug.fps()}`, { size: 42 }),
-    k.pos(k.width() / 2, 0),
-    k.layer("ui"),
-  ]);
-
-  k.onUpdate(() => {
-    fpsText.text = `FPS: ${k.debug.fps()}`;
-  });
-=======
 //   // Adiciona o texto do FPS na tela
 //   const fpsText = k.add([
 //     k.text(`FPS: ${k.debug.fps()}`, { size: 42 }),
@@ -443,7 +437,6 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
 //   k.onUpdate(() => {
 //     fpsText.text = `FPS: ${k.debug.fps()}`;
 //   });
->>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 
   const healthFrame = k.add([
     k.sprite("mold"),
@@ -505,10 +498,6 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   });
 
   player.onCollide("heart", (heart) => {
-<<<<<<< HEAD
-    player.heal(5);
-    heart.destroy();
-=======
 
     const currentHP = player.hp(); // Obtenha o HP atual do jogador
     const healAmount = 5; // Quantidade de cura padrão
@@ -519,6 +508,7 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
       player.heal(playerState.maxHp - currentHP);
     } else {
       // Cura a quantidade padrão
+
       player.heal(healAmount);
     }
   
@@ -526,7 +516,6 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     heart.destroy();
   
     // Atualiza a interface de saúde
->>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
     showHealthUI();
   });
 

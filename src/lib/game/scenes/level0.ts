@@ -1,7 +1,6 @@
 import type { GameObj, TimerController } from 'kaplay';
 import {
 	k,
-	TILE_SIZE,
 	loadSprites,
 	spawnPlayer,
 	createLevel,
@@ -16,16 +15,10 @@ await loadSprites(k);
 await loadWorldSprites(k);
 
 k.scene('level0', () => {
-<<<<<<< HEAD
 
 	k.setBackground(62, 137, 72);
 
 	createLevel(LEVEL0, "forest");
-=======
-	k.setBackground(62, 137, 72);
-	
-	createLevel(LEVEL0, 'forest');
->>>>>>> 7d825b6d509b519d38b01f8b89be36e6b0e41e3f
 	const npc: GameObj = spawnObject(17, 4, 'npc', true, 'Npc', true);
 	k.debug.log(npc.tags)
 	// Árvores lado direito
