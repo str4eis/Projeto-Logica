@@ -10,7 +10,7 @@
 		if (!gameInitialized) {
 			const k = (await import('$lib/game/kaplay')).default;
 			await import('$lib/game/scenes/level0'); // Aguarde a importação da cena
-			await k.go('level0'); // Agora a cena já está registrada antes de ser chamada
+			k.go('level0'); // Agora a cena já está registrada antes de ser chamada
 			gameInitialized = true;
 		}
 	});

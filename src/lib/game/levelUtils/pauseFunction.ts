@@ -8,7 +8,7 @@ export const togglePause = () => {
     const animatedObjects = k.get("animated");
     const pauseButton = k.get("pause-btn")[0]
     if (!GAME.paused) {
-
+        
         animatedObjects.forEach(obj => {
             const curAnim = obj.getCurAnim();
             if (curAnim) {

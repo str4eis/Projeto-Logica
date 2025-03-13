@@ -282,7 +282,10 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     }, attackDuration);
   };
 
+
   k.onKeyPress("escape", () => {
+    if (!player.canPause) return;
+    if (player.hasDied) return;
     activeKeys = {};
     togglePause();
     player.stop();
@@ -292,8 +295,8 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
   k.onKeyPress("p", () => {
     if (!player.canPause) return;
     if (player.hasDied) return;
-    activeKeys = {};
     togglePause();
+    activeKeys = {};
     player.stop();
     player.canMove = !player.canMove;
   });
@@ -305,19 +308,8 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
     togglePause();
     player.stop();
     player.canMove = !player.canMove;
-  }
-  );
-
-  k.onClick("resumeButton", (resumeButton) => {
-    activeKeys = {};
-    resumeButton.frame = 1;
-    k.wait(0.1, () => {
-      togglePause();
-
-      player.stop();
-      player.canMove = !player.canMove;
-    });
   });
+
 
   k.onClick("restartButton", (restartButton) => {
     activeKeys = {};
@@ -345,34 +337,6 @@ export const spawnPlayer = (x: number, y: number, dir: string = "down") => {
         controlsButton.frame = 0;
     });
 });
-  k.onClick("exitButton", (exitButton) => {
-    exitButton.frame = 1;
-    k.wait(0.1, () => {
-      goto("/").then(() => {
-        location.reload();
-      });
-    });
-  });
-
-  k.onKeyPress("p", () => {
-    if (!player.canPause) return;
-    if (player.hasDied) return;
-    activeKeys = {};
-    togglePause();
-    player.stop();
-    player.canMove = !player.canMove;
-  });
-
-  k.onClick("pause-btn", () => {
-    if (!player.canPause) return;
-    if (player.hasDied) return;
-    activeKeys = {};
-    togglePause();
-    player.stop();
-    player.canMove = !player.canMove;
-  }
-  );
-
   k.onClick("resumeButton", (resumeButton) => {
     activeKeys = {};
     resumeButton.frame = 1;
