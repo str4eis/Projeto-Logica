@@ -22,7 +22,7 @@ export const createEnemy = (tag: string, cantMove: boolean, mobType: string) => 
         k.body({ isStatic: cantMove }),
         k.anchor("center"),
         k.state("idle", ["idle", "move", "attack"]),
-        k.health(4,4),
+        k.health(5,5),
         {
             isTakingDmg: false,
         },
@@ -75,7 +75,7 @@ export const spawnEnemy = (x: number, y: number, tag: string, cantMove: boolean 
 
 // Configura os estados do inimigo
 const setupEnemyStates = (enemy: any) => {
-    const DETECTION_RANGE = 400; // Alcance de detecção do jogador
+    const DETECTION_RANGE = 500; // Alcance de detecção do jogador
     let moveUpdateHandler: any = null;
 
     // Estado "idle": fica parado e muda para "move" se detectar o player
@@ -109,7 +109,7 @@ const setupEnemyStates = (enemy: any) => {
             if (!player || !player.exists()) return;
 
             const dir = player.pos.sub(enemy.pos).unit();
-            enemy.move(dir.scale(250));
+            enemy.move(dir.scale(270));
 
             // Inverte sprite com base na direção do movimento
             enemy.flipX = dir.x < 0;
@@ -150,11 +150,11 @@ const setupEnemyStates = (enemy: any) => {
         if (GAME.paused) return; // Check if the game is paused
         const player = k.get("player")[0];
         if (player && player.exists() && player.hp() > 0) {
-            player.hurt(1);
+            player.hurt(2);
             k.shake(10);
         }
 
-        await k.wait(1);
+        await k.wait(0.4);
         enemy.enterState("move");
     });
 

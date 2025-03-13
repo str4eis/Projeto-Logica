@@ -141,7 +141,7 @@ const setupBossStates = (boss: any) => {
         const player = k.get("player")[0]; // Obtém o player
         if (player && player.exists()) {
             // Causa dano ao player
-            player.hurt(3);
+            player.hurt(5);
             k.shake(20); // Efeito de tela tremendo
         }
 
