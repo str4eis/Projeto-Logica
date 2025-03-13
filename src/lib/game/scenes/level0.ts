@@ -20,7 +20,6 @@ k.scene('level0', () => {
 
 	createLevel(LEVEL0, "forest");
 	const npc: GameObj = spawnObject(17, 4, 'npc', true, 'Npc', true);
-	k.debug.log(npc.tags)
 	// Árvores lado direito
 	spawnObject(28, 12, 'tree', true, 'Small-tree', false);
 	spawnObject(26, -1, 'tree', true, 'Small-tree', false);

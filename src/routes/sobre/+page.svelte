@@ -26,11 +26,6 @@
 			nome: 'João Henrique',
 			linkedin: 'https://www.linkedin.com/in/jo%C3%A3o-henriquesilvasantos/',
 			github: 'https://github.com/joaoHenriqueSS'
-		},
-		{
-			nome: 'Victor Daniel',
-			linkedin: 'https://www.linkedin.com/in/victor-daneil-bezerra-da-silva-a1a956323/',
-			github: 'https://github.com/victordn620'
 		}
 	];
 	

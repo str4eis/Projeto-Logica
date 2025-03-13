@@ -21,10 +21,14 @@
   main {
     background-color: #25131a;
     background-image: url('/assets/imgs/background.png');
-    background-size: 65%; /* Ensure the image is not stretched */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: contain; /* Cobrir toda a área do main */
+    background-position: center; /* Centralizar a imagem */
+    background-repeat: no-repeat; /* Não repetir a imagem */
     image-rendering: pixelated;
+    width: 100vw; /* Largura igual à largura da viewport */
+    height: 100vh; /* Altura igual à altura da viewport */
+    margin: 0; /* Remover margens padrão */
+    padding: 0; /* Remover padding padrão */
   }
 
   .button {
