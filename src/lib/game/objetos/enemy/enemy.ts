@@ -162,7 +162,7 @@ const setupEnemyStates = (enemy: any) => {
     // Verifica se o inimigo morreu
     enemy.onUpdate(() => {
         if (enemy.hp() <= 0) {
-            if(k.rand(1) < 0.5){ 
+            if(k.rand(1) < 0.3){ 
                 k.add([
                     k.sprite("heart", { anim: "idle" }),
                     k.color(255, 0, 0),
