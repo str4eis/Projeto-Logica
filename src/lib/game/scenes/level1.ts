@@ -37,24 +37,28 @@ k.scene('level1', () => {
 	spawnObject(4, 0, 'flag', true, 'Flag', true);
 	spawnObject(22, 0, 'flag', true, 'Flag', true);
 	spawnObject(25, 0, 'flag', true, 'Flag', true);
+
 	spawnObject(2, 2, 'candlestick', true, 'Big-candlestick', true);
 	spawnObject(27, 2, 'candlestick', true, 'Big-candlestick', true);
 	spawnObject(3, 11, 'candlestick', true, 'Small-candlestick', true);
 	spawnObject(26, 11, 'candlestick', true, 'Small-candlestick', true);
-	spawnObject(1, 7, 'teia', true, 'Left-spider-web', false, false);
-	spawnObject(28, 3, 'teia', true, 'Right-spider-web', false, false);
-	spawnObject(5, 3, 'stone', true, 'Small-stones', false, false);
-	spawnObject(3, 5, 'stone', true, 'Big-stones', false, false);
-	spawnObject(17, 2, 'stone', true, 'Small-stones', false, false);
-	spawnObject(15, 10, 'stone', true, 'Big-stones', false, false);
-	spawnObject(22, 10, 'stone', true, 'Small-stones', false, false);
-	spawnObject(28, 9, 'stone', true, 'Big-stones', false, false);
-	spawnObject(5, 5, 'caveira', true, 'Bones', false, false);
-	spawnObject(8, 8, 'caveira', true, 'Skull-and-bone', false, false);
-	spawnObject(23, 7, 'caveira', true, 'Bones', false, false);
-	spawnObject(16, 8, 'caveira', true, 'Skull-and-bone', false, false);
-	spawnObject(23, 9, 'caveira', true, 'Bones', false, false);
-	spawnObject(20, 5, 'caveira', true, 'Skull-and-bone', false, false);
+	//teias
+	spawnObject(1, k.randi(3, 10), 'teia', true, 'Left-spider-web', false, false);
+	spawnObject(28, k.randi(3, 10), 'teia', true, 'Right-spider-web', false, false);
+	//pedras
+	spawnObject(k.randi(2, 9), k.randi(2, 10), 'stone', true, 'Small-stones', false, false);
+	spawnObject(k.randi(2, 9), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
+	spawnObject(k.randi(12, 17), k.randi(2, 10), 'stone', true, 'Small-stones', false, false);
+	spawnObject(k.randi(12, 17), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
+	spawnObject(k.randi(20, 28), k.randi(2, 10), 'stone', true, 'Small-stones', false, false);
+	spawnObject(k.randi(20, 28), k.randi(2, 10), 'stone', true, 'Big-stones', false, false);
+	//caveiras e ossos
+	spawnObject(k.randi(3, 9), k.randi(2, 10), 'caveira', true, 'Bones', false, false);
+	spawnObject(k.randi(3, 9), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
+	spawnObject(k.randi(22, 27), k.randi(2, 10), 'caveira', true, 'Bones', false, false);
+	spawnObject(k.randi(12, 17), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
+	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Bones', false, false);
+	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
 
 	const door1 = spawnObject(29, 6, 'porta', true, 'Door', false, true, 5);
 	const door2 = spawnObject(29, 7, 'porta', true, 'Door', false, true, 9);
@@ -78,7 +82,7 @@ k.scene('level1', () => {
 			// Se todos os inimigos foram derrotados, permite a entrada
 			if (enemiesRemaining <= 0) {
 				canEnter = true;
-				k.debug.log('A porta está aberta!');
+				// k.debug.log('A porta está aberta!');
 			}
 		});
 	});

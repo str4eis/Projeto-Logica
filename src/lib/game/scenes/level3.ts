@@ -85,7 +85,7 @@ k.scene('level3', () => {
 			// Se todos os inimigos foram derrotados, permite a entrada
 			if (enemiesRemaining <= 0) {
 				canEnter = true;
-				k.debug.log('A porta está aberta!');
+				// k.debug.log('A porta está aberta!');
 			}
 		});
 	});
