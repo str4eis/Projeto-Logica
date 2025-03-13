@@ -98,7 +98,7 @@ k.scene('levelWin', () => {
 				['Npc', 'I am Aelric, the Guardian of the Dungeon. This place is a test for those who seek power.'],
 				['Kael', 'A test? You imprisoned innocent people just for that?'],
 				['Npc', 'No one here is innocent, Kael. Everyone carries guilt. You know that.'],
-				['Kael', 'I did what I had to do to survive.z'],
+				['Kael', 'I did what I had to do to survive.'],
 				['Npc', 'You have proven yourself worthy. Now, you have a choice: leave this place or take my place as the Guardian.'],
 				['Kael', 'Take your place? Trapped here forever? Never.'],
 				['Npc', 'Then, your journey ends here. Use the power you’ve found wisely.'],

@@ -55,12 +55,12 @@ k.scene('level2', () => {
 	// Inimigos
 	const enemies: GameObj[] = [
 		spawnBoss(17, 4, 'Boss', false, 'Ze'),
-		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ze'),
-		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'ze'),
-		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ze'),
-		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'ze'),
-		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ze'),
-		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'ze')
+		spawnEnemy(4, 3, 'mob', false, 'ze'),
+		spawnEnemy(6, 7, 'mob', false, 'ze'),
+		spawnEnemy(12, 5, 'mob', false, 'ze'),
+		spawnEnemy(17, 2, 'mob', false, 'ze'),
+		spawnEnemy(21, 6, 'mob', false, 'ze'),
+		spawnEnemy(26, 4, 'mob', false, 'ze')
 	];
 
 	enemies.forEach((enemy) => {

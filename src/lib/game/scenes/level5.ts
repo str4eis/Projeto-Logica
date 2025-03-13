@@ -67,12 +67,12 @@ k.scene('level5', () => {
 
 	//mobs
 	const enemies: GameObj[] = [
-		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'demon'),
-		spawnEnemy(k.randi(2, 9), k.randi(2, 7), 'mob', false, 'demon'),
-		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'demon'),
-		spawnEnemy(k.randi(12, 17), k.randi(2, 7), 'mob', false, 'demon'),
-		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'demon'),
-		spawnEnemy(k.randi(20, 28), k.randi(2, 7), 'mob', false, 'demon')
+		spawnEnemy(4, 3, 'mob', false, 'demon'),
+		spawnEnemy(6, 7, 'mob', false, 'demon'),
+		spawnEnemy(12, 5, 'mob', false, 'demon'),
+		spawnEnemy(17, 2, 'mob', false, 'demon'),
+		spawnEnemy(21, 6, 'mob', false, 'demon'),
+		spawnEnemy(26, 4, 'mob', false, 'demon')
 	];
 
 	enemies.forEach((enemy) => {
