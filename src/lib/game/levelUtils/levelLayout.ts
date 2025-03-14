@@ -76,8 +76,8 @@ export const LEVEL2 = [
 	'l                            r',
 	'l                            r',
 	'l                            r',
-	'                             r',
-	'                             r',
+	'l                            r',
+	'l                            r',
 	'l                            r',
 	'l                            r',
 	'l                            r',
@@ -100,7 +100,7 @@ export const LEVEL3 = [
 	'l         rl      rl         r',
 	'zbu       rl      rl       ybm',
 	'--zu    ybmzbu  ybmzbu    ym--',
-	'---zbbbbm----l  r----zbbbbm---'
+	'---zbbbbm----zbbm----zbbbbm---'
 ];
 
 export const LEVEL4 = [
@@ -110,8 +110,8 @@ export const LEVEL4 = [
 	'l                            r',
 	'l                             ',
 	'l                             ',
-	'                             r',
-	'                             r',
+	'l                            r',
+	'l                            r',
 	'l                            r',
 	'l                            r',
 	'l                            r',
@@ -125,8 +125,8 @@ export const LEVEL5 = [
 	'-qtt    ttpq      pqtt    ttp-',
 	'lt        pq      pq        tr',
 	'l         pq      pq         r',
-	'          tt      tt         r',
-	'                             r',
+	'l         tt      tt         r',
+	'l                            r',
 	'l                            r',
 	'l                            r',
 	'l                            r',
@@ -151,7 +151,7 @@ export const LEVEL6 = [
 	'l                            r',
 	'zbu                        ybm',
 	'--zu                      ym--',
-	'---z  bbbbbbbbbbbbbbbbbbbbm---'
+	'---zbbbbbbbbbbbbbbbbbbbbbbm---'
 ];
 
 export const LEVEL_WIN = [

@@ -59,8 +59,8 @@ k.scene('level5', () => {
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Bones', false, false);
 	spawnObject(k.randi(20, 28), k.randi(2, 10), 'caveira', true, 'Skull-and-bone', false, false);
 
-	const door1 = spawnObject(0, 4, 'porta', true, 'Door', false, true, 6);
-	const door2 = spawnObject(0, 5, 'porta', true, 'Door', false, true, 10);
+	// const door1 = spawnObject(0, 4, 'porta', true, 'Door', false, true, 6);
+	// const door2 = spawnObject(0, 5, 'porta', true, 'Door', false, true, 10);
 
 	const door3 = spawnObject(23, 0, 'porta', true, 'Door', false, true, 0);
 	const door4 = spawnObject(24, 0, 'porta', true, 'Door', false, true, 1);
